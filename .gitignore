@@ -1,3 +1,5 @@
+**/*.asdbw/
+
 **/*.asdb/
 **/log/
 **/Edfmap.ini
