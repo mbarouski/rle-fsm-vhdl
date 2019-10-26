@@ -2,7 +2,8 @@ SetActiveLib -work
 comp -include "$dsn\src\rle_encoder.vhd" 
 comp -include "$dsn\src\TestBench\rle_encoder_tb.vhd" 
 asim +access +r TESTBENCH_FOR_rle_encoder 
-wave 
+wave 					
+wave -noreg enable
 wave -noreg clk
 wave -noreg input
 wave -noreg output

@@ -15,7 +15,8 @@ architecture rle_encoder_tb_arch of rle_encoder_tb is
 	component rle_encoder
 		generic(
 			N : INTEGER := 8 );
-		port(
+		port(								  
+			enable : in STD_LOGIC;
 			clk : in STD_LOGIC;
 			input : in STD_LOGIC_VECTOR(N-1 downto 0);
 			output : out STD_LOGIC_VECTOR(N-1 downto 0);
@@ -23,7 +24,8 @@ architecture rle_encoder_tb_arch of rle_encoder_tb is
 			read : out STD_LOGIC );
 	end component;
 	
-	-- Stimulus signals - signals mapped to the input and inout ports of tested entity
+	-- Stimulus signals - signals mapped to the input and inout ports of tested entity	   
+	signal enable : STD_LOGIC;
 	signal clk : STD_LOGIC;
 	signal input : STD_LOGIC_VECTOR(N-1 downto 0);
 	-- Observed signals - signals mapped to the output ports of tested entity
@@ -41,7 +43,8 @@ begin
 		N => N
 		)
 	
-	port map (
+	port map (		 	 
+		enable => enable,
 		clk => clk,
 		input => input,
 		output => output,
@@ -50,34 +53,85 @@ begin
 		);
 	
 	test_process: process
-	begin					 			   
+	begin			
+		enable <= '1'; 
+		
 		clk <= '0';
 		input <= "00000001";
 		wait for clk_period / 2;   
-		clk <= '1';				
-		input <= "00000010";
-		wait for clk_period / 2;  		 			   
-		clk <= '0';
-		input <= "00000011";	 
-		wait for clk_period / 2;  	 			   
-		clk <= '1';
-		input <= "00000100";	 
-		wait for clk_period / 2;  
-		clk <= '0';		    
-		input <= "00000101";
-		wait for clk_period / 2;	 			   
-		clk <= '1';
-		input <= "00000110";
-		wait for clk_period / 2;   
-		clk <= '0';	
-		input <= "00000111";
-		wait for clk_period / 2;	 			   
-		clk <= '1';
-		input <= "00001000";
-		wait for clk_period / 2;  
-		clk <= '0';	
-		input <= "00001001";
+		clk <= '1';				   
 		wait for clk_period / 2;
+		
+		clk <= '0';			 
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2;
+		
+		clk <= '0';
+		input <= "00000010";
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2;
+		
+		clk <= '0';			 
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2;
+		
+		clk <= '0';
+		input <= "00000010";
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2;
+		
+		clk <= '0';			 
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2;
+		
+		clk <= '0';
+		input <= "00000010";
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2;
+		
+		clk <= '0';			 
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2; 
+		
+		clk <= '0';
+		input <= "00000011";
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2;
+		
+		clk <= '0';			 
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2; 
+		
+		clk <= '0';
+		input <= "00000011";
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2;
+		
+		clk <= '0';			 
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2;
+		
+		clk <= '0';
+		input <= "00000111";
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2;
+		
+		clk <= '0';			 
+		wait for clk_period / 2;   
+		clk <= '1';				   
+		wait for clk_period / 2; 
 	end process test_process;
 	
 end rle_encoder_tb_arch;
