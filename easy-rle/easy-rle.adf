@@ -34,5 +34,11 @@ CompileWithDebug=0
 
 [$LibMap$]
 easy-rle=.
-
 Active_lib=
+
+[Files]
+/rle_encoder.vhd=-1
+
+[Files.Data]
+.\src\rle_encoder.vhd=VHDL Source Code
+
