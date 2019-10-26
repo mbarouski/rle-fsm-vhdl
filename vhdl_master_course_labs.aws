@@ -1,7 +1,7 @@
 [Version]
 Version=9.1
 [Designs]
-easy-rle=.\easy-rle\easy-rle.adf
+easy_rle=.\easy_rle\easy_rle.adf
 [Browser]
 sort=order
 mode=none
@@ -9,4 +9,4 @@ mode=none
 order=1
 macro=
 [Expand]
-easy-rle=1
+easy_rle=1

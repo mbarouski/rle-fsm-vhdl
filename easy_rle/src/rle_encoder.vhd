@@ -1,7 +1,7 @@
 -------------------------------------------------------------------------------
 --
 -- Title       : rle_encoder
--- Design      : easy-rle
+-- Design      : easy_rle
 -- Author      : Maxim
 -- Company     : None
 --
@@ -20,6 +20,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
+use ieee.numeric_std.all;
 
 entity rle_encoder is
 	generic(
@@ -34,11 +35,11 @@ entity rle_encoder is
 end rle_encoder;
 
 architecture rle_encoder of rle_encoder is	  	 
-	signal current_number: signed(N-1 downto 0) := 0;
-	signal previous_number: signed(N-1 downto 0) := 0;
+	signal current_number: SIGNED(N-1 downto 0) := (others => '0');
+	signal previous_number: SIGNED(N-1 downto 0) := (others => '0');
 	
-	signal current_counter: unsigned(N-1 downto 0) := 0;
-	signal previous_counter: unsigned(N-1 downto 0) := 0;
+	signal current_counter: UNSIGNED(N-1 downto 0) := (others => '0');
+	signal previous_counter: UNSIGNED(N-1 downto 0) := (others => '0');
 	signal is_sequence_finished: STD_LOGIC := '0';
 begin	  
 --  handler_process: process(clk)

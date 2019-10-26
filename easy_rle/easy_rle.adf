@@ -5,10 +5,10 @@ version=3
 Current Config=compile
 
 [Configurations]
-compile=easy-rle
+compile=easy_rle
 
 [Library]
-easy-rle=.\easy-rle.LIB
+easy_rle=.\easy_rle.LIB
 
 [Settings]
 AccessRead=0
@@ -33,7 +33,7 @@ EnableDebug=0
 CompileWithDebug=0
 
 [$LibMap$]
-easy-rle=.
+easy_rle=.
 Active_lib=
 
 [Files]
@@ -42,3 +42,8 @@ Active_lib=
 [Files.Data]
 .\src\rle_encoder.vhd=VHDL Source Code
 
+[HierarchyViewer]
+SortInfo=u
+HierarchyInformation=
+ShowHide=ShowTopLevel
+Selected=
