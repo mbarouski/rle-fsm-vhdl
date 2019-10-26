@@ -37,15 +37,22 @@ architecture rle_encoder of rle_encoder is
 	signal current_number: signed(N-1 downto 0) := 0;
 	signal previous_number: signed(N-1 downto 0) := 0;
 	
-	signal _counter: unsigned(N-1 downto 0) := 0;
-	signal _read: STD_LOGIC := '0';
-begin		  	 
-	handler_process: process(clk)
-	begin
-		if (rising_edge(clk)) then				 		   
-			
-		end if;
-	end process in_out_process;	
+	signal current_counter: unsigned(N-1 downto 0) := 0;
+	signal previous_counter: unsigned(N-1 downto 0) := 0;
+	signal is_sequence_finished: STD_LOGIC := '0';
+begin	  
+--  handler_process: process(clk)
+--	begin
+--		if (rising_edge(clk)) then	
+--			if (current_number = previous_number) then	 
+--				current_counter <= current_counter + 1;
+--				is_sequence_finished <= '0';
+--			else
+--				previous_counter <= current_counter;
+--				is_sequence_finished <= '1';
+--			end if;			 		   
+--		end if;
+--	end process in_out_process;	
 	
 	in_out_process: process(clk)
 	begin
@@ -53,11 +60,12 @@ begin
 			current_number <= signed(input);
 			
 			output <= STD_LOGIC_VECTOR(previous_number);
+			read <= is_sequence_finished;
+			counter <= STD_LOGIC_VECTOR(previous_counter);
 		end if;	
 		
 		if (falling_edge(clk)) then
 			previous_number <= current_number;
 		end if;
 	end process in_out_process;
-	
 end rle_encoder;
