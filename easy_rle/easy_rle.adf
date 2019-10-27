@@ -38,7 +38,7 @@ Active_lib=
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=rle_encoder_tb|testbench_for_rle_encoder|1 
+HierarchyInformation=rle_encoder_tb|testbench_for_rle_encoder|1
 ShowHide=ShowTopLevel
 Selected=
 
@@ -47,11 +47,13 @@ TestBench=1
 
 [Files]
 /rle_encoder.vhd=-1
+/RLEEncoderSimulation.awc=-1
 TestBench/rle_encoder_tb.vhd=-1
 TestBench/rle_encoder_tb_runtest.do=-1
 
 [Files.Data]
 .\src\rle_encoder.vhd=VHDL Source Code
+.\src\RLEEncoderSimulation.awc=Accelerated Waveform Configuration
 .\src\TestBench\rle_encoder_tb.vhd=VHDL Test Bench
 .\src\TestBench\rle_encoder_tb_runtest.do=Macro
 
