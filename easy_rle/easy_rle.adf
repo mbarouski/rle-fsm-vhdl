@@ -38,7 +38,7 @@ Active_lib=
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=rle_encoder_tb|testbench_for_rle_encoder|1
+HierarchyInformation=frequency_divider_tb|testbench_for_frequency_divider|1 rle_encoder_tb|testbench_for_rle_encoder|1 
 ShowHide=ShowTopLevel
 Selected=
 
@@ -48,12 +48,18 @@ TestBench=1
 [Files]
 /rle_encoder.vhd=-1
 /RLEEncoderSimulation.awc=-1
+/frequency_divider.vhd=-1
 TestBench/rle_encoder_tb.vhd=-1
 TestBench/rle_encoder_tb_runtest.do=-1
+TestBench/frequency_divider_TB.vhd=-1
+TestBench/frequency_divider_TB_runtest.do=-1
 
 [Files.Data]
 .\src\rle_encoder.vhd=VHDL Source Code
 .\src\RLEEncoderSimulation.awc=Accelerated Waveform Configuration
+.\src\frequency_divider.vhd=VHDL Source Code
 .\src\TestBench\rle_encoder_tb.vhd=VHDL Test Bench
 .\src\TestBench\rle_encoder_tb_runtest.do=Macro
+.\src\TestBench\frequency_divider_TB.vhd=VHDL Test Bench
+.\src\TestBench\frequency_divider_TB_runtest.do=Macro
 
