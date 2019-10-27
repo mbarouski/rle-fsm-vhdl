@@ -32,21 +32,24 @@ entity frequency_divider is
 end frequency_divider;						  
 
 architecture frequency_divider of frequency_divider is	
-	signal counter : integer := 0;
-begin 
+signal counter : integer := 0;
+signal inner_clk_out : STD_LOGIC := '0';
+begin 					 			  	
 	p: process(clk_in)
 	begin
 		if rising_edge(clk_in) then 
 			if counter = 0 then
-				clk_out <= '1';
+				inner_clk_out <= '1';
 			end if;				   
 		elsif falling_edge(clk_in) then 	
 			if counter = N-1 then
-				clk_out <= '0';
+				inner_clk_out <= '0';
 				counter <= 0;
 			else 
 				counter <= counter + 1;
 			end if;					
 		end if;
-	end process p;
+	end process p;		
+	
+	clk_out <= inner_clk_out;
 end frequency_divider;
