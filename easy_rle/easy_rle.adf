@@ -38,7 +38,7 @@ Active_lib=
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=
+HierarchyInformation=rle_encoder_tb|testbench_for_rle_encoder|1 
 ShowHide=ShowTopLevel
 Selected=
 

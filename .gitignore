@@ -1,6 +1,7 @@
 **/*.asdbw/
+**/*.wsw
+**/*.vhd.str
 
-**/*.asdb/
 **/log/
 **/Edfmap.ini
 **/*.wsp
@@ -21,5 +22,5 @@
 
 # Uncomment to ignore simulation results
 **/*.awc
-**/*.asdb
+# **/*.asdb
 **/synthesis.order
