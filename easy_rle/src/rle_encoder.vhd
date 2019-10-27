@@ -39,7 +39,7 @@ architecture rle_encoder of rle_encoder is
 	signal current_number: SIGNED(N-1 downto 0) := (others => '0');
 	signal previous_number: SIGNED(N-1 downto 0) := (others => '0');
 	
-	signal inner_counter: UNSIGNED(N-1 downto 0) := (0 => '1', others => '0');
+	signal inner_counter: UNSIGNED(N-1 downto 0) := (others => '0');
 	
 	signal sequence_finished: STD_LOGIC := '0';
 begin
