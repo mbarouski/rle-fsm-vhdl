@@ -1,0 +1,53 @@
+[LocalVhdlSets]
+CompileWithDebug=1
+
+[LocalVerilogSets]
+EnableDebug=1
+EnableSLP=0
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=0
+DisableC=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+REFRESH_FLOW=1
+fileopenfolder=D:\Documents\Study\MasterCourses\3_semester\ожясок\vhdl_master_course_labs\easy_rle\src\TestBench
+
+[Project]
+version=3
+Current Config=compile
+Current Flow=Multivendor
+
+[Configurations]
+compile=easy_rle
+
+[Groups]
+
+[Files]
+/frequency_divider.vhd=-1
+/rle_encoder.vhd=-1
+/TestBench\frequency_divider_TB.vhd=-1
+/TestBench\frequency_divider_TB_runtest.do=-1
+/TestBench\rle_encoder_tb.vhd=-1
+/TestBench\rle_encoder_tb_runtest.do=-1
+
+[Files.Data]
+.\src\frequency_divider.vhd=VHDL Source Code
+.\src\rle_encoder.vhd=VHDL Source Code
+.\src\TestBench\frequency_divider_TB.vhd=VHDL Source Code
+.\src\TestBench\frequency_divider_TB_runtest.do=Macro
+.\src\TestBench\rle_encoder_tb.vhd=VHDL Source Code
+.\src\TestBench\rle_encoder_tb_runtest.do=Macro
+
+[HierarchyViewer]
+SortInfo=u
+HierarchyInformation=frequency_divider|frequency_divider|0 frequency_divider_tb|testbench_for_frequency_divider|1 
+ShowHide=ShowTopLevel
+Selected=
+[$LibMap$]
+easy_rle=.

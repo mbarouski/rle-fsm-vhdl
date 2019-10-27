@@ -1,0 +1,4 @@
+i<>.\src\frequency_divider.vhd
+i<>.\src\rle_encoder.vhd
+i<>.\src\TestBench\frequency_divider_TB.vhd
+i<>.\src\TestBench\rle_encoder_tb.vhd
