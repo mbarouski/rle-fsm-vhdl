@@ -2,6 +2,7 @@
 **/*.wsw
 **/*.vhd.str
 **/compile.cfg
+**/*.error
 
 **/log/
 **/Edfmap.ini

@@ -28,6 +28,18 @@ compile=easy_rle
 
 [Groups]
 
+[HierarchyViewer]
+SortInfo=u
+HierarchyInformation=frequency_divider|frequency_divider|0 frequency_divider_tb|testbench_for_frequency_divider|1
+ShowHide=ShowTopLevel
+Selected=
+
+[$LibMap$]
+easy_rle=.
+
+[Library]
+easy_rle=.\easy_rle.LIB
+
 [Files]
 /frequency_divider.vhd=-1
 /rle_encoder.vhd=-1
@@ -44,10 +56,3 @@ compile=easy_rle
 .\src\TestBench\rle_encoder_tb.vhd=VHDL Source Code
 .\src\TestBench\rle_encoder_tb_runtest.do=Macro
 
-[HierarchyViewer]
-SortInfo=u
-HierarchyInformation=frequency_divider|frequency_divider|0 frequency_divider_tb|testbench_for_frequency_divider|1 
-ShowHide=ShowTopLevel
-Selected=
-[$LibMap$]
-easy_rle=.
