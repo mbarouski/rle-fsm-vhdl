@@ -46,12 +46,12 @@ architecture ram of ram is
 		0 => "00000010", -- P address of source array -- 2
 		1 => "00001010", --	N size of source array -- 10 
 		-- array start
-		2 => (others => '0'),
-		3 => (others => '0'),
+		2 => "00001010",
+		3 => "00001010",
 		4 => (others => '0'),
 		5 => (others => '0'),
-		6 => (others => '0'),
-		7 => (others => '0'),
+		6 => "00001011",
+		7 => "00001011",
 		8 => (others => '0'),
 		9 => (others => '0'),
 		10 => (others => '0'),

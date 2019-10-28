@@ -22,9 +22,12 @@ architecture TB_ARCHITECTURE of manager_tb is
 			en : in STD_LOGIC;
 			src_addr : in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 			dest_addr : in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
-			array_size : in STD_LOGIC_VECTOR(MEM_SIZE downto 0);
+			array_size : in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 			finish : out STD_LOGIC;
-			number : out STD_LOGIC_VECTOR(N-1 downto 0) );
+			src_num : out STD_LOGIC_VECTOR(N-1 downto 0);
+			dest_num : out STD_LOGIC_VECTOR(N-1 downto 0);
+			dest_counter : out STD_LOGIC_VECTOR(N-1 downto 0);
+			dest_read : out std_logic );
 	end component;
 	
 	-- Stimulus signals - signals mapped to the input and inout ports of tested entity
@@ -32,10 +35,13 @@ architecture TB_ARCHITECTURE of manager_tb is
 	signal en : STD_LOGIC;
 	signal src_addr : STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	signal dest_addr : STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
-	signal array_size : STD_LOGIC_VECTOR(MEM_SIZE downto 0);
+	signal array_size : STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	-- Observed signals - signals mapped to the output ports of tested entity
-	signal finish : STD_LOGIC;
-	signal number : STD_LOGIC_VECTOR(N-1 downto 0);
+	signal finish : STD_LOGIC;										
+	signal src_num : STD_LOGIC_VECTOR(N-1 downto 0);  
+	signal dest_num : STD_LOGIC_VECTOR(N-1 downto 0);	  
+	signal dest_counter : STD_LOGIC_VECTOR(N-1 downto 0);
+	signal dest_read : STD_LOGIC;
 	
 	constant clk_period : time := 10ns;
 begin
@@ -52,7 +58,10 @@ begin
 		dest_addr => dest_addr,
 		array_size => array_size,
 		finish => finish,
-		number => number
+		src_num => src_num,
+		dest_num => dest_num,
+		dest_counter => dest_counter,
+		dest_read => dest_read
 		);
 	
 	mian: process
@@ -60,7 +69,7 @@ begin
 		en <= '0';
 		src_addr <= "00000000";	-- 0
 		dest_addr <= "00001010"; -- 10
-		array_size <= "000001010"; -- 10
+		array_size <= "00001010"; -- 10
 		
 		wait for clk_period / 4;
 		
