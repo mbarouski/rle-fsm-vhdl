@@ -1,6 +1,7 @@
 **/*.asdbw/
 **/*.wsw
 **/*.vhd.str
+**/compile.cfg
 
 **/log/
 **/Edfmap.ini
