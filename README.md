@@ -1,4 +1,4 @@
-# vhdl_master_course_labs
+# VHDL master course labs
 Master course VHDL labs
 
 ## Tips
