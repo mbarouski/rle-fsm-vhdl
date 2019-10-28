@@ -1,5 +1,5 @@
 SetActiveLib -work
-comp -include "$dsn\src\frequency_divider.vhd" 
+comp -include "$dsn\src\FREQUENCY_DIVIDER\frequency_divider.vhd" 
 comp -include "$dsn\src\TestBench\frequency_divider_TB.vhd" 
 asim +access +r TESTBENCH_FOR_frequency_divider 
 wave 

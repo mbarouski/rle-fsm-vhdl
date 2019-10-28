@@ -6,7 +6,7 @@ EnableDebug=1
 EnableSLP=0
 
 [Settings]
-AccessRead=0
+AccessRead=1
 AccessReadWrite=0
 AccessACCB=0
 AccessACCR=0
@@ -17,6 +17,16 @@ FLOW_TYPE=HDL
 LANGUAGE=VHDL
 REFRESH_FLOW=1
 fileopenfolder=D:\Documents\Study\MasterCourses\3_semester\ожясок\vhdl_master_course_labs\easy_rle\src\TestBench
+DisableVitalMsg=0
+VitalAccel=1
+VitalGlitches=0
+DisableIEEEWarnings=0
+SimulationAccessReadModules=
+SimulationAccessReadWriteModules=
+SimulationAccessReadPaths=
+SimulationAccessReadWritePaths=
+SimulationAccessNetsPaths=
+SimulationAccessNetsModules=
 
 [Project]
 version=3
@@ -25,8 +35,6 @@ Current Flow=Multivendor
 
 [Configurations]
 compile=easy_rle
-
-[Groups]
 
 [HierarchyViewer]
 SortInfo=u
@@ -40,19 +48,37 @@ easy_rle=.
 [Library]
 easy_rle=.\easy_rle.LIB
 
+[Groups]
+RAM=1
+RLE_ENCODER=1
+FREQUENCY_DIVIDER=1
+TestBench=1
+
 [Files]
-/frequency_divider.vhd=-1
-/rle_encoder.vhd=-1
-/TestBench\frequency_divider_TB.vhd=-1
-/TestBench\frequency_divider_TB_runtest.do=-1
-/TestBench\rle_encoder_tb.vhd=-1
-/TestBench\rle_encoder_tb_runtest.do=-1
+/manager.vhd=-1
+RAM/ram.vhd=-1
+RLE_ENCODER/rle_encoder.vhd=-1
+RLE_ENCODER/..\TestBench\rle_encoder_tb.vhd=-1
+RLE_ENCODER/..\TestBench\rle_encoder_tb_runtest.do=-1
+FREQUENCY_DIVIDER/frequency_divider.vhd=-1
+FREQUENCY_DIVIDER/..\TestBench\frequency_divider_TB.vhd=-1
+FREQUENCY_DIVIDER/..\TestBench\frequency_divider_TB_runtest.do=-1
+TestBench/ram_TB.vhd=-1
+TestBench/ram_TB_runtest.do=-1
+TestBench/manager_TB.vhd=-1
+TestBench/manager_TB_runtest.do=-1
 
 [Files.Data]
-.\src\frequency_divider.vhd=VHDL Source Code
-.\src\rle_encoder.vhd=VHDL Source Code
-.\src\TestBench\frequency_divider_TB.vhd=VHDL Source Code
-.\src\TestBench\frequency_divider_TB_runtest.do=Macro
+.\src\manager.vhd=VHDL Source Code
+.\src\RAM\ram.vhd=VHDL Source Code
+.\src\RLE_ENCODER\rle_encoder.vhd=VHDL Source Code
 .\src\TestBench\rle_encoder_tb.vhd=VHDL Source Code
 .\src\TestBench\rle_encoder_tb_runtest.do=Macro
+.\src\FREQUENCY_DIVIDER\frequency_divider.vhd=VHDL Source Code
+.\src\TestBench\frequency_divider_TB.vhd=VHDL Source Code
+.\src\TestBench\frequency_divider_TB_runtest.do=Macro
+.\src\TestBench\ram_TB.vhd=VHDL Test Bench
+.\src\TestBench\ram_TB_runtest.do=Macro
+.\src\TestBench\manager_TB.vhd=VHDL Test Bench
+.\src\TestBench\manager_TB_runtest.do=Macro
 
