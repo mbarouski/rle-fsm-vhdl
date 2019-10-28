@@ -21,6 +21,6 @@
 **/*.mgf
 
 # Uncomment to ignore simulation results
-# **/*.awc
-# **/*.asdb
-# **/synthesis.order
+**/*.awc
+**/*.asdb
+**/synthesis.order
