@@ -52,86 +52,37 @@ begin
 		read => read
 		);
 	
+	clk_process: process
+	begin										 
+		clk <= '0';
+		wait for clk_period / 2;
+		clk <= '1';
+		wait for clk_period / 2;
+	end process;
+	
 	test_process: process
-	begin			
-		enable <= '1'; 
+	begin		   
+		input <= (others => '0');
 		
-		clk <= '0';
-		input <= "00000001";
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
+		wait for clk_period / 4;
+		enable <= '1'; 		   	
+		wait for clk_period / 4; 
+		wait for clk_period;    
 		
-		clk <= '0';			 
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
-		
-		clk <= '0';
 		input <= "00000010";
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
+		wait for clk_period; 
 		
-		clk <= '0';			 
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
+		input <= "00001010";
+		wait for clk_period * 3;
 		
-		clk <= '0';
-		input <= "00000010";
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
+		input <= (others => '0');
+		wait for clk_period * 2;
 		
-		clk <= '0';			 
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
+		wait for 5 * clk_period;  
+		enable <= '0'; 	
+		wait for 5 * clk_period;	   
 		
-		clk <= '0';
-		input <= "00000010";
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
-		
-		clk <= '0';			 
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2; 
-		
-		clk <= '0';
-		input <= "00000011";
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
-		
-		clk <= '0';			 
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2; 
-		
-		clk <= '0';
-		input <= "00000011";
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
-		
-		clk <= '0';			 
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
-		
-		clk <= '0';
-		input <= "00000111";
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2;
-		
-		clk <= '0';			 
-		wait for clk_period / 2;   
-		clk <= '1';				   
-		wait for clk_period / 2; 
+		report "End of simulation" severity failure;
 	end process test_process;
 	
 end rle_encoder_tb_arch;

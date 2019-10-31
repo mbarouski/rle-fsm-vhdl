@@ -83,7 +83,7 @@ architecture manager of manager is
 	signal ram_rd : STD_LOGIC;
 	signal ram_addr : STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	signal ram_data_in : STD_LOGIC_VECTOR(N-1 downto 0);						   
-	signal ram_data_out : STD_LOGIC_VECTOR(N-1 downto 0);
+	signal ram_data_out : STD_LOGIC_VECTOR(N-1 downto 0) := (others => '0');
 	
 	-- inner duplicates
 	signal inner_src_addr: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
@@ -93,10 +93,7 @@ architecture manager of manager is
 	signal inner_finish: std_logic := '0';
 	
 	-- inner service
-	signal address_offset: integer range 0 to MEM_SIZE * MEM_SIZE - 1 := 0;																									  
-	signal number_from_ram: std_logic_vector(N-1 downto 0);
-	signal number_to_ram: std_logic_vector(N-1 downto 0);
-	signal counter_to_ram: std_logic_vector(N-1 downto 0);
+	signal address_offset: integer range 0 to MEM_SIZE * MEM_SIZE - 1 := 0;
 begin							 					 
 	
 	ACTIVE_RAM : ram

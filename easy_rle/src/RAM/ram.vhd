@@ -78,12 +78,12 @@ architecture ram of ram is
 		29 => (others => '0'),
 		30 => (others => '0'),
 		31 => (others => '0'),
-	-- destination array end  
+		-- destination array end  
 		others => (others => '0')
 	);
 	
 	signal inner_data_in: STD_LOGIC_VECTOR(N-1 downto 0);
-	signal inner_data_out: STD_LOGIC_VECTOR(N-1 downto 0);
+	signal inner_data_out: STD_LOGIC_VECTOR(N-1 downto 0) := (others => '0');
 	signal inner_addr: integer range 0 to MEM_SIZE * MEM_SIZE - 1; 
 begin								  						 
 	inner_data_in <= data_in;

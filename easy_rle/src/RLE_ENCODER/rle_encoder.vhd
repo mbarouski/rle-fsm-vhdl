@@ -52,17 +52,15 @@ begin
 				if current_number = previous_number then	 
 					inner_counter <= inner_counter + 1;
 					sequence_finished <= '0';
-				else				
-					sequence_finished <= '1'; 		 			 
+				else
+					previous_number <= current_number;					
+					sequence_finished <= '1'; 		  	
 				end if;						 	  
-			elsif falling_edge(clk) then  
-				if sequence_finished = '1' then
-					inner_counter <= (0 => '1', others => '0'); 
-					previous_number <= current_number;	
-				end if;		  		   
+			elsif falling_edge(clk) and sequence_finished = '1' then 
+				inner_counter <= (others => '0');	  		   
 			end if;
 		end if;
-	end process p;	  
+	end process;
 	
 	output <= STD_LOGIC_VECTOR(previous_number);
 	counter <= STD_LOGIC_VECTOR(inner_counter);	
