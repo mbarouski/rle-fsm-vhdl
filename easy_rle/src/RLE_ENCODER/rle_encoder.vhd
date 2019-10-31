@@ -19,8 +19,8 @@
 -------------------------------------------------------------------------------
 
 library IEEE;
-use IEEE.STD_LOGIC_1164.all;
-use ieee.numeric_std.all;
+use IEEE.STD_LOGIC_1164.all; 
+use IEEE.STD_LOGIC_ARITH.all;
 
 entity rle_encoder is
 	generic(
@@ -36,10 +36,10 @@ entity rle_encoder is
 end rle_encoder;
 
 architecture rle_encoder of rle_encoder is	  	 
-	signal current_number: SIGNED(N-1 downto 0) := (others => '0');
-	signal previous_number: SIGNED(N-1 downto 0) := (others => '0');
+	signal current_number: signed(N-1 downto 0) := (others => '0');
+	signal previous_number: integer range -256 to 256 := 256;
 	
-	signal inner_counter: UNSIGNED(N-1 downto 0) := (others => '0');
+	signal inner_counter: integer range 0 to 255 := 0;
 	
 	signal sequence_finished: STD_LOGIC := '0';
 begin
@@ -48,21 +48,23 @@ begin
 	p: process(clk, enable)
 	begin
 		if enable = '1' then 
-			if rising_edge(clk) then	  				 		  
-				if current_number = previous_number then	 
+			if rising_edge(clk) then
+				if sequence_finished = '1' then	
+					inner_counter <= 1;	
+				end if;
+				
+				if conv_integer(current_number) = previous_number then	 
 					inner_counter <= inner_counter + 1;
 					sequence_finished <= '0';
 				else
-					previous_number <= current_number;					
+					previous_number <= conv_integer(current_number);				
 					sequence_finished <= '1'; 		  	
-				end if;						 	  
-			elsif falling_edge(clk) and sequence_finished = '1' then 
-				inner_counter <= (others => '0');	  		   
+				end if; 	  		   
 			end if;
 		end if;
 	end process;
 	
-	output <= STD_LOGIC_VECTOR(previous_number);
-	counter <= STD_LOGIC_VECTOR(inner_counter);	
+	output <= conv_std_logic_vector(previous_number, N+1)(N-1 downto 0);
+	counter <= conv_std_logic_vector(inner_counter, N) when sequence_finished = '1' else (others => '0');	
 	read <= sequence_finished;
 end rle_encoder;

@@ -63,20 +63,22 @@ begin
 	test_process: process
 	begin		   
 		input <= (others => '0');
-		
 		wait for clk_period / 4;
 		enable <= '1'; 		   	
 		wait for clk_period / 4; 
-		wait for clk_period;    
+		wait for clk_period / 2;    
 		
 		input <= "00000010";
 		wait for clk_period; 
 		
 		input <= "00001010";
-		wait for clk_period * 3;
+		wait for clk_period * 3; 
 		
-		input <= (others => '0');
-		wait for clk_period * 2;
+		input <= "00001111";
+		wait for clk_period * 4;
+		
+		input <= (others => '1');
+		wait for clk_period * 3;
 		
 		wait for 5 * clk_period;  
 		enable <= '0'; 	

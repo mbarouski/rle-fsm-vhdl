@@ -1,5 +1,18 @@
 [LocalVhdlSets]
 CompileWithDebug=1
+DisableVHDL87Key=0
+EnableVHDL93Key=0
+EnableVHDL2002Key=0
+EnableVHDL2006Key=0
+EnableVHDL2008Key=1
+NetlistCompilation=1
+Syntax RelaxLRM=1
+MaxErrorsKey=100
+OptimizationLevel=3
+DisableRangeChecks=0
+ProtectLevel=0
+AdditionalOptions=
+IncrementalCompilation=0
 
 [LocalVerilogSets]
 EnableDebug=1
