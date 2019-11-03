@@ -85,7 +85,6 @@ easy_rle=.\easy_rle.LIB
 [Groups]
 RAM=1
 RLE_ENCODER=1
-FREQUENCY_DIVIDER=1
 TestBench=1
 
 [PCB_INTERFACE]
@@ -111,14 +110,10 @@ SPEED=
 
 [Files]
 /manager.vhd=-1
-/xorn.vhd=-1
 RAM/ram.vhd=-1
 RLE_ENCODER/rle_encoder.vhd=-1
-FREQUENCY_DIVIDER/frequency_divider.vhd=-1
 TestBench/rle_encoder_tb.vhd=-1
 TestBench/rle_encoder_tb_runtest.do=-1
-TestBench/frequency_divider_TB.vhd=-1
-TestBench/frequency_divider_TB_runtest.do=-1
 TestBench/ram_TB.vhd=-1
 TestBench/ram_TB_runtest.do=-1
 TestBench/manager_TB.vhd=-1
@@ -126,14 +121,10 @@ TestBench/manager_TB_runtest.do=-1
 
 [Files.Data]
 .\src\manager.vhd=VHDL Source Code
-.\src\xorn.vhd=VHDL Source Code
 .\src\RAM\ram.vhd=VHDL Source Code
 .\src\RLE_ENCODER\rle_encoder.vhd=VHDL Source Code
-.\src\FREQUENCY_DIVIDER\frequency_divider.vhd=VHDL Source Code
 .\src\TestBench\rle_encoder_tb.vhd=VHDL Source Code
 .\src\TestBench\rle_encoder_tb_runtest.do=Macro
-.\src\TestBench\frequency_divider_TB.vhd=VHDL Source Code
-.\src\TestBench\frequency_divider_TB_runtest.do=Macro
 .\src\TestBench\ram_TB.vhd=VHDL Test Bench
 .\src\TestBench\ram_TB_runtest.do=Macro
 .\src\TestBench\manager_TB.vhd=VHDL Test Bench
