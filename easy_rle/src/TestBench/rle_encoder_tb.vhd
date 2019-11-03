@@ -66,7 +66,7 @@ begin
 		wait for clk_period / 4;
 		enable <= '1'; 		   	
 		wait for clk_period / 4; 
-		wait for clk_period;    
+		wait for clk_period / 2;    
 		
 		input <= "00000010";
 		wait for clk_period; 

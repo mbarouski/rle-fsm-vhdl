@@ -68,7 +68,7 @@ compile=easy_rle
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=manager_tb|testbench_for_manager|1 rle_encoder_tb|testbench_for_rle_encoder|1 
+HierarchyInformation=manager_tb|testbench_for_manager|1 rle_encoder_tb|testbench_for_rle_encoder|1
 ShowHide=ShowTopLevel
 Selected=
 
@@ -111,6 +111,7 @@ SPEED=
 
 [Files]
 /manager.vhd=-1
+/xorn.vhd=-1
 RAM/ram.vhd=-1
 RLE_ENCODER/rle_encoder.vhd=-1
 FREQUENCY_DIVIDER/frequency_divider.vhd=-1
@@ -125,6 +126,7 @@ TestBench/manager_TB_runtest.do=-1
 
 [Files.Data]
 .\src\manager.vhd=VHDL Source Code
+.\src\xorn.vhd=VHDL Source Code
 .\src\RAM\ram.vhd=VHDL Source Code
 .\src\RLE_ENCODER\rle_encoder.vhd=VHDL Source Code
 .\src\FREQUENCY_DIVIDER\frequency_divider.vhd=VHDL Source Code
@@ -136,3 +138,4 @@ TestBench/manager_TB_runtest.do=-1
 .\src\TestBench\ram_TB_runtest.do=Macro
 .\src\TestBench\manager_TB.vhd=VHDL Test Bench
 .\src\TestBench\manager_TB_runtest.do=Macro
+

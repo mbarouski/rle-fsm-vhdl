@@ -36,45 +36,55 @@ entity rle_encoder is
 end rle_encoder;
 
 architecture rle_encoder of rle_encoder is	  	 							  				
-	signal current_number: std_logic_vector(8 downto 0) := (others => '0');
+	signal current_number: std_logic_vector(8 downto 0) := (others => '0');	
 	signal previous_number: std_logic_vector(8 downto 0) := (others => '1'); 
+	signal xored: std_logic_vector(8 downto 0) := (others => '0'); 
 	
 	signal inner_counter: integer range 0 to 255 := 0;
 	
-	signal sequence_finished: std_logic := '0';	 
-	
-	signal same: std_logic := '0'; 	
+	signal sequence_finished: std_logic := '0';	    
 begin
 	current_number(7 downto 0) <= input;
 	
-	p: process(clk, enable)		
+	p: process(clk, enable)
+		variable same: std_logic := '0';
 	begin
-		if enable = '1' then  
+		if enable = '1' then 	 
 			if rising_edge(clk) then  
-				sequence_finished <= (
+				same := (
 				(not (current_number(0) xor previous_number(0)))
-				or 
+				and 
 				(not (current_number(1) xor previous_number(1)))
-				or 
+				and 
 				(not (current_number(2) xor previous_number(2)))
-				or 
+				and 
 				(not (current_number(3) xor previous_number(3)))
-				or 
+				and 
 				(not (current_number(4) xor previous_number(4)))
-				or 
+				and 
 				(not (current_number(5) xor previous_number(5)))
-				or 
+				and 
 				(not (current_number(6) xor previous_number(6)))
-				or 
+				and 
 				(not (current_number(7) xor previous_number(7)))
-				or 
+				and 
 				(not (current_number(8) xor previous_number(8)))
 				);
-			elsif falling_edge(clk) then 	
-				previous_number <= current_number;
-			end if;		   
+				
+				if same = '1' then
+					inner_counter <= inner_counter + 1;
+				else		 
+					previous_number <= current_number;
+					inner_counter <= 1;
+				end if; 
+				
+				sequence_finished <= not same;
+			end if;	
+			if falling_edge(clk) then 			  	 
+											    		   
+			end if;	
 		end if;
-	end process;
+	end process;   														 
 	
 	output <= previous_number(N-1 downto 0); 	
 	counter <= conv_std_logic_vector(inner_counter, N);	
