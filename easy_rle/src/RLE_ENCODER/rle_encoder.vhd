@@ -52,6 +52,7 @@ begin
 				inner_counter <= 0;			   		   
 				previous_number <= (others => '1');
 			else
+				-- TODO(max): Write using cycle
 				same := (
 				(not (current_number(0) xor previous_number(0)))
 				and 

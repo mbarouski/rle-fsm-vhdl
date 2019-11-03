@@ -4,15 +4,14 @@ comp -include "$dsn\src\TestBench\manager_TB.vhd"
 asim +access +r TESTBENCH_FOR_manager 
 wave 
 wave -noreg clk
-wave -noreg en
+wave -noreg rst
 wave -noreg src_addr
 wave -noreg dest_addr
 wave -noreg array_size
 wave -noreg finish	  
 wave -noreg src_num
 wave -noreg dest_num	 	
-wave -noreg dest_counter
-wave -noreg dest_read
+wave -noreg dest_counter 
 # The following lines can be used for timing simulation
 # acom <backannotated_vhdl_file_name>
 # comp -include "$dsn\src\TestBench\manager_TB_tim_cfg.vhd" 
