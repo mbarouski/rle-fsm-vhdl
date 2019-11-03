@@ -39,6 +39,24 @@ SimulationAccessReadPaths=
 SimulationAccessReadWritePaths=
 SimulationAccessNetsPaths=
 SimulationAccessNetsModules=
+CSYNTH_TOOL=<none>
+CSYNTH_STATUS=NONE
+PHYSSYNTH_TOOL=MV_PLANAHEAD134
+PHYSSYNTH_STATUS=NONE
+SYNTH_TOOL=MV_XST134
+FLOWTOOLS=IMPL_WITH_SYNTH
+SYNTH_STATUS=none
+IMPL_TOOL=<none>
+IMPL_STATUS=NONE
+PCBINTERFACE_STATUS=NONE
+FAMILY=Xilinx13x Automotive_Spartan6
+ON_SERVERFARM_SIM=0
+FUNCTIONAL_SIMULATION_STATUS=
+POSTSYNTHESIS_SIMULATION_STATUS=
+TIMING_SIMULATION_STATUS=
+ON_SERVERFARM_SYNTH=0
+ON_SERVERFARM_IMPL=0
+RUN_MODE_SYNTH=0
 
 [Project]
 version=3
@@ -50,12 +68,16 @@ compile=easy_rle
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=manager_tb|testbench_for_manager|1 
+HierarchyInformation=manager_tb|testbench_for_manager|1 rle_encoder_tb|testbench_for_rle_encoder|1
 ShowHide=ShowTopLevel
 Selected=
 
 [$LibMap$]
 easy_rle=.
+Active_lib=SPARTAN6
+xilinxun=SPARTAN6
+UnlinkedDesignLibrary=SPARTAN6
+DESIGNS=SPARTAN6
 
 [Library]
 easy_rle=.\easy_rle.LIB
@@ -63,8 +85,28 @@ easy_rle=.\easy_rle.LIB
 [Groups]
 RAM=1
 RLE_ENCODER=1
-FREQUENCY_DIVIDER=1
 TestBench=1
+
+[PCB_INTERFACE]
+FAMILY=
+
+[SYNTHESIS]
+TOPLEVEL=
+FAMILY=Xilinx13x Automotive_Spartan6
+DEVICE=
+SPEED=
+
+[PHYS_SYNTHESIS]
+FAMILY=Xilinx13x Automotive_Spartan6
+DEVICE=
+SPEED=
+SCRIPTS_COPIED=0
+
+[IMPLEMENTATION]
+FLOW_STEPS_RESET=1
+FAMILY=Xilinx13x Automotive_Spartan6
+DEVICE=
+SPEED=
 
 [Files]
 /manager.vhd=-1
@@ -72,9 +114,6 @@ RAM/ram.vhd=-1
 RLE_ENCODER/rle_encoder.vhd=-1
 TestBench/rle_encoder_tb.vhd=-1
 TestBench/rle_encoder_tb_runtest.do=-1
-FREQUENCY_DIVIDER/frequency_divider.vhd=-1
-TestBench/frequency_divider_TB.vhd=-1
-TestBench/frequency_divider_TB_runtest.do=-1
 TestBench/ram_TB.vhd=-1
 TestBench/ram_TB_runtest.do=-1
 TestBench/manager_TB.vhd=-1
@@ -86,10 +125,8 @@ TestBench/manager_TB_runtest.do=-1
 .\src\RLE_ENCODER\rle_encoder.vhd=VHDL Source Code
 .\src\TestBench\rle_encoder_tb.vhd=VHDL Source Code
 .\src\TestBench\rle_encoder_tb_runtest.do=Macro
-.\src\FREQUENCY_DIVIDER\frequency_divider.vhd=VHDL Source Code
-.\src\TestBench\frequency_divider_TB.vhd=VHDL Source Code
-.\src\TestBench\frequency_divider_TB_runtest.do=Macro
 .\src\TestBench\ram_TB.vhd=VHDL Test Bench
 .\src\TestBench\ram_TB_runtest.do=Macro
 .\src\TestBench\manager_TB.vhd=VHDL Test Bench
 .\src\TestBench\manager_TB_runtest.do=Macro
+

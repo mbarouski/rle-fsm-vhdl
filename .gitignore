@@ -3,6 +3,7 @@
 **/*.vhd.str
 **/compile.cfg
 **/*.error
+**/synthesis
 
 **/log/
 **/Edfmap.ini

@@ -27,44 +27,64 @@ entity rle_encoder is
 		N: integer := 8);
 	port(								  
 		clk : in STD_LOGIC;
-		enable : in STD_LOGIC;
+		rst : in STD_LOGIC;
 		input : in STD_LOGIC_VECTOR(N-1 downto 0);	 
 		output : out STD_LOGIC_VECTOR(N-1 downto 0); 
-		counter : out STD_LOGIC_VECTOR(N-1 downto 0);
-		read : out STD_LOGIC
+		counter : out STD_LOGIC_VECTOR(N-1 downto 0)
 		);
 end rle_encoder;
 
-architecture rle_encoder of rle_encoder is	  	 
-	signal current_number: signed(N-1 downto 0) := (others => '0');
-	signal previous_number: integer range -256 to 256 := 256;
+architecture rle_encoder of rle_encoder is	  	 							  				
+	signal current_number: std_logic_vector(8 downto 0) := (others => '0');	
+	signal previous_number: std_logic_vector(8 downto 0) := (others => '1');  
 	
 	signal inner_counter: integer range 0 to 255 := 0;
 	
-	signal sequence_finished: STD_LOGIC := '0';
+	signal sequence_finished: std_logic := '0';	    
 begin
-	current_number <= signed(input);
+	current_number(7 downto 0) <= input;
 	
-	p: process(clk, enable)
-	begin
-		if enable = '1' then 
-			if rising_edge(clk) then
-				if sequence_finished = '1' then	
-					inner_counter <= 1;	
-				end if;
+	p: process(clk, rst)
+		variable same: std_logic := '0';
+	begin					 	 
+		if rising_edge(clk) then
+			if rst = '1' then
+				inner_counter <= 0;			   		   
+				previous_number <= (others => '1');
+			else
+				-- TODO(max): Write using cycle
+				same := (
+				(not (current_number(0) xor previous_number(0)))
+				and 
+				(not (current_number(1) xor previous_number(1)))
+				and 
+				(not (current_number(2) xor previous_number(2)))
+				and 
+				(not (current_number(3) xor previous_number(3)))
+				and 
+				(not (current_number(4) xor previous_number(4)))
+				and 
+				(not (current_number(5) xor previous_number(5)))
+				and 
+				(not (current_number(6) xor previous_number(6)))
+				and 
+				(not (current_number(7) xor previous_number(7)))
+				and 
+				(not (current_number(8) xor previous_number(8)))
+				);
 				
-				if conv_integer(current_number) = previous_number then	 
+				if same = '1' then
 					inner_counter <= inner_counter + 1;
-					sequence_finished <= '0';
-				else
-					previous_number <= conv_integer(current_number);				
-					sequence_finished <= '1'; 		  	
-				end if; 	  		   
+				else		 						 
+					inner_counter <= 1;
+				end if;	
+				
+				previous_number <= current_number; 
 			end if;
+			
 		end if;
-	end process;
+	end process;   														 
 	
-	output <= conv_std_logic_vector(previous_number, N+1)(N-1 downto 0);
-	counter <= conv_std_logic_vector(inner_counter, N) when sequence_finished = '1' else (others => '0');	
-	read <= sequence_finished;
+	output <= previous_number(N-1 downto 0); 	
+	counter <= conv_std_logic_vector(inner_counter, N);
 end rle_encoder;

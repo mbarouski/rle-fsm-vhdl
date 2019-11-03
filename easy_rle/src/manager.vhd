@@ -29,21 +29,19 @@ entity manager is
 		);
 	port(
 		clk : in STD_LOGIC;
-		en : in STD_LOGIC;																		   
+		rst : in STD_LOGIC;
 		src_addr: in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 		dest_addr: in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 		array_size: in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 		finish : out STD_LOGIC;
-		-- for debug since I can't lok at internal signals
+		-- for debug since I can't look at internal signals
 		src_num : out STD_LOGIC_VECTOR(N-1 downto 0);
 		dest_num : out STD_LOGIC_VECTOR(N-1 downto 0);
-		dest_counter : out STD_LOGIC_VECTOR(N-1 downto 0);
-		dest_read : out STD_LOGIC
+		dest_counter : out STD_LOGIC_VECTOR(N-1 downto 0)
 		);
 end manager;				 
 
-architecture manager of manager is 
-	
+architecture manager of manager is
 	component ram
 		generic(
 			N : INTEGER := N;
@@ -62,20 +60,19 @@ architecture manager of manager is
 		generic(
 			N : INTEGER := N );
 		port(								  
-			enable : in STD_LOGIC;
+			rst : in STD_LOGIC;
 			clk : in STD_LOGIC;
 			input : in STD_LOGIC_VECTOR(N-1 downto 0);
 			output : out STD_LOGIC_VECTOR(N-1 downto 0);
-			counter : out STD_LOGIC_VECTOR(N-1 downto 0);
-			read : out STD_LOGIC );
+			counter : out STD_LOGIC_VECTOR(N-1 downto 0)
+			);
 	end component;
 	
 	-- rle encoder				 		   
-	signal rle_enable: STD_LOGIC;
+	signal rle_rst: STD_LOGIC;
 	signal rle_input : STD_LOGIC_VECTOR(N-1 downto 0);
 	signal rle_output : STD_LOGIC_VECTOR(N-1 downto 0);
 	signal rle_counter : STD_LOGIC_VECTOR(N-1 downto 0);
-	signal rle_read : STD_LOGIC;
 	
 	-- ram
 	signal ram_rst : STD_LOGIC;
@@ -89,14 +86,14 @@ architecture manager of manager is
 	signal inner_src_addr: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	signal inner_dest_addr: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	signal inner_array_size: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
-	signal inner_en: std_logic;
+	signal inner_rst: std_logic;
 	signal inner_finish: std_logic := '0';
 	
 	-- inner service
 	signal address_offset: integer range 0 to MEM_SIZE * MEM_SIZE - 1 := 0;
 begin							 					 
 	
-	ACTIVE_RAM : ram
+	ram_0 : ram
 	generic map (
 		N => N,
 		MEM_SIZE => MEM_SIZE
@@ -110,29 +107,28 @@ begin
 		data_in => ram_data_in,
 		data_out => ram_data_out
 		); 
-		
-	ACTIVE_RLE : rle_encoder
+	
+	rle_encoder_0 : rle_encoder
 	generic map (
 		N => N
 		)
 	
 	port map (		 	 
-		enable => rle_enable,
+		rst => rle_rst,
 		clk => clk,
 		input => rle_input,
 		output => rle_output,
-		counter => rle_counter,
-		read => rle_read
+		counter => rle_counter
 		);
 	
 	-- global in
-	inner_en <= en;
+	inner_rst <= rst;
 	inner_array_size <= array_size;	 
 	inner_src_addr <= src_addr;
 	inner_dest_addr <= dest_addr;
 	
 	-- inner bindings	   
-	rle_enable <= inner_en;   
+	rle_rst <= inner_rst;   
 	rle_input <= ram_data_out;
 	rle_input <= ram_data_out;
 	
@@ -140,22 +136,28 @@ begin
 	finish <= inner_finish;	 
 	src_num <= ram_data_out;
 	dest_num <= rle_output;
-	dest_counter <= rle_counter;
-	dest_read <= rle_read;
+	dest_counter <= rle_counter; 
 	
-	main: process(clk, en)
+	main: process(clk, rst)
 	begin
-		if en = '1' then
-			if falling_edge(clk) then
+		if rst = '0' then
+			if falling_edge(clk) then 
 				ram_rd <= '1';
+				ram_wr <= '0';
 				ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_src_addr)) + address_offset, MEM_SIZE);
 				if address_offset = conv_integer(unsigned(inner_array_size)) then
 					inner_finish <= '1';
 				end if;	  
 				address_offset <= address_offset + 1;
-			elsif rising_edge(clk) then				 		  
-				-- nothing for now
+			elsif rising_edge(clk) then
+				-- didin't test yet
+				ram_wr <= '1'; 
+				ram_rd <= '0';
+				ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_dest_addr)) + wr_address_offset, MEM_SIZE);
+				ram_data_in <= rle_output;
 			end if;
+		else 
+			-- reset
 		end if;
 	end process; 
 end manager;

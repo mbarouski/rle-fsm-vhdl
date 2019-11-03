@@ -19,20 +19,20 @@ architecture TB_ARCHITECTURE of manager_tb is
 			MEM_SIZE : INTEGER := 8 );
 		port(
 			clk : in STD_LOGIC;
-			en : in STD_LOGIC;
+			rst : in STD_LOGIC;
 			src_addr : in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 			dest_addr : in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 			array_size : in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 			finish : out STD_LOGIC;
 			src_num : out STD_LOGIC_VECTOR(N-1 downto 0);
 			dest_num : out STD_LOGIC_VECTOR(N-1 downto 0);
-			dest_counter : out STD_LOGIC_VECTOR(N-1 downto 0);
-			dest_read : out std_logic );
+			dest_counter : out STD_LOGIC_VECTOR(N-1 downto 0)
+			);
 	end component;
 	
 	-- Stimulus signals - signals mapped to the input and inout ports of tested entity
 	signal clk : STD_LOGIC;
-	signal en : STD_LOGIC;
+	signal rst : STD_LOGIC;
 	signal src_addr : STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	signal dest_addr : STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	signal array_size : STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
@@ -40,8 +40,7 @@ architecture TB_ARCHITECTURE of manager_tb is
 	signal finish : STD_LOGIC;										
 	signal src_num : STD_LOGIC_VECTOR(N-1 downto 0);  
 	signal dest_num : STD_LOGIC_VECTOR(N-1 downto 0);	  
-	signal dest_counter : STD_LOGIC_VECTOR(N-1 downto 0);
-	signal dest_read : STD_LOGIC;
+	signal dest_counter : STD_LOGIC_VECTOR(N-1 downto 0);	 
 	
 	constant clk_period : time := 10ns;
 begin
@@ -53,29 +52,25 @@ begin
 	
 	port map (
 		clk => clk,
-		en => en,
+		rst => rst,
 		src_addr => src_addr,
 		dest_addr => dest_addr,
 		array_size => array_size,
 		finish => finish,
 		src_num => src_num,
 		dest_num => dest_num,
-		dest_counter => dest_counter,
-		dest_read => dest_read
+		dest_counter => dest_counter
 		);
 	
-	mian: process
+	main: process
 	begin	  	
-		en <= '0';
+		rst <= '1';
+		wait for clk_period * 2;
+		rst <= '0';
+		
 		src_addr <= "00000000";	-- 0
 		dest_addr <= "00001010"; -- 10
-		array_size <= "00001010"; -- 10
-		
-		wait for clk_period / 4;
-		
-		en <= '1';
-		
-		wait for clk_period / 4; 
+		array_size <= "00001010"; -- 10	
 		
 		wait for 20 * clk_period;
 		
