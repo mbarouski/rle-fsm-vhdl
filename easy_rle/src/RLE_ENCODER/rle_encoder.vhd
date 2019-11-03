@@ -35,41 +35,50 @@ entity rle_encoder is
 		);
 end rle_encoder;
 
-architecture rle_encoder of rle_encoder is	  	 
-	signal current_number: integer range -128 to 128 := 0;	  
-	signal previous_number: integer range -128 to 128 := 128; 
+architecture rle_encoder of rle_encoder is	  	 							  				
+	signal current_number: std_logic_vector(8 downto 0) := (others => '0');
+	signal previous_number: std_logic_vector(8 downto 0) := (others => '1'); 
 	
 	signal inner_counter: integer range 0 to 255 := 0;
 	
-	signal sequence_finished: STD_LOGIC := '0';
-begin
-	current_number <= conv_integer(signed(input));
+	signal sequence_finished: std_logic := '0';	 
 	
-	p: process(clk, enable)	 
-		variable xored_numbers: std_logic_vector(N downto 0) := (others => '0');	   
-		variable not_xored_numbers: std_logic_vector(N downto 0) := (others => '0');
-		variable add_operand: std_logic := '0';
-	begin					 
-		if rising_edge(clk) and enable = '1' then							   					   			
-			for i in N downto 0 loop
-				xored_numbers(i) := conv_std_logic_vector(current_number, N+1)(i) xor conv_std_logic_vector(previous_number, N+1)(i);
-			end loop; 											 
+	signal same: std_logic := '0'; 	
+begin
+	current_number(7 downto 0) <= input;
+	
+	p: process(clk, enable)		
+	begin	
+		if rising_edge(clk) and enable = '1' then
+			 --<= same; 
+		end if;
+		
+		if falling_edge(clk) and enable = '1' then 	
 			
-			for i in N downto 0 loop
-				not_xored_numbers(i) := not xored_numbers(i);
-			end loop;
-			
-			for i in N downto 0 loop
-				add_operand := add_operand or xored_numbers(i);
-			end loop;
-			
-			inner_counter <= inner_counter + conv_integer(add_operand);
-		elsif falling_edge(clk) then
-			previous_number <= current_number;
+			sequence_finished <= (
+			(not (current_number(0) xor previous_number(0)))
+			or 
+			(not (current_number(1) xor previous_number(1))	)
+			or 
+			(not (current_number(2) xor previous_number(2))	 )
+			or 
+			(not (current_number(3) xor previous_number(3))	  )
+			or 
+			(not( current_number(4) xor previous_number(4))	   )
+			or 
+			(not (current_number(5) xor previous_number(5))		)
+			or 
+			(not( current_number(6) xor previous_number(6)) 		 )
+			or 
+			(not (current_number(7) xor previous_number(7)) 		  )
+			or 
+			(not( current_number(8) xor previous_number(8)) 		   )
+			);	
+			previous_number <= current_number;			  		   
 		end if;
 	end process;
 	
-	output <= (conv_std_logic_vector(current_number, N+1)(N-1 downto 0)); 	
-	counter <= conv_std_logic_vector(inner_counter, N);-- when sequence_finished = '1' else (others => '0');	
+	output <= previous_number(N-1 downto 0); 	
+	counter <= conv_std_logic_vector(inner_counter, N);	
 	read <= sequence_finished; 
 end rle_encoder;
