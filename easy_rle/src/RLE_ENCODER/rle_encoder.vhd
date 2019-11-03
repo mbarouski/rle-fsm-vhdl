@@ -48,33 +48,31 @@ begin
 	current_number(7 downto 0) <= input;
 	
 	p: process(clk, enable)		
-	begin	
-		if rising_edge(clk) and enable = '1' then
-			 --<= same; 
-		end if;
-		
-		if falling_edge(clk) and enable = '1' then 	
-			
-			sequence_finished <= (
-			(not (current_number(0) xor previous_number(0)))
-			or 
-			(not (current_number(1) xor previous_number(1))	)
-			or 
-			(not (current_number(2) xor previous_number(2))	 )
-			or 
-			(not (current_number(3) xor previous_number(3))	  )
-			or 
-			(not( current_number(4) xor previous_number(4))	   )
-			or 
-			(not (current_number(5) xor previous_number(5))		)
-			or 
-			(not( current_number(6) xor previous_number(6)) 		 )
-			or 
-			(not (current_number(7) xor previous_number(7)) 		  )
-			or 
-			(not( current_number(8) xor previous_number(8)) 		   )
-			);	
-			previous_number <= current_number;			  		   
+	begin
+		if enable = '1' then  
+			if rising_edge(clk) then  
+				sequence_finished <= (
+				(not (current_number(0) xor previous_number(0)))
+				or 
+				(not (current_number(1) xor previous_number(1)))
+				or 
+				(not (current_number(2) xor previous_number(2)))
+				or 
+				(not (current_number(3) xor previous_number(3)))
+				or 
+				(not (current_number(4) xor previous_number(4)))
+				or 
+				(not (current_number(5) xor previous_number(5)))
+				or 
+				(not (current_number(6) xor previous_number(6)))
+				or 
+				(not (current_number(7) xor previous_number(7)))
+				or 
+				(not (current_number(8) xor previous_number(8)))
+				);
+			elsif falling_edge(clk) then 	
+				previous_number <= current_number;
+			end if;		   
 		end if;
 	end process;
 	
