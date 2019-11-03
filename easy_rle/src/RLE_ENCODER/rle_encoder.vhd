@@ -27,18 +27,16 @@ entity rle_encoder is
 		N: integer := 8);
 	port(								  
 		clk : in STD_LOGIC;
-		enable : in STD_LOGIC;
+		rst : in STD_LOGIC;
 		input : in STD_LOGIC_VECTOR(N-1 downto 0);	 
 		output : out STD_LOGIC_VECTOR(N-1 downto 0); 
-		counter : out STD_LOGIC_VECTOR(N-1 downto 0);
-		read : out STD_LOGIC
+		counter : out STD_LOGIC_VECTOR(N-1 downto 0)
 		);
 end rle_encoder;
 
 architecture rle_encoder of rle_encoder is	  	 							  				
 	signal current_number: std_logic_vector(8 downto 0) := (others => '0');	
-	signal previous_number: std_logic_vector(8 downto 0) := (others => '1'); 
-	signal xored: std_logic_vector(8 downto 0) := (others => '0'); 
+	signal previous_number: std_logic_vector(8 downto 0) := (others => '1');  
 	
 	signal inner_counter: integer range 0 to 255 := 0;
 	
@@ -46,11 +44,14 @@ architecture rle_encoder of rle_encoder is
 begin
 	current_number(7 downto 0) <= input;
 	
-	p: process(clk, enable)
+	p: process(clk, rst)
 		variable same: std_logic := '0';
-	begin
-		if enable = '1' then 	 
-			if rising_edge(clk) then  
+	begin					 	 
+		if rising_edge(clk) then
+			if rst = '1' then
+				inner_counter <= 0;			   		   
+				previous_number <= (others => '1');
+			else
 				same := (
 				(not (current_number(0) xor previous_number(0)))
 				and 
@@ -73,20 +74,16 @@ begin
 				
 				if same = '1' then
 					inner_counter <= inner_counter + 1;
-				else		 
-					previous_number <= current_number;
+				else		 						 
 					inner_counter <= 1;
-				end if; 
+				end if;	
 				
-				sequence_finished <= not same;
-			end if;	
-			if falling_edge(clk) then 			  	 
-											    		   
-			end if;	
+				previous_number <= current_number; 
+			end if;
+			
 		end if;
 	end process;   														 
 	
 	output <= previous_number(N-1 downto 0); 	
-	counter <= conv_std_logic_vector(inner_counter, N);	
-	read <= sequence_finished; 
+	counter <= conv_std_logic_vector(inner_counter, N);
 end rle_encoder;

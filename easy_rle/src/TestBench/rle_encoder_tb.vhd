@@ -14,26 +14,24 @@ architecture rle_encoder_tb_arch of rle_encoder_tb is
 	-- Component declaration of the tested unit
 	component rle_encoder
 		generic(
-			N : INTEGER := 8 );
+			N : INTEGER := 8 
+			);
 		port(								  
-			enable : in STD_LOGIC;
+			rst : in STD_LOGIC;
 			clk : in STD_LOGIC;
 			input : in STD_LOGIC_VECTOR(N-1 downto 0);
 			output : out STD_LOGIC_VECTOR(N-1 downto 0);
-			counter : out STD_LOGIC_VECTOR(N-1 downto 0);
-			read : out STD_LOGIC );
+			counter : out STD_LOGIC_VECTOR(N-1 downto 0)
+			);
 	end component;
 	
 	-- Stimulus signals - signals mapped to the input and inout ports of tested entity	   
-	signal enable : STD_LOGIC;
+	signal rst : STD_LOGIC;
 	signal clk : STD_LOGIC;
 	signal input : STD_LOGIC_VECTOR(N-1 downto 0);
 	-- Observed signals - signals mapped to the output ports of tested entity
 	signal output : STD_LOGIC_VECTOR(N-1 downto 0);
-	signal counter : STD_LOGIC_VECTOR(N-1 downto 0);
-	signal read : STD_LOGIC;
-	
-	-- Add your code here ...	 
+	signal counter : STD_LOGIC_VECTOR(N-1 downto 0);								   
 	
 	constant clk_period: time := 1us;
 	
@@ -44,12 +42,11 @@ begin
 		)
 	
 	port map (		 	 
-		enable => enable,
+		rst => rst,
 		clk => clk,
 		input => input,
 		output => output,
-		counter => counter,
-		read => read
+		counter => counter
 		);
 	
 	clk_process: process
@@ -61,12 +58,13 @@ begin
 	end process;
 	
 	test_process: process
-	begin		   
+	begin		
+		rst <= '1'; 
+		wait for clk_period * 3;
+		rst <= '0';
+		
 		input <= (others => '0');
-		wait for clk_period / 4;
-		enable <= '1'; 		   	
-		wait for clk_period / 4; 
-		wait for clk_period / 2;    
+		wait for clk_period;    
 		
 		input <= "00000010";
 		wait for clk_period; 
@@ -79,10 +77,14 @@ begin
 		
 		input <= (others => '1');
 		wait for clk_period * 3;
+						
+		wait for clk_period;
 		
-		wait for 5 * clk_period;  
-		enable <= '0'; 	
-		wait for 5 * clk_period;	   
+		rst <= '1'; 
+		wait for clk_period * 3;
+		rst <= '0';
+		
+		wait for clk_period;   
 		
 		report "End of simulation" severity failure;
 	end process test_process;
