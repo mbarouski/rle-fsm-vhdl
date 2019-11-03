@@ -72,7 +72,7 @@ begin
 		dest_addr <= "00001010"; -- 10
 		array_size <= "00001010"; -- 10	
 		
-		wait for 20 * clk_period;
+		wait for 60 * clk_period;
 		
 		report "End of simulation" severity failure;
 	end process;

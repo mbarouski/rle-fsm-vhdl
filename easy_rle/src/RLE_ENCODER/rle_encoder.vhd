@@ -28,6 +28,7 @@ entity rle_encoder is
 	port(								  
 		clk : in STD_LOGIC;
 		rst : in STD_LOGIC;
+		en : in STD_LOGIC;
 		input : in STD_LOGIC_VECTOR(N-1 downto 0);	 
 		output : out STD_LOGIC_VECTOR(N-1 downto 0); 
 		counter : out STD_LOGIC_VECTOR(N-1 downto 0)
@@ -44,14 +45,14 @@ architecture rle_encoder of rle_encoder is
 begin
 	current_number(7 downto 0) <= input;
 	
-	p: process(clk, rst)
+	p: process(clk, rst, en)
 		variable same: std_logic := '0';
 	begin					 	 
 		if rising_edge(clk) then
 			if rst = '1' then
 				inner_counter <= 0;			   		   
 				previous_number <= (others => '1');
-			else
+			elsif en = '1' then
 				-- TODO(max): Write using cycle
 				same := (
 				(not (current_number(0) xor previous_number(0)))

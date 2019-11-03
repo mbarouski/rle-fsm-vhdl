@@ -42,12 +42,12 @@ SimulationAccessNetsModules=
 CSYNTH_TOOL=<none>
 CSYNTH_STATUS=NONE
 PHYSSYNTH_TOOL=MV_PLANAHEAD134
-PHYSSYNTH_STATUS=NONE
+PHYSSYNTH_STATUS=none
 SYNTH_TOOL=MV_XST134
 FLOWTOOLS=IMPL_WITH_SYNTH
 SYNTH_STATUS=none
 IMPL_TOOL=<none>
-IMPL_STATUS=NONE
+IMPL_STATUS=none
 PCBINTERFACE_STATUS=NONE
 FAMILY=Xilinx13x Automotive_Spartan6
 ON_SERVERFARM_SIM=0
@@ -57,6 +57,9 @@ TIMING_SIMULATION_STATUS=
 ON_SERVERFARM_SYNTH=0
 ON_SERVERFARM_IMPL=0
 RUN_MODE_SYNTH=0
+FUNC_LIB=easy_rle
+POST_LIB=easy_rle_post_synthesis
+TIM_LIB=easy_rle_timing
 
 [Project]
 version=3
@@ -68,7 +71,7 @@ compile=easy_rle
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=manager_tb|testbench_for_manager|1 rle_encoder_tb|testbench_for_rle_encoder|1
+HierarchyInformation=
 ShowHide=ShowTopLevel
 Selected=
 

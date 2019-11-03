@@ -62,6 +62,7 @@ architecture manager of manager is
 		port(								  
 			rst : in STD_LOGIC;
 			clk : in STD_LOGIC;
+			en : in std_logic;
 			input : in STD_LOGIC_VECTOR(N-1 downto 0);
 			output : out STD_LOGIC_VECTOR(N-1 downto 0);
 			counter : out STD_LOGIC_VECTOR(N-1 downto 0)
@@ -69,10 +70,14 @@ architecture manager of manager is
 	end component;
 	
 	-- rle encoder				 		   
-	signal rle_rst: STD_LOGIC;
+	signal rle_rst: STD_LOGIC; 		   
+	signal rle_en: STD_LOGIC := '1';
 	signal rle_input : STD_LOGIC_VECTOR(N-1 downto 0);
 	signal rle_output : STD_LOGIC_VECTOR(N-1 downto 0);
-	signal rle_counter : STD_LOGIC_VECTOR(N-1 downto 0);
+	signal rle_counter : STD_LOGIC_VECTOR(N-1 downto 0);   
+	
+	
+	signal rle_prev_output : STD_LOGIC_VECTOR(N-1 downto 0);
 	
 	-- ram
 	signal ram_rst : STD_LOGIC;
@@ -89,8 +94,11 @@ architecture manager of manager is
 	signal inner_rst: std_logic;
 	signal inner_finish: std_logic := '0';
 	
-	-- inner service
-	signal address_offset: integer range 0 to MEM_SIZE * MEM_SIZE - 1 := 0;
+	-- inner service													   										  
+	signal rd_address_offset: integer range 0 to MEM_SIZE * MEM_SIZE - 1 := 0;
+	signal wr_address_offset: integer range 0 to MEM_SIZE * MEM_SIZE - 1 := 0;
+	
+	signal state : integer range 0 to 2 := 0;
 begin							 					 
 	
 	ram_0 : ram
@@ -113,9 +121,10 @@ begin
 		N => N
 		)
 	
-	port map (		 	 
+	port map (
+		clk => clk,		 	 
 		rst => rle_rst,
-		clk => clk,
+		en => rle_en,
 		input => rle_input,
 		output => rle_output,
 		counter => rle_counter
@@ -136,28 +145,55 @@ begin
 	finish <= inner_finish;	 
 	src_num <= ram_data_out;
 	dest_num <= rle_output;
-	dest_counter <= rle_counter; 
+	dest_counter <= rle_counter;
 	
 	main: process(clk, rst)
 	begin
-		if rst = '0' then
-			if falling_edge(clk) then 
-				ram_rd <= '1';
-				ram_wr <= '0';
-				ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_src_addr)) + address_offset, MEM_SIZE);
-				if address_offset = conv_integer(unsigned(inner_array_size)) then
-					inner_finish <= '1';
-				end if;	  
-				address_offset <= address_offset + 1;
-			elsif rising_edge(clk) then
-				-- didin't test yet
-				ram_wr <= '1'; 
-				ram_rd <= '0';
-				ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_dest_addr)) + wr_address_offset, MEM_SIZE);
-				ram_data_in <= rle_output;
-			end if;
-		else 
-			-- reset
+		if rst = '1' then 
+			--reset
+		else
+			if rising_edge(clk) then	
+				if state = 0 then	   							 				   					
+					rle_en <= '1';
+					ram_rd <= '1';
+					ram_wr <= '0';
+					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_src_addr)) + rd_address_offset, MEM_SIZE);
+				elsif state = 1 then						  				  					
+					rle_en <= '0';
+											   
+					ram_rd <= '0';
+					ram_wr <= '1';																						   																   
+					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_dest_addr)) + wr_address_offset, MEM_SIZE);
+					ram_data_in <= rle_output;
+				else
+					rle_en <= '0';
+											   
+					ram_rd <= '0';
+					ram_wr <= '1';																						   																   
+					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_dest_addr)) + wr_address_offset + 1, MEM_SIZE);
+					ram_data_in <= rle_counter;
+					
+				end if;
+			elsif falling_edge(clk) then
+				if state = 0 then
+					rd_address_offset <= rd_address_offset + 1;
+					rle_prev_output <= rle_output;
+					
+					state <= state + 1;
+				elsif state = 1 then
+					if rle_prev_output /= rle_output then 
+						wr_address_offset <= wr_address_offset + 1;
+					end if;									   
+					
+					state <= state + 1;
+				else   										   							  
+					if rle_prev_output /= rle_output then 
+						wr_address_offset <= wr_address_offset + 1;
+					end if;
+					
+					state <= (state + 1) mod 3;
+				end if;
+			end if;	 
 		end if;
 	end process; 
 end manager;

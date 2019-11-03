@@ -16,18 +16,20 @@ architecture rle_encoder_tb_arch of rle_encoder_tb is
 		generic(
 			N : INTEGER := 8 
 			);
-		port(								  
+		port(
+			clk : in STD_LOGIC;								  
 			rst : in STD_LOGIC;
-			clk : in STD_LOGIC;
+			en : in STD_LOGIC;
 			input : in STD_LOGIC_VECTOR(N-1 downto 0);
 			output : out STD_LOGIC_VECTOR(N-1 downto 0);
 			counter : out STD_LOGIC_VECTOR(N-1 downto 0)
 			);
 	end component;
 	
-	-- Stimulus signals - signals mapped to the input and inout ports of tested entity	   
+	-- Stimulus signals - signals mapped to the input and inout ports of tested entity		
+	signal clk : STD_LOGIC;   
 	signal rst : STD_LOGIC;
-	signal clk : STD_LOGIC;
+	signal en : STD_LOGIC;
 	signal input : STD_LOGIC_VECTOR(N-1 downto 0);
 	-- Observed signals - signals mapped to the output ports of tested entity
 	signal output : STD_LOGIC_VECTOR(N-1 downto 0);
@@ -41,9 +43,10 @@ begin
 		N => N
 		)
 	
-	port map (		 	 
-		rst => rst,
-		clk => clk,
+	port map (	
+		clk => clk,	 	 
+		rst => rst,	
+		en => en,
 		input => input,
 		output => output,
 		counter => counter
