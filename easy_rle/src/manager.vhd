@@ -34,15 +34,14 @@ entity manager is
 		dest_addr: in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 		array_size: in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 		finish : out STD_LOGIC;
-		-- for debug since I can't lok at internal signals
+		-- for debug since I can't look at internal signals
 		src_num : out STD_LOGIC_VECTOR(N-1 downto 0);
 		dest_num : out STD_LOGIC_VECTOR(N-1 downto 0);
 		dest_counter : out STD_LOGIC_VECTOR(N-1 downto 0)
 		);
 end manager;				 
 
-architecture manager of manager is 
-	
+architecture manager of manager is
 	component ram
 		generic(
 			N : INTEGER := N;
@@ -142,18 +141,23 @@ begin
 	main: process(clk, rst)
 	begin
 		if rst = '0' then
-			if falling_edge(clk) then
+			if falling_edge(clk) then 
 				ram_rd <= '1';
+				ram_wr <= '0';
 				ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_src_addr)) + address_offset, MEM_SIZE);
 				if address_offset = conv_integer(unsigned(inner_array_size)) then
 					inner_finish <= '1';
 				end if;	  
 				address_offset <= address_offset + 1;
-			elsif rising_edge(clk) then				 		  
-				-- nothing for now
+			elsif rising_edge(clk) then
+				-- didin't test yet
+				ram_wr <= '1'; 
+				ram_rd <= '0';
+				ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_dest_addr)) + wr_address_offset, MEM_SIZE);
+				ram_data_in <= rle_output;
 			end if;
 		else 
-			
+			-- reset
 		end if;
 	end process; 
 end manager;
