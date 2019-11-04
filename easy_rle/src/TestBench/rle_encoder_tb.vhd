@@ -61,12 +61,15 @@ begin
 	end process;
 	
 	test_process: process
-	begin		
+	begin	
+		input <= "00000000";	
 		rst <= '1'; 
 		wait for clk_period * 3;
-		rst <= '0';
+		rst <= '0';	   
 		
-		input <= (others => '0');
+		en <= '1';
+		
+		input <= "00000001";
 		wait for clk_period;    
 		
 		input <= "00000010";

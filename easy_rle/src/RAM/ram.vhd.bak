@@ -29,9 +29,9 @@ entity ram is
 		);
 	port(
 		clk : in STD_LOGIC;
-		rst : in STD_LOGIC := '0';
-		wr : in STD_LOGIC := '0'; -- write
-		rd : in STD_LOGIC := '0'; -- read
+		rst : in STD_LOGIC;
+		wr : in STD_LOGIC; -- write
+		rd : in STD_LOGIC; -- read
 		addr : in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 		data_in : in STD_LOGIC_VECTOR(N-1 downto 0);
 		data_out : out STD_LOGIC_VECTOR(N-1 downto 0)

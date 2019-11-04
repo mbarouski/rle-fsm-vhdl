@@ -64,8 +64,8 @@ begin
 	
 	main: process
 	begin	  	
-		rst <= '1';
-		wait for clk_period * 2;
+		rst <= '1';			   		 
+		wait for clk_period * 2; 
 		rst <= '0';
 		
 		src_addr <= "00000000";	-- 0

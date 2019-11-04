@@ -162,9 +162,7 @@ begin
 					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_src_addr)) + rd_address_offset, MEM_SIZE); 
 					rle_prev_counter <= rle_counter;	
 elsif state = 1				then
-rle_en <= '0';	
-ram_rd <= '0';
-					ram_wr <= '0';					
+-- empty						
 				elsif state = 2 then						  				  					
 					rle_en <= '0';
 					
