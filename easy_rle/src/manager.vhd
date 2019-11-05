@@ -163,10 +163,11 @@ begin
 					ram_wr <= '0';
 					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_src_addr)) + rd_address_offset, MEM_SIZE); 
 					rle_prev_counter <= rle_counter;	
+					rle_prev_output <= rle_output;
 				elsif state = 1 then
 					rle_en <= '0';	
 					ram_rd <= '0';
-					ram_wr <= '0';					
+					ram_wr <= '0';				
 				elsif state = 2 then						  				  					
 					rle_en <= '0';
 					
@@ -178,10 +179,9 @@ begin
 					rle_en <= '0';
 					
 					ram_rd <= '0';
-					ram_wr <= '1';																						   																   
-					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_dest_addr)) + wr_address_offset - 1, MEM_SIZE);
+					ram_wr <= '1';						   																   
+					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_dest_addr)) + wr_address_offset + 1, MEM_SIZE);														
 					ram_data_in <= rle_counter;
-					
 				end if;
 			elsif falling_edge(clk) then
 				if state = 0 then					
@@ -191,15 +191,15 @@ begin
 				elsif state = 1 then			
 					state <= state + 1;	
 				elsif state = 2 then				
-					state <= state + 1;	 
-   							  
-					if rle_prev_output /= rle_output and rle_prev_counter /= (N-1 downto 0 => '0') then 
-						wr_address_offset <= wr_address_offset + 2;
-					end if;
+					state <= state + 1;	
 				else   					
 					state <= (state + 1) mod 4;
 
-					rle_prev_output <= rle_output;
+					--if rle_prev_output /= rle_output and rle_prev_counter /= (N-1 downto 0 => '0') then 
+					if rle_output /= rle_input and rle_prev_counter /= (N-1 downto 0 => '0') then 
+						wr_address_offset <= wr_address_offset + 2;
+					end if;	
+
 				end if;
 			end if;	 
 		end if;
