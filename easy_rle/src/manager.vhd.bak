@@ -90,7 +90,7 @@ architecture manager of manager is
 	signal ram_data_out : STD_LOGIC_VECTOR(N-1 downto 0) := (others => '0');
 	
 	-- inner duplicates
-	signal inner_src_addr: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
+	signal inner_src_addr: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0) := (others => '0');
 	signal inner_dest_addr: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	signal inner_array_size: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	signal inner_rst: std_logic;
@@ -151,6 +151,7 @@ begin
 	
 	main: process(clk, rst)
 	begin
+		ram_rst <= rst;
 		if rst = '1' then 
 			state <= 0;
 		else
@@ -161,8 +162,10 @@ begin
 					ram_wr <= '0';
 					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_src_addr)) + rd_address_offset, MEM_SIZE); 
 					rle_prev_counter <= rle_counter;	
-elsif state = 1				then
--- empty						
+				elsif state = 1 then
+					rle_en <= '0';	
+					ram_rd <= '0';
+					ram_wr <= '0';					
 				elsif state = 2 then						  				  					
 					rle_en <= '0';
 					

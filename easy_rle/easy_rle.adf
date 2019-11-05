@@ -71,7 +71,7 @@ compile=easy_rle
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=manager_tb|testbench_for_manager|1 rle_encoder_tb|testbench_for_rle_encoder|1 
+HierarchyInformation=manager_tb|testbench_for_manager|1 rle_encoder_tb|testbench_for_rle_encoder|1
 ShowHide=ShowTopLevel
 Selected=
 
