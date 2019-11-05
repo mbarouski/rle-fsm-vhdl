@@ -4,6 +4,7 @@
 **/compile.cfg
 **/*.error
 **/synthesis
+**/*.bak
 
 **/log/
 **/Edfmap.ini

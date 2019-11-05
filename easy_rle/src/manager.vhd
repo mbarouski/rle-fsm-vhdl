@@ -45,7 +45,8 @@ architecture manager of manager is
 	component ram
 		generic(
 			N : INTEGER := N;
-			MEM_SIZE : INTEGER := MEM_SIZE );
+			MEM_SIZE : INTEGER := MEM_SIZE
+			);
 		port(
 			clk : in STD_LOGIC;
 			rst : in STD_LOGIC;
@@ -53,7 +54,8 @@ architecture manager of manager is
 			rd : in STD_LOGIC;
 			addr : in STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 			data_in : in STD_LOGIC_VECTOR(N-1 downto 0);
-			data_out : out STD_LOGIC_VECTOR(N-1 downto 0) );																													
+			data_out : out STD_LOGIC_VECTOR(N-1 downto 0)
+			);																													
 	end component;
 	
 	component rle_encoder
@@ -71,13 +73,13 @@ architecture manager of manager is
 	
 	-- rle encoder				 		   
 	signal rle_rst: STD_LOGIC; 		   
-	signal rle_en: STD_LOGIC := '1';
+	signal rle_en: STD_LOGIC := '0';
 	signal rle_input : STD_LOGIC_VECTOR(N-1 downto 0);
 	signal rle_output : STD_LOGIC_VECTOR(N-1 downto 0);
 	signal rle_counter : STD_LOGIC_VECTOR(N-1 downto 0);   
-	
-	
+															  											
 	signal rle_prev_output : STD_LOGIC_VECTOR(N-1 downto 0);
+	signal rle_prev_counter : STD_LOGIC_VECTOR(N-1 downto 0);
 	
 	-- ram
 	signal ram_rst : STD_LOGIC;
@@ -88,7 +90,7 @@ architecture manager of manager is
 	signal ram_data_out : STD_LOGIC_VECTOR(N-1 downto 0) := (others => '0');
 	
 	-- inner duplicates
-	signal inner_src_addr: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
+	signal inner_src_addr: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0) := (others => '0');
 	signal inner_dest_addr: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	signal inner_array_size: STD_LOGIC_VECTOR(MEM_SIZE-1 downto 0);
 	signal inner_rst: std_logic;
@@ -98,7 +100,7 @@ architecture manager of manager is
 	signal rd_address_offset: integer range 0 to MEM_SIZE * MEM_SIZE - 1 := 0;
 	signal wr_address_offset: integer range 0 to MEM_SIZE * MEM_SIZE - 1 := 0;
 	
-	signal state : integer range 0 to 2 := 0;
+	signal state : integer range 0 to 3 := 0;
 begin							 					 
 	
 	ram_0 : ram
@@ -149,49 +151,55 @@ begin
 	
 	main: process(clk, rst)
 	begin
+		ram_rst <= rst;
+		rle_rst <= rst;
 		if rst = '1' then 
-			--reset
+			state <= 0;
 		else
 			if rising_edge(clk) then	
 				if state = 0 then	   							 				   					
 					rle_en <= '1';
 					ram_rd <= '1';
 					ram_wr <= '0';
-					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_src_addr)) + rd_address_offset, MEM_SIZE);
-				elsif state = 1 then						  				  					
+					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_src_addr)) + rd_address_offset, MEM_SIZE); 
+					rle_prev_counter <= rle_counter;	
+					rle_prev_output <= rle_output;
+				elsif state = 1 then
+					rle_en <= '0';	
+					ram_rd <= '0';
+					ram_wr <= '0';				
+				elsif state = 2 then						  				  					
 					rle_en <= '0';
-											   
+					
 					ram_rd <= '0';
 					ram_wr <= '1';																						   																   
 					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_dest_addr)) + wr_address_offset, MEM_SIZE);
 					ram_data_in <= rle_output;
 				else
 					rle_en <= '0';
-											   
-					ram_rd <= '0';
-					ram_wr <= '1';																						   																   
-					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_dest_addr)) + wr_address_offset + 1, MEM_SIZE);
-					ram_data_in <= rle_counter;
 					
+					ram_rd <= '0';
+					ram_wr <= '1';						   																   
+					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_dest_addr)) + wr_address_offset + 1, MEM_SIZE);														
+					ram_data_in <= rle_counter;
 				end if;
 			elsif falling_edge(clk) then
-				if state = 0 then
-					rd_address_offset <= rd_address_offset + 1;
-					rle_prev_output <= rle_output;
-					
-					state <= state + 1;
-				elsif state = 1 then
-					if rle_prev_output /= rle_output then 
-						wr_address_offset <= wr_address_offset + 1;
-					end if;									   
-					
-					state <= state + 1;
-				else   										   							  
-					if rle_prev_output /= rle_output then 
-						wr_address_offset <= wr_address_offset + 1;
-					end if;
-					
-					state <= (state + 1) mod 3;
+				if state = 0 then					
+					state <= state + 1;	
+
+					rd_address_offset <= rd_address_offset + 1;	
+				elsif state = 1 then			
+					state <= state + 1;	
+				elsif state = 2 then				
+					state <= state + 1;	
+				else   					
+					state <= (state + 1) mod 4;
+
+					--if rle_prev_output /= rle_output and rle_prev_counter /= (N-1 downto 0 => '0') then 
+					if rle_output /= rle_input and rle_prev_counter /= (N-1 downto 0 => '0') then 
+						wr_address_offset <= wr_address_offset + 2;
+					end if;	
+
 				end if;
 			end if;	 
 		end if;

@@ -71,7 +71,7 @@ compile=easy_rle
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=
+HierarchyInformation=manager_tb|testbench_for_manager|1 
 ShowHide=ShowTopLevel
 Selected=
 
@@ -84,11 +84,6 @@ DESIGNS=SPARTAN6
 
 [Library]
 easy_rle=.\easy_rle.LIB
-
-[Groups]
-RAM=1
-RLE_ENCODER=1
-TestBench=1
 
 [PCB_INTERFACE]
 FAMILY=
@@ -110,6 +105,11 @@ FLOW_STEPS_RESET=1
 FAMILY=Xilinx13x Automotive_Spartan6
 DEVICE=
 SPEED=
+
+[Groups]
+RAM=1
+RLE_ENCODER=1
+TestBench=1
 
 [Files]
 /manager.vhd=-1

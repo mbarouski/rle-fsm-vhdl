@@ -63,14 +63,15 @@ begin
 		);
 	
 	main: process
-	begin	  	
-		rst <= '1';
-		wait for clk_period * 2;
-		rst <= '0';
-		
+	begin
 		src_addr <= "00000000";	-- 0
 		dest_addr <= "00001010"; -- 10
 		array_size <= "00001010"; -- 10	
+		
+		rst <= '1';			   		 
+		wait for clk_period * 2;
+		wait for clk_period / 4;
+		rst <= '0';				   
 		
 		wait for 60 * clk_period;
 		

@@ -28,7 +28,7 @@ entity rle_encoder is
 	port(								  
 		clk : in STD_LOGIC;
 		rst : in STD_LOGIC;
-		en : in STD_LOGIC;
+		en : in STD_LOGIC := '0';
 		input : in STD_LOGIC_VECTOR(N-1 downto 0);	 
 		output : out STD_LOGIC_VECTOR(N-1 downto 0); 
 		counter : out STD_LOGIC_VECTOR(N-1 downto 0)
