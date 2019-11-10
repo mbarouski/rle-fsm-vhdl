@@ -36,8 +36,33 @@ CompileWithDebug=0
 
 [$LibMap$]
 fsm_rle=.
-
 Active_lib=SPARTAN6
 xilinxun=SPARTAN6
 UnlinkedDesignLibrary=SPARTAN6
 DESIGNS=SPARTAN6
+
+[Folders]
+Name3=Makefiles
+Directory3=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\fsm_rle\
+Extension3=mak
+Name4=Memory
+Directory4=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\fsm_rle\src
+Extension4=mem;mif;hex
+Name5=Dll Libraries
+Directory5=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\fsm_rle\
+Extension5=dll
+Name6=PDF
+Directory6=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\fsm_rle\
+Extension6=pdf
+Name7=HTML
+Directory7=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\fsm_rle\
+Extension7=
+
+[Files]
+/rom.vhd=-1
+/pkg.vhd=-1
+
+[Files.Data]
+.\src\rom.vhd=VHDL Source Code
+.\src\pkg.vhd=VHDL Source Code
+

@@ -10,7 +10,7 @@ mode=none
 order=1
 macro=
 [Expand]
-easy_rle=1
+easy_rle=0
 fsm_rle=1
 [Settings]
 Active=fsm_rle
