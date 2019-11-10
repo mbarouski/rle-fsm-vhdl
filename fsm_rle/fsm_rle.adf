@@ -64,12 +64,14 @@ TestBench=1
 [Files]
 /rom.vhd=-1
 /pkg.vhd=-1
+/ROM_IF.vhd=-1
 TestBench/rom_TB.vhd=-1
 TestBench/rom_TB_runtest.do=-1
 
 [Files.Data]
 .\src\rom.vhd=VHDL Source Code
 .\src\pkg.vhd=VHDL Source Code
+.\src\ROM_IF.vhd=VHDL Source Code
 .\src\TestBench\rom_TB.vhd=VHDL Test Bench
 .\src\TestBench\rom_TB_runtest.do=Macro
 
