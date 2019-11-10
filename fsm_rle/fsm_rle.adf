@@ -58,11 +58,18 @@ Name7=HTML
 Directory7=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\fsm_rle\
 Extension7=
 
+[Groups]
+TestBench=1
+
 [Files]
 /rom.vhd=-1
 /pkg.vhd=-1
+TestBench/rom_TB.vhd=-1
+TestBench/rom_TB_runtest.do=-1
 
 [Files.Data]
 .\src\rom.vhd=VHDL Source Code
 .\src\pkg.vhd=VHDL Source Code
+.\src\TestBench\rom_TB.vhd=VHDL Test Bench
+.\src\TestBench\rom_TB_runtest.do=Macro
 
