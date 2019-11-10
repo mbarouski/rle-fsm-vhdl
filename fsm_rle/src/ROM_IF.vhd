@@ -18,8 +18,9 @@
 --
 -------------------------------------------------------------------------------		
 
-library IEEE;
+library IEEE;						   
 use IEEE.STD_LOGIC_1164.all;
+use IEEE.STD_LOGIC_ARITH.all;
 use FSM_RLE.all;
 
 entity ROM_IF is
@@ -75,7 +76,7 @@ begin
 		if L = '1' and opcode = JL then
 			pc_next <= argfield;
 		else 
-			pc_next <= pc_current + 1;
+			pc_next <= conv_std_logic_vector(conv_integer(unsigned(pc_current)) + 1, 4);
 		end if;	
 	end process;
 	

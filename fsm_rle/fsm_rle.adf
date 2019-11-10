@@ -65,13 +65,24 @@ TestBench=1
 /rom.vhd=-1
 /pkg.vhd=-1
 /ROM_IF.vhd=-1
+/ROM_UNIT.vhd=-1
 TestBench/rom_TB.vhd=-1
 TestBench/rom_TB_runtest.do=-1
+TestBench/rom_unit_TB.vhd=-1
+TestBench/rom_unit_TB_runtest.do=-1
 
 [Files.Data]
 .\src\rom.vhd=VHDL Source Code
 .\src\pkg.vhd=VHDL Source Code
 .\src\ROM_IF.vhd=VHDL Source Code
+.\src\ROM_UNIT.vhd=VHDL Source Code
 .\src\TestBench\rom_TB.vhd=VHDL Test Bench
 .\src\TestBench\rom_TB_runtest.do=Macro
+.\src\TestBench\rom_unit_TB.vhd=VHDL Test Bench
+.\src\TestBench\rom_unit_TB_runtest.do=Macro
 
+[HierarchyViewer]
+SortInfo=u
+HierarchyInformation=rom|rom|0 rom_tb|testbench_for_rom|1 rom_unit_tb|testbench_for_rom_unit|1 
+ShowHide=ShowTopLevel
+Selected=

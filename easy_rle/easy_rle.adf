@@ -71,7 +71,7 @@ compile=easy_rle
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=manager_tb|testbench_for_manager|1 
+HierarchyInformation=manager_tb|testbench_for_manager|1
 ShowHide=ShowTopLevel
 Selected=
 
@@ -111,6 +111,23 @@ RAM=1
 RLE_ENCODER=1
 TestBench=1
 
+[Folders]
+Name3=Makefiles
+Directory3=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\easy_rle\
+Extension3=mak
+Name4=Memory
+Directory4=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\easy_rle\src
+Extension4=mem;mif;hex
+Name5=Dll Libraries
+Directory5=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\easy_rle\
+Extension5=dll
+Name6=PDF
+Directory6=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\easy_rle\
+Extension6=pdf
+Name7=HTML
+Directory7=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\easy_rle\
+Extension7=
+
 [Files]
 /manager.vhd=-1
 RAM/ram.vhd=-1
@@ -132,19 +149,4 @@ TestBench/manager_TB_runtest.do=-1
 .\src\TestBench\ram_TB_runtest.do=Macro
 .\src\TestBench\manager_TB.vhd=VHDL Test Bench
 .\src\TestBench\manager_TB_runtest.do=Macro
-[Folders]
-Name3=Makefiles
-Directory3=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\easy_rle\
-Extension3=mak
-Name4=Memory
-Directory4=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\easy_rle\src
-Extension4=mem;mif;hex
-Name5=Dll Libraries
-Directory5=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\easy_rle\
-Extension5=dll
-Name6=PDF
-Directory6=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\easy_rle\
-Extension6=pdf
-Name7=HTML
-Directory7=D:\Documents\Study\MasterCourses\3_semester\PCSUPL\vhdl_master_course_labs\easy_rle\
-Extension7=
+
