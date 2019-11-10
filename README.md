@@ -32,3 +32,7 @@ Result array:
 ```
 2,1,10,3,0,2,11,2,0,2
 ```
+
+## FSM RLE
+
+Inspired by Ivaniuk A. A. presentations "Designing digital systems on programmable logic devices"
