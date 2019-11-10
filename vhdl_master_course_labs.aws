@@ -2,6 +2,7 @@
 Version=9.1
 [Designs]
 easy_rle=.\easy_rle\easy_rle.adf
+fsm_rle=.\fsm_rle\fsm_rle.adf
 [Browser]
 sort=order
 mode=none
@@ -10,3 +11,6 @@ order=1
 macro=
 [Expand]
 easy_rle=1
+fsm_rle=1
+[Settings]
+Active=fsm_rle

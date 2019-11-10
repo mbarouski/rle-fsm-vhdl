@@ -1,0 +1,43 @@
+[Project]
+Current Flow=Generic
+VCS=0
+version=3
+Current Config=compile
+
+[Configurations]
+compile=fsm_rle
+
+[Library]
+fsm_rle=.\fsm_rle.LIB
+
+[Settings]
+AccessRead=0
+AccessReadWrite=0
+AccessACCB=0
+AccessACCR=0
+AccessReadWriteSLP=0
+AccessReadTopLevel=1
+DisableC=1
+ENABLE_ADV_DATAFLOW=0
+FLOW_TYPE=HDL
+LANGUAGE=VHDL
+FLOWTOOLS=NONE
+REFRESH_FLOW=1
+FAMILY=Xilinx13x Automotive_Spartan6
+IMPL_TOOL=
+SYNTH_TOOL=
+
+[LocalVerilogSets]
+EnableSLP=1
+EnableDebug=0
+
+[LocalVhdlSets]
+CompileWithDebug=0
+
+[$LibMap$]
+fsm_rle=.
+
+Active_lib=SPARTAN6
+xilinxun=SPARTAN6
+UnlinkedDesignLibrary=SPARTAN6
+DESIGNS=SPARTAN6
