@@ -61,28 +61,43 @@ Extension7=
 [Groups]
 TestBench=1
 
+[HierarchyViewer]
+SortInfo=u
+HierarchyInformation=rom|rom|0 rom_tb|testbench_for_rom|1 rom_unit_tb|testbench_for_rom_unit|1
+ShowHide=ShowTopLevel
+Selected=
+
 [Files]
 /rom.vhd=-1
 /pkg.vhd=-1
 /ROM_IF.vhd=-1
 /ROM_UNIT.vhd=-1
+/RAM.vhd=-1
+/RAM_IF.vhd=-1
+/RAM_UNIT.vhd=-1
 TestBench/rom_TB.vhd=-1
 TestBench/rom_TB_runtest.do=-1
 TestBench/rom_unit_TB.vhd=-1
 TestBench/rom_unit_TB_runtest.do=-1
+TestBench/ram_TB.vhd=-1
+TestBench/ram_TB_runtest.do=-1
+TestBench/ram_unit_TB.vhd=-1
+TestBench/ram_unit_TB_runtest.do=-1
 
 [Files.Data]
 .\src\rom.vhd=VHDL Source Code
 .\src\pkg.vhd=VHDL Source Code
 .\src\ROM_IF.vhd=VHDL Source Code
 .\src\ROM_UNIT.vhd=VHDL Source Code
+.\src\RAM.vhd=VHDL Source Code
+.\src\RAM_IF.vhd=VHDL Source Code
+.\src\RAM_UNIT.vhd=VHDL Source Code
 .\src\TestBench\rom_TB.vhd=VHDL Test Bench
 .\src\TestBench\rom_TB_runtest.do=Macro
 .\src\TestBench\rom_unit_TB.vhd=VHDL Test Bench
 .\src\TestBench\rom_unit_TB_runtest.do=Macro
+.\src\TestBench\ram_TB.vhd=VHDL Test Bench
+.\src\TestBench\ram_TB_runtest.do=Macro
+.\src\TestBench\ram_unit_TB.vhd=VHDL Test Bench
+.\src\TestBench\ram_unit_TB_runtest.do=Macro
 
-[HierarchyViewer]
-SortInfo=u
-HierarchyInformation=rom|rom|0 rom_tb|testbench_for_rom|1 rom_unit_tb|testbench_for_rom_unit|1 
-ShowHide=ShowTopLevel
-Selected=
