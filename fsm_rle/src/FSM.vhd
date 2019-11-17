@@ -27,14 +27,14 @@ entity FSM is
 		CLK : in STD_LOGIC;
 		RST : in STD_LOGIC;
 		START : in STD_LOGIC;
-		FSM_ROM_IN : in ROM_UNIT_INPUTS;
-		FSM_RAM_IN : in STD_LOGIC;
+		FSM_ROM_IN : out ROM_UNIT_INPUTS;
+		FSM_RAM_IN : in std_logic;
 		FSM_LIFO_IN : in FSM_LIFO_INPUTS;
 		FSM_ALU_IN : in FSM_ALU_INPUTS;
 		HALT : out STD_LOGIC;
 		ERROR : out STD_LOGIC;
-		FSM_ROM_OUT : out ROM_UNIT_OUTPUTS;
-		FSM_RAM_OUT : out STD_LOGIC;
+		FSM_ROM_OUT : in ROM_UNIT_OUTPUTS;
+		FSM_RAM_OUT : out RAM_UNIT_OUTPUTS;
 		FSM_LIFO_OUT : out STD_LOGIC;
 		FSM_ALU_OUT : out STD_LOGIC
 		);
@@ -163,25 +163,43 @@ begin
 		end if;
 	end process; 
 	
-	FSM_ROM_OUT.CLK <= CLK;	
-	FSM_ROM_OUT.RST <= RST;
-	FSM_ROM_OUT.L <= FSM_ALU_IN.L_FLAG;	
+	FSM_ROM_IN.CLK <= CLK;	
+	FSM_ROM_IN.RST <= RST;
+	FSM_ROM_IN.L <= FSM_ALU_IN.L_FLAG;	
 	
 	P_OUT_ROM_IF: process(state.cur)
 	begin
 		case state.cur is 
-			when s_READ_ROM => FSM_ROM_OUT.EN <= '1';
-				FSM_ROM_OUT.IR_EN <= '0';	  
-			FSM_ROM_OUT.PC_EN <= '0';
-			when s_WRITE_IR => FSM_ROM_OUT.EN <= '0';  
-				FSM_ROM_OUT.EN <= '1';
-			FSM_ROM_OUT.EN <= '0'; 
-			when s_PC_NEW => FSM_ROM_OUT.EN <= '0';  
-				FSM_ROM_OUT.EN <= '0';
-			FSM_ROM_OUT.EN <= '1';
-			when others => FSM_ROM_OUT.EN <= '0';  
-				FSM_ROM_OUT.EN <= '0';
-			FSM_ROM_OUT.EN <= '0';
+			when s_READ_ROM => FSM_ROM_IN.EN <= '1';
+				FSM_ROM_IN.IR_EN <= '0';	  
+			FSM_ROM_IN.PC_EN <= '0';
+			when s_WRITE_IR => FSM_ROM_IN.EN <= '0';  
+				FSM_ROM_IN.EN <= '1';
+			FSM_ROM_IN.EN <= '0'; 
+			when s_PC_NEW => FSM_ROM_IN.EN <= '0';  
+				FSM_ROM_IN.EN <= '0';
+			FSM_ROM_IN.EN <= '1';
+			when others => FSM_ROM_IN.EN <= '0';  
+				FSM_ROM_IN.EN <= '0';
+			FSM_ROM_IN.EN <= '0';
+		end case;
+	end process;  
+						   				  
+	FSM_RAM_OUT.CLK <= CLK;
+	FSM_RAM_OUT.RST <= RST;
+	FSM_RAM_OUT.TOS <= FSM_LIFO_IN.TOS(3 downto 0);
+	FSM_RAM_OUT.TOS_1 <= FSM_LIFO_IN.TOS_1;
+	FSM_RAM_OUT.IR <= FSM_ROM_OUT.IR(3 downto 0);
+	
+	P_OUT_RAM_IF_1: process(state.cur)
+	begin		
+		case state.cur is					
+			when s_RAM_RD => FSM_RAM_OUT.R_EN <= '1';
+			FSM_RAM_OUT.W_EN <= '0';
+			when s_RAM_WR => FSM_RAM_OUT.R_EN <= '0';
+			FSM_RAM_OUT.W_EN <= '1';
+			when others => FSM_RAM_OUT.R_EN <= '0';
+			FSM_RAM_OUT.W_EN <= '0';
 		end case;
 	end process;
 	

@@ -63,7 +63,7 @@ TestBench=1
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=ram_unit_tb|testbench_for_ram_unit|1 
+HierarchyInformation=rom|rom|0 
 ShowHide=ShowTopLevel
 Selected=
 

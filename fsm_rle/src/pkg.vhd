@@ -5,22 +5,38 @@ package FSM_RLE is
 	subtype BYTE is std_logic_vector(7 downto 0);
 	subtype NIBBLE is std_logic_vector(3 downto 0);	
 	
-	type ROM_UNIT_OUTPUTS is record	 
+	type ROM_UNIT_OUTPUTS is record	  
+		IR: BYTE;		   
+	end record ROM_UNIT_OUTPUTS;	
+	
+	type ROM_UNIT_INPUTS is record	
 		CLK: std_logic;
 		RST: std_logic;
 		PC_EN: std_logic;
 		IR_EN: std_logic;
 		EN: std_logic;
-		L: std_logic;
-	end record ROM_UNIT_OUTPUTS;	
-	
-	type ROM_UNIT_INPUTS is record	 
-		IR: BYTE;	
+		L: std_logic;  	
 	end record ROM_UNIT_INPUTS; 
+	
+	--type RAM_UNIT_OUTPUTS is record	
+--		
+--	end record RAM_UNIT_OUTPUTS;	
+	
+	type RAM_UNIT_OUTPUTS is record	
+		CLK: std_logic;
+		RST: std_logic;	 
+		TOS: NIBBLE; 
+		TOS_1: BYTE;
+		IR: NIBBLE;
+		R_EN: std_logic;
+		W_EN: std_logic;
+	end record RAM_UNIT_OUTPUTS; 
 	
 	type FSM_LIFO_INPUTS is record
 		EMPTY: std_logic;
-		FULL: std_logic;
+		FULL: std_logic; 
+		TOS: BYTE;
+		TOS_1: BYTE;
 	end record; 
 	
 	type FSM_ALU_INPUTS is record
