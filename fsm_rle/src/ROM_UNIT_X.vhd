@@ -24,8 +24,8 @@ use FSM_RLE.all;
 
 entity ROM_UNIT_X is
 	port(
-		ROM_IN : in ROM_UNIT_INPUTS;
-		ROM_OUT : out ROM_UNIT_OUTPUTS
+		ROM_IN : in ROM_UNIT_OUTPUTS; -- it is output for fsm
+		ROM_OUT : out ROM_UNIT_INPUTS -- it is input for fsm
 		);
 end ROM_UNIT_X;								  
 
