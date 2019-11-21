@@ -30,20 +30,29 @@ entity ALU_UNIT is
 		EN : in STD_LOGIC;
 		ARG_1 : in BYTE;
 		ARG_2 : in BYTE;
-		OPCODE : in NIBBLE;
-		L_FLAG : out STD_LOGIC;
+		OPCODE : in NIBBLE;										 
+		
+		EQ_FLAG: out std_logic; -- if arg_1 == arg_2
+		GT_FLAG: out std_logic; -- if arg_1 > arg_2
+		
 		RESULT : out BYTE
 		);
 end ALU_UNIT;								 
 
 architecture ALU_UNIT of ALU_UNIT is   
 	
-	signal sarg2: std_logic; -- mux param to get the 2nd operand for add or inc (tos_1 or 1)
-	signal reg_res: BYTE;
+	signal sarg2: std_logic; -- mux param to get the 2nd operand for add or inc (REG_VALUE or 1)			  
+	
 	signal op0, op1: BYTE;
-	signal res: BYTE;	  
-	signal l: std_logic;
-	signal l_res: std_logic;
+	
+	signal res: BYTE;
+	signal res_res: BYTE; 	  
+						   
+	signal eq: std_logic;
+	signal gt: std_logic;
+						   
+	signal eq_res: std_logic;
+	signal gt_res: std_logic; 
 	
 begin								   						  
 	
@@ -68,41 +77,50 @@ begin
 	P_CMP: process(op0, op1)
 	begin
 		if op0 > op1 then
-			l <= '1';
-		else  
-			l <= '0';
+			gt <= '1';
+			eq <= '0';
+		elsif op0 = op1 then
+			gt <= '0';
+			eq <= '1';
+		else 
+			gt <= '0';
+			eq <= '0';
 		end if;						 	
 	end process; 
 	
-	P_REG_RES: process(CLK, RST, EN, OPCODE, sarg2, res)
+	P_RES_RES: process(CLK, RST, EN, OPCODE, res)
 	begin
 		if RST = '1' then	  
-			reg_res <= (others => '0');
+			res_res <= (others => '0');
 		elsif EN = '1' then
-			if OPCODE = ADD or sarg2 = '1' then
+			if OPCODE = ADD or OPCODE = INC then
 				if rising_edge(CLK) then
-					reg_res <= res;
+					res_res <= res;
 				end if;
 			end if;
 		end if;
 	end process;
 	
-	P_L_RES: process(CLK, RST, EN, OPCODE, l)
+	P_FLAGS_RES: process(CLK, RST, EN, OPCODE, eq, gt)
 	begin
 		if RST = '1' then	  
-			l_res <= '0';
+			gt_res <= '0';
+			eq_res <= '0';
 		elsif EN = '1' then	
 			if rising_edge(CLK) then  
-				if OPCODE = CMP or OPCODE = JL then
-					l_res <= l;
-				else 
-					l_res <= '0';
+				if OPCODE = JEQ or OPCODE = JEG then     
+					gt_res <= gt;
+					eq_res <= eq;
+				else 			  		    
+					gt_res <= '0';
+					eq_res <= '0';
 				end if;
 			end if;	
 		end if;
 	end process;
-	
-	L_FLAG <= l_res;
-	RESULT <= reg_res;
+					   			   
+	GT_FLAG <= gt_res;
+	EQ_FLAG <= eq_res;
+	RESULT <= res_res;
 	
 end ALU_UNIT;

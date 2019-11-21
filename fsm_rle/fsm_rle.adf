@@ -63,7 +63,7 @@ TestBench=1
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=
+HierarchyInformation=alu_unit_tb|testbench_for_alu_unit|1 gpr_tb|testbench_for_gpr|1 
 ShowHide=ShowTopLevel
 Selected=
 
@@ -91,6 +91,8 @@ TestBench/ram_unit_TB.vhd=-1
 TestBench/ram_unit_TB_runtest.do=-1
 TestBench/gpr_TB.vhd=-1
 TestBench/gpr_TB_runtest.do=-1
+TestBench/alu_unit_TB.vhd=-1
+TestBench/alu_unit_TB_runtest.do=-1
 
 [Files.Data]
 .\src\rom.vhd=VHDL Source Code
@@ -116,4 +118,6 @@ TestBench/gpr_TB_runtest.do=-1
 .\src\TestBench\ram_unit_TB_runtest.do=Macro
 .\src\TestBench\gpr_TB.vhd=VHDL Test Bench
 .\src\TestBench\gpr_TB_runtest.do=Macro
+.\src\TestBench\alu_unit_TB.vhd=VHDL Test Bench
+.\src\TestBench\alu_unit_TB_runtest.do=Macro
 
