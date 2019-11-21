@@ -80,6 +80,7 @@ Selected=
 /ALU_UNIT.vhd=-1
 /FSM.vhd=-1
 /ROM_UNIT_X.vhd=-1
+/GPR.vhd=-1
 TestBench/rom_TB.vhd=-1
 TestBench/rom_TB_runtest.do=-1
 TestBench/rom_unit_TB.vhd=-1
@@ -88,6 +89,8 @@ TestBench/ram_TB.vhd=-1
 TestBench/ram_TB_runtest.do=-1
 TestBench/ram_unit_TB.vhd=-1
 TestBench/ram_unit_TB_runtest.do=-1
+TestBench/gpr_TB.vhd=-1
+TestBench/gpr_TB_runtest.do=-1
 
 [Files.Data]
 .\src\rom.vhd=VHDL Source Code
@@ -102,6 +105,7 @@ TestBench/ram_unit_TB_runtest.do=-1
 .\src\ALU_UNIT.vhd=VHDL Source Code
 .\src\FSM.vhd=VHDL Source Code
 .\src\ROM_UNIT_X.vhd=VHDL Source Code
+.\src\GPR.vhd=VHDL Source Code
 .\src\TestBench\rom_TB.vhd=VHDL Test Bench
 .\src\TestBench\rom_TB_runtest.do=Macro
 .\src\TestBench\rom_unit_TB.vhd=VHDL Test Bench
@@ -110,4 +114,6 @@ TestBench/ram_unit_TB_runtest.do=-1
 .\src\TestBench\ram_TB_runtest.do=Macro
 .\src\TestBench\ram_unit_TB.vhd=VHDL Test Bench
 .\src\TestBench\ram_unit_TB_runtest.do=Macro
+.\src\TestBench\gpr_TB.vhd=VHDL Test Bench
+.\src\TestBench\gpr_TB_runtest.do=Macro
 

@@ -3,7 +3,8 @@ use IEEE.STD_LOGIC_1164.all;
 
 package FSM_RLE is
 	subtype BYTE is std_logic_vector(7 downto 0);
-	subtype NIBBLE is std_logic_vector(3 downto 0);	
+	subtype NIBBLE is std_logic_vector(3 downto 0);
+	subtype REGI is std_logic_vector(2 downto 0);	
 	
 	type ROM_UNIT_OUTPUTS is record	 
 		CLK: std_logic;
@@ -69,16 +70,52 @@ package FSM_RLE is
 		EN: std_logic;
 	end record;
 	
-	constant PUSHV: NIBBLE := "0000"; 
-	constant PUSHC: NIBBLE := "0001"; 
-	constant WR: NIBBLE := "0010"; 
-	constant RD: NIBBLE := "0011"; 
-	constant ADD: NIBBLE := "0100"; 
-	constant INC: NIBBLE := "0101"; 
-	constant CMP: NIBBLE := "0110"; 
-	constant JL: NIBBLE := "0111"; 
-	constant STOP: NIBBLE := "1000"; 
-	constant NONE: NIBBLE := "1111"; 
+	-- instructions
+--  constant PUSHV: NIBBLE := "0000"; 
+--	constant PUSHC: NIBBLE := "0001"; 
+--	constant WR: NIBBLE := "0010"; 
+--	constant RD: NIBBLE := "0011"; 
+--	constant ADD: NIBBLE := "0100"; 
+--	constant INC: NIBBLE := "0101"; 
+--	constant CMP: NIBBLE := "0110"; 
+--	constant JL: NIBBLE := "0111"; 
+--	constant STOP: NIBBLE := "1000"; 
+--	constant NONE: NIBBLE := "1111"; 
+															   
+	constant MOV: NIBBLE := "0000";
+	constant RD: NIBBLE := "0001";
+	constant WR: NIBBLE := "0010";
+	constant MOVDAT: NIBBLE := "0011";
+	--constant CMP: NIBBLE := "0100";
+	constant JEQ: NIBBLE := "0101";
+	constant JEG: NIBBLE := "0110";
+	constant JMP: NIBBLE := "0111";
+	constant MOV2D: NIBBLE := "1000";
+	constant INC: NIBBLE := "1001";
+	constant ADD: NIBBLE := "1010";
+	constant MOV2DAT: NIBBLE := "1011";
+	constant MOV2ADR: NIBBLE := "1100";
+	
+	-- registers
+	constant A: REGI := "000";
+	constant B: REGI := "001";
+	constant C: REGI := "010";
+	constant D: REGI := "011"; -- it is a register which is used as one of operands for commands CMP and ADD
+	constant I: REGI := "100";
+	constant J: REGI := "101";
+	constant ADR: REGI := "110";
+	constant DAT: REGI := "111";
+	
+	type GPR_STATE is record	
+		A: BYTE; 	
+		B: BYTE; 	
+		C: BYTE; 	
+		D: BYTE; 	
+		I: BYTE; 	
+		J: BYTE; 	
+		ADR: BYTE; 	
+		DAT: BYTE; 
+	end record;
 end FSM_RLE;   
 
 package body FSM_RLE is
