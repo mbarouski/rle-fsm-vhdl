@@ -81,7 +81,7 @@ begin
 										   
 		ARG_1 <= "00000101";
 		ARG_2 <= "00000111"; 
-		OPCODE <= JEQ;
+		OPCODE <= CMP;
 		EN <= '1';
 		wait for clk_period;
 		EN <= '0';	  
@@ -89,7 +89,7 @@ begin
 										   
 		ARG_1 <= "00000111";
 		ARG_2 <= "00000101"; 
-		OPCODE <= JEQ;
+		OPCODE <= CMP;
 		EN <= '1';
 		wait for clk_period;
 		EN <= '0';	  
@@ -97,7 +97,7 @@ begin
 										   
 		ARG_1 <= "00000101";
 		ARG_2 <= "00000101"; 
-		OPCODE <= JEQ;
+		OPCODE <= CMP;
 		EN <= '1';
 		wait for clk_period;
 		EN <= '0';	  

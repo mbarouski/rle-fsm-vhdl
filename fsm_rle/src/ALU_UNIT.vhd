@@ -108,7 +108,7 @@ begin
 			eq_res <= '0';
 		elsif EN = '1' then	
 			if rising_edge(CLK) then  
-				if OPCODE = JEQ or OPCODE = JEG then     
+				if OPCODE = CMP then     
 					gt_res <= gt;
 					eq_res <= eq;
 				else 			  		    
