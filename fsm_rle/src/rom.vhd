@@ -23,7 +23,10 @@ use IEEE.STD_LOGIC_1164.all;
 use IEEE.STD_LOGIC_ARITH.all;
 use FSM_RLE.all;
 
-entity rom is
+entity rom is 
+	generic(
+	  	N: integer := 128
+	);
 	port(
 		clk : in STD_LOGIC;
 		en : in STD_LOGIC;
@@ -35,27 +38,63 @@ end rom;
 
 architecture rom of rom is	
 	
-	type T_ROM is array (0 to 15) of BYTE;
+	type T_ROM is array (0 to N-1) of BYTE;
 	
 	constant c_rom : T_ROM := (	 
-	0 => PUSHV & "0000",
-	1 => PUSHC & "0000",
-	2 => ADD & NONE,
-	3 => RD & NONE,
-	4 => PUSHC & "0010",
-	5 => WR & NONE,
-	6 => INC & NONE,
-	7 => PUSHV & "0001",
-	8 => CMP & NONE,
-	9 => JL & "0010",
-	10 => STOP & NONE,
+	0 => MOV & J & "0",	    -- mov j 0
+	1 => MOV2ADR & "0001",  -- mov2adr 1
+	2 => RD & NONE,		    -- rd
+	3 => MOVDAT & A &"0",		    -- movdat a
+	4 => MOV & C & "1",    -- mov c 1
+	5 => MOV & I & "1",		    -- mov i 1
+	6 => MOV2DAT & "0000",	    -- mov2adr 0
+	7 => RD & "0000",    -- rd
+	8 => MOVDAT & D & "0",	    -- movdat d
+	9 => CMP & I & "0",	    -- cmp i
+	10 => MOV2D & "0010", -- MOV2D 36 -- MOV2D STOP -- mov2d JMP_ADR -- because instruction will not fit ADR for jump
+	11 => JEQ & "0101",	    -- jeq 		  :CYCLE
+	12 => MOV2ADR & "0001",	-- mov2adr 1
+	13 => RD & "0000", -- rd	  	 
+	14 => MOVDAT & D & "0",		-- movdat d
+	15 => ADD & I & "0",		-- add i
+	16 => MOV2ADR & D & "0",		-- mov2adr d
+	17 => RD & "0000",   -- rd
+	18 => MOVDAT & B & "0",		-- movdat b
+	19 => MOV2D & A & "0",	    -- mov2d a
+	20 => CMP & B & "0",   -- cmp b	  
+	
+	21 => MOV2D & "0000", -- address for jump is stored in two places: D register and J** ARGUMENT = D[4:] + INSTRUCTION[4:0]
+	22 => JEQ & "0000", -- jeq INC_COUNTER   
+	
+	23 => MOV2ADR & "0001",	    -- mov2adr 1
+	24 => INC & ADR & "0",	    -- inc adr 
+	25 => RD & "0000",	   -- rd
+	26 => MOVDAT & D & "0", -- movdat d
+	27 => ADD & J & "0",		   -- add j
+	28 => MOV2ADR & D & "0",		   -- mov2adr d
+	29 => MOV2DAT & A & "0",   -- mov2dat a
+	30 => WR & "0000",		   -- wr
+	31 => INC & ADR & "0",	   -- inc adr
+	32 => MOV2DAT & C & "0",   -- mov2dat c 
+	33 => WR & "0000",	   -- wr	  
+	
+	34 => MOV2D & "0000",
+	35 => JMP & "0000",	   -- jmp AFTER_INC_COUNTER	  
+	
+	36 => INC & C & "0",	   -- inc c	  :INC_COUNTER
+	37 => INC & I & "0",   -- inc i   :AFTER_INC_COUNTER	
+	
+	38 => MOV2D & "0000",
+	39 => JMP & "0000",	   -- jmp CYCLE
+									   
+	40 => STOP & "0000",	   -- stop
 	
 	others => NONE & NONE
 	); 
 	
 	signal rom_data: BYTE;
 	signal reg_out: BYTE;
-	signal rom_adr: integer range 0 to 15;
+	signal rom_adr: integer range 0 to N-1;
 	
 begin										
 	

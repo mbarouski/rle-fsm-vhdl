@@ -63,7 +63,7 @@ TestBench=1
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=alu_unit_tb|testbench_for_alu_unit|1 gpr_tb|testbench_for_gpr|1 
+HierarchyInformation=alu_unit_tb|testbench_for_alu_unit|1 
 ShowHide=ShowTopLevel
 Selected=
 
@@ -120,4 +120,3 @@ TestBench/alu_unit_TB_runtest.do=-1
 .\src\TestBench\gpr_TB_runtest.do=Macro
 .\src\TestBench\alu_unit_TB.vhd=VHDL Test Bench
 .\src\TestBench\alu_unit_TB_runtest.do=Macro
-
