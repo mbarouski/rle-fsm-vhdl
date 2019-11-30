@@ -94,7 +94,9 @@ begin
 		elsif rising_edge(CLK) then
 			state.cur <= state.nxt;	
 		end if;
-	end process;  
+	end process;  	
+	
+	FSM_ROM_OUT.D <= FSM_GPR_IN.D;
 	
 	-- defines the next state
 	P_FSM_NXT: process(state.cur, START, opcode)

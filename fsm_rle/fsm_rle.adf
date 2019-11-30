@@ -60,7 +60,7 @@ Extension7=
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=alu_unit_tb|testbench_for_alu_unit|1 gpr_tb|testbench_for_gpr|1 
+HierarchyInformation=alu_unit_tb|testbench_for_alu_unit|1 gpr_tb|testbench_for_gpr|1
 ShowHide=ShowTopLevel
 Selected=
 
@@ -82,6 +82,7 @@ TestBench=1
 /ROM_UNIT_X.vhd=-1
 /GPR.vhd=-1
 /FSM_UNIT.vhd=-1
+/RAM_UNIT_X.vhd=-1
 TestBench/rom_TB.vhd=-1
 TestBench/rom_TB_runtest.do=-1
 TestBench/rom_unit_TB.vhd=-1
@@ -110,6 +111,7 @@ TestBench/gpr_TB_runtest.do=-1
 .\src\ROM_UNIT_X.vhd=VHDL Source Code
 .\src\GPR.vhd=VHDL Source Code
 .\src\FSM_UNIT.vhd=VHDL Source Code
+.\src\RAM_UNIT_X.vhd=VHDL Source Code
 .\src\TestBench\rom_TB.vhd=VHDL Test Bench
 .\src\TestBench\rom_TB_runtest.do=Macro
 .\src\TestBench\rom_unit_TB.vhd=VHDL Test Bench

@@ -32,19 +32,26 @@ end ROM_UNIT_X;
 architecture ROM_UNIT_X of ROM_UNIT_X is   
 	
 	component ROM_UNIT is
-		port (CLK: in std_logic;
+		port (
+			CLK: in std_logic;
 			RST: in std_logic;
+			
 			PC_EN: in std_logic;
 			IR_EN: in std_logic;
-			ROM_EN: in std_logic;
-			L: in std_logic;
+			ROM_EN: in std_logic; 
+			
+			EQ: in std_logic;
+			GT: in std_logic; 	
+			
+			D: in BYTE;
+			
 			IR_OUT: out BYTE);
 	end component;
 	
 begin									  
 	
 	U_ROM_UNIT_X: ROM_UNIT port map (
-		ROM_IN.CLK, ROM_IN.RST, ROM_IN.PC_EN, ROM_IN.IR_EN, ROM_IN.EN, ROM_IN.L,
+		ROM_IN.CLK, ROM_IN.RST, ROM_IN.PC_EN, ROM_IN.IR_EN, ROM_IN.EN, ROM_IN.EQ, ROM_IN.GT, ROM_IN.D,
 		ROM_OUT.IR
 		);
 	

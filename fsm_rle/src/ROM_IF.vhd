@@ -26,23 +26,31 @@ use FSM_RLE.all;
 entity ROM_IF is
 	port(
 		CLK : in STD_LOGIC;
-		RST : in STD_LOGIC;
+		RST : in STD_LOGIC;	   
+		
 		PC_EN : in STD_LOGIC;
-		IR_EN : in STD_LOGIC;
-		L : in STD_LOGIC; 
-		ROM_ADR : out NIBBLE;
-		ROM_DATA : in BYTE;   
+		IR_EN : in STD_LOGIC; 
+							 				
+		EQ : in STD_LOGIC; 
+		GT : in STD_LOGIC; 
+		
+		ROM_ADR : out BYTE;
+		ROM_DATA : in BYTE;
+		
+		D: in BYTE;
+		
 		IR_OUT : out BYTE
 		);
 end ROM_IF;									 
 
 architecture ROM_IF of ROM_IF is 
 	
-	signal pc_current: NIBBLE;
-	signal pc_next: NIBBLE;
+	signal pc_current: BYTE;
+	signal pc_next: BYTE;
 	signal ir: BYTE;	 -- instruction register	
-	signal opcode: NIBBLE;
+	signal opcode: NIBBLE;	 
 	signal argfield: NIBBLE;
+	signal d_register: BYTE;
 	
 begin	
 	
@@ -59,8 +67,9 @@ begin
 	
 	opcode <= ir(7 downto 4);
 	argfield <= ir(3 downto 0);
+	d_register <= D;
 	
-	PROGRAM_COUNTER_REGISTER_PROCESS: process(CLK, RST, PC_EN, pc_next)
+	CURRENT_PROGRAM_COUNTER_REGISTER_PROCESS: process(CLK, RST, PC_EN, pc_next)
 	begin
 		if RST = '1' then
 			pc_current <= (others => '0');
@@ -71,12 +80,15 @@ begin
 		end if;
 	end process;					  
 	
-	NEXT_PROGRAM_COUNTER_REGISTER_PROCESS: process(L, pc_current, opcode, argfield)
+	-- d_register is needed to get (3 downto 0) part as the first part of jump address
+	NEXT_PROGRAM_COUNTER_REGISTER_PROCESS: process(EQ, GT, pc_current, opcode, d_register, argfield)
 	begin
-		if L = '1' and opcode = JL then
-			pc_next <= argfield;
-		else 
-			pc_next <= conv_std_logic_vector(conv_integer(unsigned(pc_current)) + 1, 4);
+		if EQ = '1' and opcode = JEQ then
+			pc_next <= d_register(3 downto 0) & argfield; 
+		elsif GT = '1' and opcode = JEG then
+			pc_next <= d_register(3 downto 0) & argfield;
+		else
+			pc_next <= conv_std_logic_vector(conv_integer(unsigned(pc_current)) + 1, 8);
 		end if;	
 	end process;
 	

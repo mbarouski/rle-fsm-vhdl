@@ -15,6 +15,7 @@ package FSM_RLE is
 		EN: std_logic;
 		EQ: std_logic;
 		GT: std_logic;
+		D: BYTE;
 	end record;	
 
 	-- this is what fsm inputs from rom

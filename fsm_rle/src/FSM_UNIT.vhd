@@ -84,8 +84,8 @@ architecture FSM_UNIT of FSM_UNIT is
 			);
 	end component;			  		
 	
-	signal BUS_ROM: ROM_UNIT_INPUTS;
-	signal ROM_DATA: ROM_UNIT_OUTPUTS;
+	signal BUS_ROM: ROM_UNIT_OUTPUTS;
+	signal ROM_DATA: ROM_UNIT_INPUTS;
 	
 	signal BUS_RAM: RAM_UNIT_INPUTS;
 	signal RAM_DATA: RAM_UNIT_OUTPUTS; 
@@ -100,7 +100,7 @@ begin
 	
 	U_FSM: FSM port map (
 		CLK, RST, START, HALT, ERROR,
-		BUS_ROM, ROM_DATA,
+		ROM_DATA, BUS_ROM, 
 		BUS_RAM, RAM_DATA,
 		BUS_GPR, GPR_DATA,
 		BUS_ALU, ALU_DATA

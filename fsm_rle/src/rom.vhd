@@ -31,7 +31,7 @@ entity rom is
 		clk : in STD_LOGIC;
 		en : in STD_LOGIC;
 		rst : in STD_LOGIC;
-		adr : in NIBBLE;
+		adr : in BYTE;
 		dout : out BYTE
 		);
 end rom;									  

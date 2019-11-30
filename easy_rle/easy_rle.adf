@@ -149,4 +149,3 @@ TestBench/manager_TB_runtest.do=-1
 .\src\TestBench\ram_TB_runtest.do=Macro
 .\src\TestBench\manager_TB.vhd=VHDL Test Bench
 .\src\TestBench\manager_TB_runtest.do=Macro
-
