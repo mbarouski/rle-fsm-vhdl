@@ -210,8 +210,8 @@ begin
 	
 	FSM_RAM_OUT.CLK <= CLK;
 	FSM_RAM_OUT.RST <= RST;
-	FSM_RAM_OUT.ADR <= FSM_GPR_IN.ADR(3 downto 0);
-	FSM_RAM_OUT.DAT <= FSM_GPR_IN.DAT;
+	FSM_RAM_OUT.ADR <= FSM_GPR_IN.ADR;
+	FSM_RAM_OUT.DATA <= FSM_GPR_IN.DAT;
 	FSM_RAM_OUT.IR <= FSM_ROM_IN.IR(3 downto 0);
 	
 	-- manage ram's enable pins depending on the current state
@@ -231,8 +231,8 @@ begin
 	P_OUT_GPR_IF_1: process(state.cur)
 	begin
 		case state.cur is							  
-			when s_GPR_WR => FSM_GPR_OUT.EN <= '1';
-			when others => FSM_GPR_OUT.EN <= '0';
+			when s_GPR_WR => FSM_GPR_OUT.W_EN <= '1';
+			when others => FSM_GPR_OUT.W_EN <= '0';
 		end case;
 	end process;  						 				 
 	

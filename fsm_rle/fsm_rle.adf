@@ -60,7 +60,7 @@ Extension7=
 
 [HierarchyViewer]
 SortInfo=u
-HierarchyInformation=alu_unit_tb|testbench_for_alu_unit|1 gpr_tb|testbench_for_gpr|1
+HierarchyInformation=gpr_tb|testbench_for_gpr|1 
 ShowHide=ShowTopLevel
 Selected=
 
