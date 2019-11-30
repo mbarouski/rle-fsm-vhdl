@@ -53,7 +53,8 @@ package FSM_RLE is
 		RAM_DATA: BYTE;
 		IR: BYTE; -- todo: uconnect it with smth in fsm
 		
-		EN: std_logic; 					   			   
+		--EN: std_logic; 
+		W_EN: std_logic;
 		REG_SRC: std_logic_vector(0 to 2);	   			   
 		REG_DST: std_logic_vector(0 to 2);		  
 	end record;	

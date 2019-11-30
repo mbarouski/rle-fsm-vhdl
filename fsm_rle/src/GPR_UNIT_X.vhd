@@ -33,9 +33,40 @@ entity GPR_UNIT_X is
 		);
 end GPR_UNIT_X;								  
 
-architecture GPR_UNIT_X of GPR_UNIT_X is
+architecture GPR_UNIT_X of GPR_UNIT_X is 
+	
+	component GPR is
+		port(													   
+			AA: out std_logic_vector(0 to 7);
+			BB: out std_logic_vector(0 to 7);
+			CC: out std_logic_vector(0 to 7);
+			DD: out std_logic_vector(0 to 7);
+			II: out std_logic_vector(0 to 7);
+			JJ: out std_logic_vector(0 to 7);
+			ADRR: out std_logic_vector(0 to 7);
+			DATT: out std_logic_vector(0 to 7);
+			
+			WR : in STD_LOGIC;	 
+			CLK : in STD_LOGIC;
+			RST : in STD_LOGIC;
+			
+			-- this should be in GPR_IF but we need fast in implementation solution :(
+			ALU_RESULT : in BYTE;  
+			RAM_DATA : in BYTE;
+			IR : in BYTE;  
+			
+			DATA_SRC: in std_logic_vector(0 to 1);
+			
+			REG_SRC : in REGI;
+			REG_DST : in REGI
+			);
+	end component;
+	
 begin
-
-	 -- enter your statements here --
-
+	
+	U_GPR: GPR port map(
+		GPR_OUT.A, GPR_OUT.B, GPR_OUT.C, GPR_OUT.D, GPR_OUT.I, GPR_OUT.J, GPR_OUT.ADR, GPR_OUT.DAT,
+		GPR_IN.W_EN, GPR_IN.CLK, GPR_IN.RST, GPR_IN.ALU_RESULT, GPR_IN.RAM_DATA, GPR_IN.IR, GPR_IN.PUSHDATA, GPR_IN.REG_SRC, GPR_IN.REG_DST
+		);
+	
 end GPR_UNIT_X;
