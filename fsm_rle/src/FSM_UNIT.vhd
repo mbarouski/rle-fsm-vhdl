@@ -65,22 +65,22 @@ architecture FSM_UNIT of FSM_UNIT is
 	
 	component RAM_UNIT_X is
 		port (						   				   
-			RAM_IN: in RAM_UNIT_INPUTS;
-			RAM_OUT: out RAM_UNIT_OUTPUTS
+			RAM_IN: in RAM_UNIT_OUTPUTS;
+			RAM_OUT: out RAM_UNIT_INPUTS
 			);
 	end component;
 	
 	component GPR_UNIT_X is
 		port (						   				   
-			GPR_IN: in GPR_UNIT_INPUTS;
-			GPR_OUT: out GPR_UNIT_OUTPUTS
+			GPR_IN: in GPR_UNIT_OUTPUTS;
+			GPR_OUT: out GPR_UNIT_INPUTS
 			);
 	end component; 
 	
 	component ALU_UNIT_X is
 		port (
-			ALU_IN: in ALU_UNIT_INPUTS;
-			ALU_OUT: out ALU_UNIT_OUTPUTS
+			ALU_IN: in ALU_UNIT_OUTPUTS;
+			ALU_OUT: out ALU_UNIT_INPUTS
 			);
 	end component;			  		
 	
@@ -107,8 +107,8 @@ begin
 		);													   
 	
 	U_ROM_UNIT: ROM_UNIT_X port map (BUS_ROM, ROM_DATA);
-	U_RAM_UNIT: RAM_UNIT_X port map (BUS_RAM, RAM_DATA);
-	U_GPR_UNIT: GPR_UNIT_X port map (BUS_GPR, GPR_DATA);
-	U_ALU_UNIT: ALU_UNIT_X port map (BUS_ALU, ALU_DATA);
+	U_RAM_UNIT: RAM_UNIT_X port map (RAM_DATA, BUS_RAM);
+	U_GPR_UNIT: GPR_UNIT_X port map (GPR_DATA, BUS_GPR);
+	U_ALU_UNIT: ALU_UNIT_X port map (ALU_DATA, BUS_ALU);
 	
 end FSM_UNIT;
