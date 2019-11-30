@@ -42,8 +42,8 @@ end RAM_IF;
 architecture RAM_IF of RAM_IF is
 	
 	signal din_reg: BYTE; 
-	signal adr_reg: BYTE;
-	signal adr_in: BYTE;
+	--signal adr_reg: BYTE;
+	--signal adr_in: BYTE;
 	
 begin															  
 	
@@ -56,9 +56,7 @@ begin
 				din_reg <= DATA_IN;
 			end if;
 		end if;
-	end process;
-	
-	adr_in <= ADR;
+	end process; 
 	
 	--P_MUX: process(TOS, IR, ADR_SEL)
 --	begin
@@ -69,18 +67,20 @@ begin
 --		end if;
 --	end process; 
 	
-	P_ADR_REG: process(CLK, RST, ADR_EN, adr_in)
-	begin		
-		if RST = '1' then
-			adr_reg <= (others => '0');
-		elsif ADR_EN = '1' then
-			if rising_edge(CLK) then
-				adr_reg <= adr_in;
-			end if;
-		end if;
-	end process; 
+	--P_ADR_REG: process(CLK, RST, ADR_EN, adr_in)
+--	begin		
+--		if RST = '1' then
+--			adr_reg <= (others => '0');
+--		elsif ADR_EN = '1' then
+--			if rising_edge(CLK) then
+--				adr_reg <= adr_in;
+--			end if;
+--		end if;
+--	end process; 
+	
+	--adr_in <= ADR;
 	
 	RAM_DATA <= din_reg;
-	RAM_ADR <= adr_reg;
+	RAM_ADR <= ADR;
 	
 end RAM_IF;
