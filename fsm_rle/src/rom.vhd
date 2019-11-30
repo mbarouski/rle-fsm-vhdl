@@ -58,7 +58,7 @@ architecture rom of rom is
 	10 => MOVC2D & "0010", -- mov to d a part of jmp address (in this case STOP label)
 	11 => JEQ & "1000", -- jeq STOP		  :CYCLE   
 	
-	12 => MOV2ADR & "0001",	-- mov2adr 1
+	12 => MOV2ADR & ADR & "1",	-- mov2adr 1
 	13 => RD & "0000", -- rd	  	 
 	14 => MOVDAT & D & "0",		-- movdat d
 	15 => ADD & I & "0",		-- add i
@@ -68,10 +68,10 @@ architecture rom of rom is
 	19 => MOV2D & A & "0",	    -- mov2d a
 	20 => CMP & B & "0",   -- cmp b	  
 	
-	21 => MOV2D & "0000", -- address for jump is stored in two places: D register and J** ARGUMENT = D[4:] + INSTRUCTION[4:0]
+	21 => MOV2D & D & "0", -- address for jump is stored in two places: D register and J** ARGUMENT = D[4:] + INSTRUCTION[4:0]
 	22 => JEQ & "0000", -- jeq INC_COUNTER   
 	
-	23 => MOV2ADR & "0001",	    -- mov2adr 1
+	23 => MOV2ADR & ADR & "1",	    -- mov2adr 1
 	24 => INC & ADR & "0",	    -- inc adr 
 	25 => RD & "0000",	   -- rd
 	26 => MOVDAT & D & "0", -- movdat d
@@ -83,13 +83,13 @@ architecture rom of rom is
 	32 => MOV2DAT & C & "0",   -- mov2dat c 
 	33 => WR & "0000",	   -- wr	  
 	
-	34 => MOV2D & "0000",
+	34 => MOV2D & D & "0",
 	35 => JMP & "0000",	   -- jmp AFTER_INC_COUNTER	  
 	
 	36 => INC & C & "0",	   -- inc c	  :INC_COUNTER
 	37 => INC & I & "0",   -- inc i   :AFTER_INC_COUNTER	
 	
-	38 => MOV2D & "0000",
+	38 => MOV2D & D & "0",
 	39 => JMP & "0000",	   -- jmp CYCLE
 	
 	40 => STOP & "0000",	   -- stop
