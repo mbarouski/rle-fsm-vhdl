@@ -40,10 +40,11 @@ architecture rom of rom is
 	
 	type T_ROM is array (0 to N-1) of BYTE;
 	
-	constant c_rom : T_ROM := (	
-	0 => MOV2ADR & ADR & "0",
+	constant c_rom : T_ROM := (
+	-- read pointer to source array into J register
+	0 => MOV2ADR & ADR & "1",
 	1 => RD & NONE,
-	2 => MOVDAT & A & "0",
+	2 => MOVDAT & J & "0",
 	--
 	3 => MOVC2D & "0010",
 	4 => MOV2ADR & D & "0",
