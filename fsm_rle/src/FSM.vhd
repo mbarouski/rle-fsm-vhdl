@@ -125,8 +125,9 @@ begin
 					when MOVDAT => state.nxt <= s_MOVDAT;
 					when MOV2D => state.nxt <= s_MOV2D;	
 					when MOV2DAT => state.nxt <= s_MOV2DAT;
-					when MOV2ADR => state.nxt <= s_MOV2ADR; 	   
-					when STOP => state.nxt <= s_HALT; 
+					when MOV2ADR => state.nxt <= s_MOV2ADR;    
+					when NONE => state.nxt <= s_PC_NEW; 	   
+					when STOP => state.nxt <= s_HALT; 	
 					when others => state.nxt <= s_ERROR; 
 			end case;
 			when s_RD => state.nxt <= s_RAM_RD; 

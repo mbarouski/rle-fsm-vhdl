@@ -1,8 +1,7 @@
-library fsm_rle;
-use fsm_rle.FSM_RLE.all;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
+use work.FSM_RLE.all;
 
 	-- Add your library and packages declaration here ...
 
@@ -82,7 +81,7 @@ begin
 		DIN <= "10100101";
 		
 		for i in 0 to 15 loop
-			ADR <= conv_std_logic_vector(i, 4); wait for clk_period; 
+			ADR <= conv_std_logic_vector(i, 8); wait for clk_period; 
 			R_EN <= '1'; wait for clk_period;
 			R_EN <= '0';
 			W_EN <= '1'; wait for clk_period;
@@ -92,7 +91,7 @@ begin
 		wait for clk_period;
 		DIN <= (others => '0');
 		for i in 0 to 15 loop
-			ADR <= conv_std_logic_vector(i, 4); wait for clk_period;
+			ADR <= conv_std_logic_vector(i, 8); wait for clk_period;
 			R_EN <= '1'; wait for clk_period;
 			R_EN <= '0';
 		end loop; 

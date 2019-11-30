@@ -66,10 +66,10 @@ Selected=
 
 [Groups]
 TestBench=1
+work=1
 
 [Files]
 /rom.vhd=-1
-/pkg.vhd=-1
 /ROM_IF.vhd=-1
 /ROM_UNIT.vhd=-1
 /RAM.vhd=-1
@@ -99,10 +99,10 @@ TestBench/gpr_TB.vhd=-1
 TestBench/gpr_TB_runtest.do=-1
 TestBench/fsm_unit_TB.vhd=-1
 TestBench/fsm_unit_TB_runtest.do=-1
+work/pkg.vhd=-1
 
 [Files.Data]
 .\src\rom.vhd=VHDL Source Code
-.\src\pkg.vhd=VHDL Source Code
 .\src\ROM_IF.vhd=VHDL Source Code
 .\src\ROM_UNIT.vhd=VHDL Source Code
 .\src\RAM.vhd=VHDL Source Code
@@ -132,4 +132,5 @@ TestBench/fsm_unit_TB_runtest.do=-1
 .\src\TestBench\gpr_TB_runtest.do=Macro
 .\src\TestBench\fsm_unit_TB.vhd=VHDL Test Bench
 .\src\TestBench\fsm_unit_TB_runtest.do=Macro
+.\src\work\pkg.vhd=VHDL Source Code
 

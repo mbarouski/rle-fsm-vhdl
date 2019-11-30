@@ -1,7 +1,6 @@
-library fsm_rle;
-use fsm_rle.FSM_RLE.all;
 library ieee;
 use ieee.std_logic_1164.all;
+use work.FSM_RLE.all;
 
 -- Add your library and packages declaration here ...
 

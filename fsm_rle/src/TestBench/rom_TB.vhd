@@ -1,8 +1,7 @@
-library fsm_rle;
-use fsm_rle.FSM_RLE.all;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.std_logic_arith.all;
+use work.FSM_RLE.all;
 
 	-- Add your library and packages declaration here ...
 
@@ -16,7 +15,7 @@ architecture TB_ARCHITECTURE of rom_tb is
 		clk : in STD_LOGIC;
 		en : in STD_LOGIC;
 		rst : in STD_LOGIC;
-		adr : in BYTE;
+		adrr : in BYTE;
 		dout : out BYTE );
 	end component;
 
@@ -28,14 +27,14 @@ architecture TB_ARCHITECTURE of rom_tb is
 	-- Observed signals - signals mapped to the output ports of tested entity
 	signal dout : BYTE;
 
-	constant clk_period: time := 10ns; 			
+	constant clk_period: time := 10 ns; 			
 begin							
 	UUT : rom
 		port map (
 			clk => clk,
 			en => en,
 			rst => rst,
-			adr => adr,
+			adrr => adr,
 			dout => dout
 		);
 
@@ -55,11 +54,10 @@ begin
 		rst <= '0'; wait for clk_period;		  
 		
 		for i in 0 to 15 loop
-			adr <= conv_std_logic_vector(i, 4); wait for clk_period; 
+			adr <= conv_std_logic_vector(i, 8); wait for clk_period; 
 			en <= '1'; wait for clk_period; 
 			en <= '0';
-		end loop;
-						 
+		end loop;			 
 							 
 		wait for clk_period;
 		

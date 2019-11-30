@@ -25,8 +25,8 @@ use work.FSM_RLE.all;
 
 entity rom is 
 	generic(
-	  	N: integer := 128
-	);
+		N: integer := 128
+		);
 	port(
 		clk : in STD_LOGIC;
 		en : in STD_LOGIC;
@@ -87,7 +87,7 @@ architecture rom of rom is
 	
 	38 => MOV2D & "0000",
 	39 => JMP & "0000",	   -- jmp CYCLE
-									   
+	
 	40 => STOP & "0000",	   -- stop
 	
 	others => NONE & NONE

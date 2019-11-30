@@ -1,7 +1,6 @@
-library fsm_rle;
-use fsm_rle.FSM_RLE.all;
 library ieee;
 use ieee.std_logic_1164.all;
+use work.FSM_RLE.all;
 
 	-- Add your library and packages declaration here ...
 
@@ -45,6 +44,18 @@ begin
 	begin
 		clk <= '0'; wait for clk_period / 2;
 		clk <= '1'; wait for clk_period / 2;
+	end process;
+	
+	stim_process: process
+	begin															  
+		RST <= '1'; wait for clk_period;
+		RST <= '0'; wait for clk_period;
+		START <= '1'; wait for clk_period;
+		START <= '0';
+		
+		wait for 120 * clk_period;
+		
+		report "End of simulation" severity failure;
 	end process;
 
 end TB_ARCHITECTURE;
