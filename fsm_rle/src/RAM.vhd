@@ -40,9 +40,9 @@ architecture RAM of RAM is
 	type T_RAM is array (0 to 31) of BYTE;
 	
 	signal c_ram : T_RAM := ( 
-		0 => "00001010", -- length on source array = 10
-		1 => "00000011", --	start of source array = 3 	
-		2 => "00001010", --	start of destination array = 13 	
+		0 => "00000011", -- 3 --0 => "00001010", -- length on source array = 10
+		1 => "00000011", -- 3 --1 => "00000011", --	start of source array = 3 	
+		2 => "00000110", -- 6 --2 => "00001101", --	start of destination array = 13 	
 		
 		-- array start
 		3 => "00001010",

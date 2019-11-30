@@ -102,7 +102,8 @@ package FSM_RLE is
 	constant MOV2DAT: NIBBLE := "1011";
 	constant MOV2ADR: NIBBLE := "1100"; 
 	constant STOP: NIBBLE := "1101"; 
-	constant NONE: NIBBLE := "1110";
+	constant NONE: NIBBLE := "1110"; 
+	constant MOVC2D: NIBBLE := "1111"; -- mov constant to d register
 	
 	-- registers
 	constant A: REGI := "000";

@@ -48,12 +48,15 @@ architecture rom of rom is
 	3 => MOVDAT & A &"0",		    -- movdat a
 	4 => MOV & C & "1",    -- mov c 1
 	5 => MOV & I & "1",		    -- mov i 1
+	
+	-- read length of source array and mov to d for compare	TODO: maybe move CYCLE label here
 	6 => MOV2ADR & ADR & "0",	    -- mov2adr 0
 	7 => RD & "0000",    -- rd
 	8 => MOVDAT & D & "0",	    -- movdat d
+	
 	9 => CMP & I & "0",	    -- cmp i
-	10 => MOV2D & "0010", -- MOV2D 36 -- MOV2D STOP -- mov2d JMP_ADR -- because instruction will not fit ADR for jump
-	11 => JEQ & conv_std_logic_vector(40, 4), -- jeq STOP		  :CYCLE   
+	10 => MOVC2D & "0010", -- mov to d a part of jmp address (in this case STOP label)
+	11 => JEQ & "1000", -- jeq STOP		  :CYCLE   
 	
 	12 => MOV2ADR & "0001",	-- mov2adr 1
 	13 => RD & "0000", -- rd	  	 

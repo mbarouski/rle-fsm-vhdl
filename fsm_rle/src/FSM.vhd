@@ -50,6 +50,7 @@ architecture FSM of FSM is
 	s_JEG,
 	s_JMP,
 	s_MOV2D,
+	s_MOVC2D,
 	s_MOV2DAT,
 	s_MOV2ADR,
 	
@@ -124,6 +125,7 @@ begin
 					when MOV => state.nxt <= s_MOV;
 					when MOVDAT => state.nxt <= s_MOVDAT;
 					when MOV2D => state.nxt <= s_MOV2D;	
+					when MOVC2D => state.nxt <= s_MOVC2D;
 					when MOV2DAT => state.nxt <= s_MOV2DAT;
 					when MOV2ADR => state.nxt <= s_MOV2ADR;    
 					when NONE => state.nxt <= s_PC_NEW; 	   
@@ -143,12 +145,15 @@ begin
 			
 			when s_MOV => state.nxt <= s_GPR_WR;
 			when s_MOVDAT => state.nxt <= s_GPR_WR;
-			when s_MOV2D => state.nxt <= s_GPR_WR;
+			when s_MOV2D => state.nxt <= s_GPR_WR; 
+			when s_MOVC2D => state.nxt <= s_GPR_WR;
 			when s_MOV2DAT => state.nxt <= s_GPR_WR;
 			when s_MOV2ADR => state.nxt <= s_GPR_WR;
 			
-			when s_RAM_RD => state.nxt <= s_GPR_WR;
-			when s_RAM_WR => state.nxt <= s_PC_NEW;
+			when s_RAM_RD => state.nxt <= s_GPR_WR;	
+			when s_RAM_WR => state.nxt <= s_PC_NEW;	
+			
+			when s_ALU_CMP => state.nxt <= s_PC_NEW;  -- after comparing we fetch new instruction
 			
 			when s_ALU_ADD => if opcode = ADD then
 					state.nxt <= s_GPR_WR;
@@ -247,6 +252,10 @@ begin
 			when MOV2D =>
 				FSM_GPR_OUT.REG_DST <= D;
 				FSM_GPR_OUT.REG_SRC <= args(3 downto 1); -- or constant from instruction 
+										   
+			when MOVC2D =>
+				FSM_GPR_OUT.REG_DST <= D;
+				FSM_GPR_OUT.REG_SRC <= (others => '0'); -- or constant from instruction 
 			
 			when MOV2DAT =>
 				FSM_GPR_OUT.REG_DST <= DAT;	
@@ -296,6 +305,7 @@ begin
 				else
 					FSM_GPR_OUT.PUSHDATA <= "00"; -- reg
 			end if;
+			when MOVC2D => FSM_GPR_OUT.PUSHDATA <= "10"; -- instruction
 			when ADD | INC => FSM_GPR_OUT.PUSHDATA <= "11"; -- alu
 			when others => FSM_GPR_OUT.PUSHDATA <= "00";
 		end case;

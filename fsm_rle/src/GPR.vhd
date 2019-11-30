@@ -53,7 +53,9 @@ architecture GPR of GPR is
 	
 	signal ramdata: BYTE;  
 	signal aluresult: BYTE;	  
-	signal instruction: BYTE;
+	signal instruction: BYTE;  
+	signal opcode: NIBBLE;
+	signal args: NIBBLE;
 	signal regdata: BYTE;					   			   
 	signal datasrc: std_logic_vector(0 to 1);
 	signal regsrc: REGI;
@@ -74,7 +76,9 @@ begin
 	
 	ramdata <= RAM_DATA;
 	aluresult <= ALU_RESULT;
-	instruction <= IR;
+	instruction <= IR; 		 	
+	opcode <= IR(7 downto 4);
+	args <= IR(3 downto 0);
 	datasrc <= DATA_SRC; 
 	regsrc <= REG_SRC;
 	regdst <= REG_DST;
@@ -108,92 +112,92 @@ begin
 					when "00" => -- reg	  
 						case regsrc is			 		  	   
 							when A => case regdst is
-								when A => state.A <= state.A;
-								when B => state.B <= state.A;
-								when C => state.C <= state.A;
-								when D => state.D <= state.A;
-								when I => state.I <= state.A;
-								when J => state.J <= state.A;
-								when ADR => state.ADR <= state.A;
-								when DAT => state.DAT <= state.A; 
-								when others => null;
+									when A => state.A <= state.A;
+									when B => state.B <= state.A;
+									when C => state.C <= state.A;
+									when D => state.D <= state.A;
+									when I => state.I <= state.A;
+									when J => state.J <= state.A;
+									when ADR => state.ADR <= state.A;
+									when DAT => state.DAT <= state.A; 
+									when others => null;
 							end case;
 							when B => case regdst is
-								when A => state.A <= state.B;
-								when B => state.B <= state.B;
-								when C => state.C <= state.B;
-								when D => state.D <= state.B;
-								when I => state.I <= state.B;
-								when J => state.J <= state.B;
-								when ADR => state.ADR <= state.B;
-								when DAT => state.DAT <= state.B; 
-								when others => null;
+									when A => state.A <= state.B;
+									when B => state.B <= state.B;
+									when C => state.C <= state.B;
+									when D => state.D <= state.B;
+									when I => state.I <= state.B;
+									when J => state.J <= state.B;
+									when ADR => state.ADR <= state.B;
+									when DAT => state.DAT <= state.B; 
+									when others => null;
 							end case;
 							when C => case regdst is
-								when A => state.A <= state.C;
-								when B => state.B <= state.C;
-								when C => state.C <= state.C;
-								when D => state.D <= state.C;
-								when I => state.I <= state.C;
-								when J => state.J <= state.C;
-								when ADR => state.ADR <= state.C;
-								when DAT => state.DAT <= state.C; 
-								when others => null;
+									when A => state.A <= state.C;
+									when B => state.B <= state.C;
+									when C => state.C <= state.C;
+									when D => state.D <= state.C;
+									when I => state.I <= state.C;
+									when J => state.J <= state.C;
+									when ADR => state.ADR <= state.C;
+									when DAT => state.DAT <= state.C; 
+									when others => null;
 							end case;
 							when D => case regdst is
-								when A => state.A <= state.D;
-								when B => state.B <= state.D;
-								when C => state.C <= state.D;
-								when D => state.D <= state.D;
-								when I => state.I <= state.D;
-								when J => state.J <= state.D;
-								when ADR => state.ADR <= state.D;
-								when DAT => state.DAT <= state.D; 
-								when others => null;
+									when A => state.A <= state.D;
+									when B => state.B <= state.D;
+									when C => state.C <= state.D;
+									when D => state.D <= state.D;
+									when I => state.I <= state.D;
+									when J => state.J <= state.D;
+									when ADR => state.ADR <= state.D;
+									when DAT => state.DAT <= state.D; 
+									when others => null;
 							end case;
 							when I => case regdst is
-								when A => state.A <= state.I;
-								when B => state.B <= state.I;
-								when C => state.C <= state.I;
-								when D => state.D <= state.I;
-								when I => state.I <= state.I;
-								when J => state.J <= state.I;
-								when ADR => state.ADR <= state.I;
-								when DAT => state.DAT <= state.I; 
-								when others => null;
+									when A => state.A <= state.I;
+									when B => state.B <= state.I;
+									when C => state.C <= state.I;
+									when D => state.D <= state.I;
+									when I => state.I <= state.I;
+									when J => state.J <= state.I;
+									when ADR => state.ADR <= state.I;
+									when DAT => state.DAT <= state.I; 
+									when others => null;
 							end case;
 							when J => case regdst is
-								when A => state.A <= state.J;
-								when B => state.B <= state.J;
-								when C => state.C <= state.J;
-								when D => state.D <= state.J;
-								when I => state.I <= state.J;
-								when J => state.J <= state.J;
-								when ADR => state.ADR <= state.J;
-								when DAT => state.DAT <= state.J; 
-								when others => null;
+									when A => state.A <= state.J;
+									when B => state.B <= state.J;
+									when C => state.C <= state.J;
+									when D => state.D <= state.J;
+									when I => state.I <= state.J;
+									when J => state.J <= state.J;
+									when ADR => state.ADR <= state.J;
+									when DAT => state.DAT <= state.J; 
+									when others => null;
 							end case;
 							when ADR => case regdst is
-								when A => state.A <= state.ADR;
-								when B => state.B <= state.ADR;
-								when C => state.C <= state.ADR;
-								when D => state.D <= state.ADR;
-								when I => state.I <= state.ADR;
-								when J => state.J <= state.ADR;
-								when ADR => state.ADR <= state.ADR;
-								when DAT => state.DAT <= state.ADR; 
-								when others => null;
+									when A => state.A <= state.ADR;
+									when B => state.B <= state.ADR;
+									when C => state.C <= state.ADR;
+									when D => state.D <= state.ADR;
+									when I => state.I <= state.ADR;
+									when J => state.J <= state.ADR;
+									when ADR => state.ADR <= state.ADR;
+									when DAT => state.DAT <= state.ADR; 
+									when others => null;
 							end case;
 							when DAT => case regdst is
-								when A => state.A <= state.DAT;
-								when B => state.B <= state.DAT;
-								when C => state.C <= state.DAT;
-								when D => state.D <= state.DAT;
-								when I => state.I <= state.DAT;
-								when J => state.J <= state.DAT;
-								when ADR => state.ADR <= state.DAT;
-								when DAT => state.DAT <= state.DAT; 
-								when others => null;
+									when A => state.A <= state.DAT;
+									when B => state.B <= state.DAT;
+									when C => state.C <= state.DAT;
+									when D => state.D <= state.DAT;
+									when I => state.I <= state.DAT;
+									when J => state.J <= state.DAT;
+									when ADR => state.ADR <= state.DAT;
+									when DAT => state.DAT <= state.DAT; 
+									when others => null;
 							end case;
 							when others => null;
 						end case;  
@@ -222,18 +226,32 @@ begin
 							when DAT => state.DAT <= ramdata; 
 							when others => null;
 					end case;	   	 
-					when "10" =>  -- instruction  
-						case regdst is					  				
-							when A => state.A <= "0000000" & instruction(0); -- 0 is correct (debugged)
-							when B => state.B <= "0000000" & instruction(0);
-							when C => state.C <= "0000000" & instruction(0);
-							when D => state.D <= "0000000" & instruction(0);
-							when I => state.I <= "0000000" & instruction(0);
-							when J => state.J <= "0000000" & instruction(0);
-							when ADR => state.ADR <= "0000000" & instruction(0);
-							when DAT => state.DAT <= "0000000" & instruction(0); 
-							when others => null;
-					end case;
+					when "10" =>  -- instruction
+						if opcode = MOVC2D then	 
+							case regdst is					  				
+								when A => state.A <= "0000" & args;
+								when B => state.B <= "0000" & args;
+								when C => state.C <= "0000" & args;
+								when D => state.D <= "0000" & args;
+								when I => state.I <= "0000" & args;
+								when J => state.J <= "0000" & args;
+								when ADR => state.ADR <= "0000" & args;
+								when DAT => state.DAT <= "0000" & args; 
+								when others => null;
+							end case;
+						else   
+							case regdst is					  				
+								when A => state.A <= "0000000" & instruction(0); -- 0 is correct (debugged)
+								when B => state.B <= "0000000" & instruction(0);
+								when C => state.C <= "0000000" & instruction(0);
+								when D => state.D <= "0000000" & instruction(0);
+								when I => state.I <= "0000000" & instruction(0);
+								when J => state.J <= "0000000" & instruction(0);
+								when ADR => state.ADR <= "0000000" & instruction(0);
+								when DAT => state.DAT <= "0000000" & instruction(0); 
+								when others => null;
+							end case;
+					end if;
 					when "11" =>  -- alu
 						case regdst is					  				
 							when A => state.A <= aluresult;
