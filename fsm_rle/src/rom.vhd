@@ -40,59 +40,119 @@ architecture rom of rom is
 	
 	type T_ROM is array (0 to N-1) of BYTE;
 	
-	constant c_rom : T_ROM := (	 
+	constant c_rom : T_ROM := (	
+	0 => MOV2ADR & ADR & "0",
+	1 => RD & NONE,
+	2 => MOVDAT & A & "0",
+	--
+	3 => MOVC2D & "0010",
+	4 => MOV2ADR & D & "0",
+	5 => RD & NONE,
+	6 => MOVDAT & I & "0",
+	--
+	7 => MOV2ADR & J & "0",
+	8 => RD & NONE,
+	9 => INC & J & "0",
+	10 => MOVDAT & B & "0",
+	11 => MOV & C & "1",
+	-- CYCLE
+	12 => MOV2ADR & ADR & "0",
+	13 => RD & NONE,
+	14 => MOVDAT & A & "0",
+	--
+	15 => MOV2D & A & "0",
+	16 => CMP & J & "0",
+	17 => MOVC2D & "0000", -- to STOP
+	18 => JEQ & "0000", -- to STOP
+	--
+	19 => MOV2ADR & J & "0",
+	20 => RD & NONE,
+	21 => INC & J & "0",
+	22 => MOVDAT & D & "0",
+	23 => MOVDAT & A & "0",
+	24 => CMP & B & "0",
+	25 => MOVC2D & "0000", -- to INC_COUNTER
+	26 => JEQ & "0000", -- to INC_COUNTER
+	--
+	27 => MOV2ADR & I & "0",
+	28 => MOV2DAT & B & "0",
+	29 => WR & NONE,
+	30 => INC & I & "0",
+	31 => MOV2ADR & I & "0",
+	32 => MOV2DAT & C & "0",
+	33 => WR & NONE,
+	34 => INC & I & "0",
+	35 => MOV & C & "1",
+	36 => MOV2DAT & A & "0",
+	37 => MOVDAT & B & "0",
+	38 => MOVC2D & "0000", -- to CYCLE
+	39 => JMP & "0000", -- to CYCLE
+	-- INC COUNTER
+	40 => INC & C & "0", 
+	41 => MOVC2D & "0000", -- to CYCLE
+	42 => JMP & "0000", -- to CYCLE	
+	-- FINISH
+	43 => MOV2ADR & I & "0",
+	44 => MOV2DAT & B & "0",
+	45 => WR & NONE,
+	46 => INC & I & "0",
+	47 => MOV2ADR & I & "0",
+	48 => MOV2DAT & C & "0",
+	49 => WR & NONE,
+	50 => STOP & NONE,
 	
-	0 => MOV & J & "0",	    -- mov j 0
-	1 => MOV2ADR & ADR & "1",  -- mov2adr 1
-	2 => RD & NONE,		    -- rd
-	3 => MOVDAT & A &"0",		    -- movdat a
-	4 => MOV & C & "1",    -- mov c 1
-	5 => MOV & I & "1",		    -- mov i 1
 	
-	-- read length of source array and mov to d for compare	TODO: maybe move CYCLE label here
-	6 => MOV2ADR & ADR & "0",	    -- mov2adr 0
-	7 => RD & "0000",    -- rd
-	8 => MOVDAT & D & "0",	    -- movdat d
-	
-	9 => CMP & I & "0",	    -- cmp i
-	10 => MOVC2D & "0010", -- mov to d a part of jmp address (in this case STOP label)
-	11 => JEQ & "1000", -- jeq STOP		  :CYCLE   
-	
-	12 => MOV2ADR & ADR & "1",	-- mov2adr 1
-	13 => RD & "0000", -- rd	  	 
-	14 => MOVDAT & D & "0",		-- movdat d
-	15 => ADD & I & "0",		-- add i
-	16 => MOV2ADR & D & "0",		-- mov2adr d
-	17 => RD & "0000",   -- rd
-	18 => MOVDAT & B & "0",		-- movdat b
-	19 => MOV2D & A & "0",	    -- mov2d a
-	20 => CMP & B & "0",   -- cmp b	  
-	
-	21 => MOV2D & D & "0", -- address for jump is stored in two places: D register and J** ARGUMENT = D[4:] + INSTRUCTION[4:0]
-	22 => JEQ & "0000", -- jeq INC_COUNTER   
-	
-	23 => MOV2ADR & ADR & "1",	    -- mov2adr 1
-	24 => INC & ADR & "0",	    -- inc adr 
-	25 => RD & "0000",	   -- rd
-	26 => MOVDAT & D & "0", -- movdat d
-	27 => ADD & J & "0",		   -- add j
-	28 => MOV2ADR & D & "0",		   -- mov2adr d
-	29 => MOV2DAT & A & "0",   -- mov2dat a
-	30 => WR & "0000",		   -- wr
-	31 => INC & ADR & "0",	   -- inc adr
-	32 => MOV2DAT & C & "0",   -- mov2dat c 
-	33 => WR & "0000",	   -- wr	  
-	
-	34 => MOV2D & D & "0",
-	35 => JMP & "0000",	   -- jmp AFTER_INC_COUNTER	  
-	
-	36 => INC & C & "0",	   -- inc c	  :INC_COUNTER
-	37 => INC & I & "0",   -- inc i   :AFTER_INC_COUNTER	
-	
-	38 => MOV2D & D & "0",
-	39 => JMP & "0000",	   -- jmp CYCLE
-	
-	40 => STOP & "0000",	   -- stop
+--	0 => MOV & J & "0",	    -- mov j 0
+--	1 => MOV2ADR & ADR & "1",  -- mov2adr 1
+--	2 => RD & NONE,		    -- rd
+--	3 => MOVDAT & A &"0",		    -- movdat a
+--	4 => MOV & C & "1",    -- mov c 1
+--	5 => MOV & I & "1",		    -- mov i 1
+--	
+--	-- read length of source array and mov to d for compare	TODO: maybe move CYCLE label here
+--	6 => MOV2ADR & ADR & "0",	    -- mov2adr 0
+--	7 => RD & "0000",    -- rd
+--	8 => MOVDAT & D & "0",	    -- movdat d
+--	
+--	9 => CMP & I & "0",	    -- cmp i
+--	10 => MOVC2D & "0010", -- mov to d a part of jmp address (in this case STOP label)
+--	11 => JEQ & "1000", -- jeq STOP		  :CYCLE   
+--	
+--	12 => MOV2ADR & ADR & "1",	-- mov2adr 1
+--	13 => RD & "0000", -- rd	  	 
+--	14 => MOVDAT & D & "0",		-- movdat d
+--	15 => ADD & I & "0",		-- add i
+--	16 => MOV2ADR & D & "0",		-- mov2adr d
+--	17 => RD & "0000",   -- rd
+--	18 => MOVDAT & B & "0",		-- movdat b
+--	19 => MOV2D & A & "0",	    -- mov2d a
+--	20 => CMP & B & "0",   -- cmp b	  
+--	
+--	21 => MOV2D & D & "0", -- address for jump is stored in two places: D register and J** ARGUMENT = D[4:] + INSTRUCTION[4:0]
+--	22 => JEQ & "0000", -- jeq INC_COUNTER   
+--	
+--	23 => MOV2ADR & ADR & "1",	    -- mov2adr 1
+--	24 => INC & ADR & "0",	    -- inc adr 
+--	25 => RD & "0000",	   -- rd
+--	26 => MOVDAT & D & "0", -- movdat d
+--	27 => ADD & J & "0",		   -- add j
+--	28 => MOV2ADR & D & "0",		   -- mov2adr d
+--	29 => MOV2DAT & A & "0",   -- mov2dat a
+--	30 => WR & "0000",		   -- wr
+--	31 => INC & ADR & "0",	   -- inc adr
+--	32 => MOV2DAT & C & "0",   -- mov2dat c 
+--	33 => WR & "0000",	   -- wr	  
+--	
+--	34 => MOV2D & D & "0",
+--	35 => JMP & "0000",	   -- jmp AFTER_INC_COUNTER	  
+--	
+--	36 => INC & C & "0",	   -- inc c	  :INC_COUNTER
+--	37 => INC & I & "0",   -- inc i   :AFTER_INC_COUNTER	
+--	
+--	38 => MOV2D & D & "0",
+--	39 => JMP & "0000",	   -- jmp CYCLE
+--	
+--	40 => STOP & "0000",	   -- stop
 	
 	others => NONE & NONE
 	); 
