@@ -31,9 +31,7 @@ entity GPR_UNIT_X is
 		GPR_IN : in GPR_UNIT_OUTPUTS;
 		GPR_OUT : out GPR_UNIT_INPUTS
 		);
-end GPR_UNIT_X;
-
---}} End of automatically maintained section
+end GPR_UNIT_X;								  
 
 architecture GPR_UNIT_X of GPR_UNIT_X is
 begin

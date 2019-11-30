@@ -1,13 +1,13 @@
 -------------------------------------------------------------------------------
 --
--- Title       : ROM_UNIT_X
+-- Title       : RAM_UNIT_X
 -- Design      : fsm_rle
 -- Author      : Maxim
 -- Company     : None
 --
 -------------------------------------------------------------------------------
 --
--- File        : ROM_UNIT_X.vhd
+-- File        : RAM_UNIT_X.vhd
 -- Generated   : Wed Nov 13 23:11:03 2019
 -- From        : interface description file
 -- By          : Itf2Vhdl ver. 1.22
@@ -22,14 +22,14 @@ library IEEE;
 use IEEE.STD_LOGIC_1164.all;
 use FSM_RLE.all;
 
-entity ROM_UNIT_X is
+entity RAM_UNIT_X is
 	port(
 		RAM_IN : in RAM_UNIT_OUTPUTS; -- it is output for fsm
 		RAM_OUT : out RAM_UNIT_INPUTS -- it is input for fsm
 		);
-end ROM_UNIT_X;								  
+end RAM_UNIT_X;								  
 
-architecture ROM_UNIT_X of ROM_UNIT_X is 	 
+architecture RAM_UNIT_X of RAM_UNIT_X is 	 
 
 	component RAM_UNIT is
 		port(
@@ -53,4 +53,4 @@ begin
 		RAM_OUT.DATA
 		);
 	
-end ROM_UNIT_X;
+end RAM_UNIT_X;
