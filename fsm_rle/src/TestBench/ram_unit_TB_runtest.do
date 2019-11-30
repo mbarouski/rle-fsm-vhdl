@@ -5,10 +5,9 @@ asim +access +r TESTBENCH_FOR_ram_unit
 wave 
 wave -noreg CLK
 wave -noreg RST
-wave -noreg TOS
-wave -noreg TOS_1
-wave -noreg IR
-wave -noreg ADR_SEL
+wave -noreg ADR
+wave -noreg DATA_IN
+wave -noreg IR		 
 wave -noreg ADR_EN
 wave -noreg DATA_EN
 wave -noreg W_EN

@@ -16,7 +16,7 @@ architecture TB_ARCHITECTURE of rom_tb is
 		clk : in STD_LOGIC;
 		en : in STD_LOGIC;
 		rst : in STD_LOGIC;
-		adr : in NIBBLE;
+		adr : in BYTE;
 		dout : out BYTE );
 	end component;
 
@@ -24,7 +24,7 @@ architecture TB_ARCHITECTURE of rom_tb is
 	signal clk : STD_LOGIC;
 	signal en : STD_LOGIC;
 	signal rst : STD_LOGIC;
-	signal adr : NIBBLE;
+	signal adr : BYTE;
 	-- Observed signals - signals mapped to the output ports of tested entity
 	signal dout : BYTE;
 

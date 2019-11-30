@@ -17,7 +17,7 @@ architecture TB_ARCHITECTURE of ram_tb is
 		RST : in STD_LOGIC;
 		W_EN : in STD_LOGIC;
 		R_EN : in STD_LOGIC;
-		ADR : in NIBBLE;
+		ADR : in BYTE;
 		DIN : in BYTE;
 		DOUT : out BYTE );
 	end component;
@@ -27,7 +27,7 @@ architecture TB_ARCHITECTURE of ram_tb is
 	signal RST : STD_LOGIC;
 	signal W_EN : STD_LOGIC;
 	signal R_EN : STD_LOGIC;
-	signal ADR : NIBBLE;
+	signal ADR : BYTE;
 	signal DIN : BYTE;
 	-- Observed signals - signals mapped to the output ports of tested entity
 	signal DOUT : BYTE;	   

@@ -25,13 +25,10 @@ use FSM_RLE.all;
 entity RAM_UNIT is
 	port(
 		CLK : in STD_LOGIC;
-		RST : in STD_LOGIC;
---		TOS : in NIBBLE;
---		TOS_1 : in BYTE;
+		RST : in STD_LOGIC;	 
 		ADR: in BYTE;
 		DATA_IN: in BYTE;
-		IR : in NIBBLE;
---		ADR_SEL : in STD_LOGIC;
+		IR : in NIBBLE;			
 		ADR_EN : in STD_LOGIC;
 		DATA_EN : in STD_LOGIC;
 		W_EN : in STD_LOGIC;

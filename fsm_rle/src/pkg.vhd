@@ -88,8 +88,7 @@ package FSM_RLE is
 	end record;	  
 	
 	-- instructions															   
-	constant MOV: NIBBLE := "0000";										   
-	--constant MOVC: NIBBLE := "1111";
+	constant MOV: NIBBLE := "0000";		
 	constant RD: NIBBLE := "0001";
 	constant WR: NIBBLE := "0010";
 	constant MOVDAT: NIBBLE := "0011"; 

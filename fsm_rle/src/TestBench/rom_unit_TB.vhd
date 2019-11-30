@@ -17,22 +17,28 @@ architecture TB_ARCHITECTURE of rom_unit_tb is
 			PC_EN : in STD_LOGIC;
 			IR_EN : in STD_LOGIC;
 			ROM_EN : in STD_LOGIC;
-			L : in STD_LOGIC;
+			EQ: in std_logic;
+			GT: in std_logic; 
+			D: in std_logic_vector(0 to 7);
 			IR_OUT : out BYTE );
 	end component;
 	
-	signal CLK : STD_LOGIC;
+	signal CLK : STD_LOGIC;	  
 	signal RST : STD_LOGIC;
+	signal EQ : STD_LOGIC;
+	signal GT : STD_LOGIC;	
+	signal D: std_logic_vector(0 to 7);
 	signal PC_EN : STD_LOGIC;
 	signal IR_EN : STD_LOGIC;
-	signal ROM_EN : STD_LOGIC;
-	signal L : STD_LOGIC;													   
+	signal ROM_EN : STD_LOGIC; 												   
 	signal IR_OUT : BYTE;
 	
 	constant clk_period : time := 10ns;	   
 	
 	type t_micro_instruction is (
-	i_PUSHV, i_PUSHC, i_WR, i_RD, i_ADD, i_INC, i_CMP, i_JL, i_STOP, i_NONE
+	i_MOV, i_MOV2ADR, i_MOV2D, i_MOV2DAT, i_MOVDAT,
+	i_WR, i_RD, i_ADD, i_INC, i_CMP, i_JEQ,
+	i_JEG, i_JMP, i_STOP, i_NONE
 	);	   
 	
 	signal m_inst: t_micro_instruction;
@@ -47,23 +53,30 @@ begin
 		RST => RST,
 		PC_EN => PC_EN,
 		IR_EN => IR_EN,
-		ROM_EN => ROM_EN,
-		L => L,
+		ROM_EN => ROM_EN,  
+		EQ => EQ,
+		GT => GT,	
+		D => D,
 		IR_OUT => IR_OUT
 		);
 	
 	opcode <= IR_OUT(7 downto 4); 
 	
 	with opcode select m_inst <=  
-	i_PUSHV when PUSHV, 
-	i_PUSHC when PUSHC, 
+	i_MOV when MOV, 
 	i_WR when WR, 
 	i_RD when RD, 
 	i_ADD when ADD, 
 	i_INC when INC, 
-	i_CMP when CMP, 
-	i_JL when JL, 
-	i_STOP when STOP,  
+	i_CMP when CMP,    
+	i_JEQ when JEQ,   
+	i_JEG when JEG,   
+	i_JMP when JMP,   
+	i_STOP when STOP, 	  
+	i_MOVDAT when MOVDAT,  
+	i_MOV2DAT when MOV2DAT,	
+	i_MOV2D when MOV2D, 
+	i_MOV2ADR when MOV2ADR, 
 	i_NONE when others;
 	
 	CLK_PROCESS: process
@@ -73,10 +86,10 @@ begin
 	end process;   
 	
 	STIMULATION_PROCESS: process 
-	variable i: integer := 0;
+		variable i: integer := 0;
 	begin
 		wait for clk_period / 2;
-																
+		
 		RST <= '1'; wait for clk_period;
 		RST <= '0'; wait for clk_period;
 		
@@ -89,15 +102,21 @@ begin
 			
 			if m_inst = i_CMP then
 				if i < 2 then 
-					L <= '1';  
-				else	  
-					L <= '0';					
+					GT <= '1'; 
+					EQ <= '0';
+				elsif i < 5 then
+					GT <= '0'; 
+					EQ <= '1';
+				else 
+					GT <= '0';
+					EQ <= '0';
 				end if;
 				i := i + 1;
-			else
-				L <= '0';
+			else		   		 
+				GT <= '0';
+				EQ <= '0';
 			end if;
-											  						  
+			
 			PC_EN <= '1'; wait for clk_period;
 			PC_EN <= '0';
 		end loop;
