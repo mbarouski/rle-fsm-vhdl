@@ -43,17 +43,18 @@ architecture rom of rom is
 	constant c_rom : T_ROM := (	 
 	
 	0 => MOV & J & "0",	    -- mov j 0
-	1 => MOV2ADR & "0001",  -- mov2adr 1
+	1 => MOV2ADR & ADR & "1",  -- mov2adr 1
 	2 => RD & NONE,		    -- rd
 	3 => MOVDAT & A &"0",		    -- movdat a
 	4 => MOV & C & "1",    -- mov c 1
 	5 => MOV & I & "1",		    -- mov i 1
-	6 => MOV2DAT & "0000",	    -- mov2adr 0
+	6 => MOV2ADR & ADR & "0",	    -- mov2adr 0
 	7 => RD & "0000",    -- rd
 	8 => MOVDAT & D & "0",	    -- movdat d
 	9 => CMP & I & "0",	    -- cmp i
 	10 => MOV2D & "0010", -- MOV2D 36 -- MOV2D STOP -- mov2d JMP_ADR -- because instruction will not fit ADR for jump
-	11 => JEQ & "0101",	    -- jeq 		  :CYCLE
+	11 => JEQ & conv_std_logic_vector(40, 4), -- jeq STOP		  :CYCLE   
+	
 	12 => MOV2ADR & "0001",	-- mov2adr 1
 	13 => RD & "0000", -- rd	  	 
 	14 => MOVDAT & D & "0",		-- movdat d

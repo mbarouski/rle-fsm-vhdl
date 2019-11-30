@@ -198,14 +198,14 @@ begin
 				FSM_ROM_OUT.IR_EN <= '0';	  
 			FSM_ROM_OUT.PC_EN <= '0';
 			when s_WRITE_IR => FSM_ROM_OUT.EN <= '0';  
-				FSM_ROM_OUT.EN <= '1';
-			FSM_ROM_OUT.EN <= '0'; 
+				FSM_ROM_OUT.IR_EN <= '1';
+			FSM_ROM_OUT.PC_EN <= '0'; 
 			when s_PC_NEW => FSM_ROM_OUT.EN <= '0';  
-				FSM_ROM_OUT.EN <= '0';
-			FSM_ROM_OUT.EN <= '1';
+				FSM_ROM_OUT.IR_EN <= '0';
+			FSM_ROM_OUT.PC_EN <= '1';
 			when others => FSM_ROM_OUT.EN <= '0';  
-				FSM_ROM_OUT.EN <= '0';
-			FSM_ROM_OUT.EN <= '0';
+				FSM_ROM_OUT.IR_EN <= '0';
+			FSM_ROM_OUT.PC_EN <= '0';
 		end case;
 	end process; 
 	
@@ -226,7 +226,10 @@ begin
 			when others => FSM_RAM_OUT.R_EN <= '0';
 			FSM_RAM_OUT.W_EN <= '0';
 		end case;
-	end process;  						 				 
+	end process; 
+	
+	FSM_GPR_OUT.CLK <= CLK;
+	FSM_GPR_OUT.RST <= RST; 						 				 
 	
 	-- manages GPR enable pin
 	P_OUT_GPR_IF_1: process(state.cur)
@@ -237,27 +240,37 @@ begin
 		end case;
 	end process;  						 				 
 	
-	-- manages GPR register input
+	-- manages GPR registers inputs	
 	P_OUT_GPR_IF_2: process(state.cur, opcode)
 	begin
 		case opcode is							   
-			when MOV2D => FSM_GPR_OUT.REG_DST <= D;
+			when MOV2D =>
+				FSM_GPR_OUT.REG_DST <= D;
 				FSM_GPR_OUT.REG_SRC <= args(3 downto 1); -- or constant from instruction 
 			
-			when MOV2DAT => FSM_GPR_OUT.REG_DST <= DAT;	
+			when MOV2DAT =>
+				FSM_GPR_OUT.REG_DST <= DAT;	
 				FSM_GPR_OUT.REG_SRC <= args(3 downto 1); -- or constant from instruction 
 			
-			when MOV2ADR => FSM_GPR_OUT.REG_DST <= ADR;
+			when MOV2ADR =>
+				FSM_GPR_OUT.REG_DST <= ADR;
 				FSM_GPR_OUT.REG_SRC <= args(3 downto 1); -- or constant from instruction 	   
 			
-			when MOV => FSM_GPR_OUT.REG_DST <= args(3 downto 1);
-				FSM_GPR_OUT.REG_DST <= "000";
-			
-			when MOVDAT => FSM_GPR_OUT.REG_SRC <= DAT;
+			when MOV =>						
 				FSM_GPR_OUT.REG_DST <= args(3 downto 1);
+				FSM_GPR_OUT.REG_SRC <= (others => '0');	
 			
-			when others => FSM_GPR_OUT.REG_SRC <= "000";
-			FSM_GPR_OUT.REG_DST <= "000";
+			when MOVDAT =>				  
+				FSM_GPR_OUT.REG_DST <= args(3 downto 1);
+				FSM_GPR_OUT.REG_SRC <= DAT;	
+			
+			when RD =>				  
+				FSM_GPR_OUT.REG_DST <= DAT;
+				FSM_GPR_OUT.REG_SRC <= (others => '0');				 
+			
+			when others =>			   
+				FSM_GPR_OUT.REG_DST <= (others => '0');
+			FSM_GPR_OUT.REG_SRC <= (others => '0');	 
 		end case;
 	end process;  
 	
@@ -287,6 +300,11 @@ begin
 			when others => FSM_GPR_OUT.PUSHDATA <= "00";
 		end case;
 	end process;
+	
+	-- setting gpr data for writing into certain register
+	FSM_GPR_OUT.IR <= FSM_ROM_IN.IR;
+	FSM_GPR_OUT.ALU_RESULT <= FSM_ALU_IN.DATA;
+	FSM_GPR_OUT.RAM_DATA <= FSM_RAM_IN.DATA;
 	
 	-- manages ALU's arg_2 input
 	P_ALU_ARG_2: process(opcode)
