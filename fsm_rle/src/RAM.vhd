@@ -21,7 +21,7 @@
 library IEEE;				 		   
 use IEEE.STD_LOGIC_1164.all;
 use IEEE.STD_LOGIC_ARITH.all;
-use FSM_RLE.all;
+use work.FSM_RLE.all;
 
 entity RAM is
 	port(

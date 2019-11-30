@@ -97,6 +97,8 @@ TestBench/alu_unit_TB.vhd=-1
 TestBench/alu_unit_TB_runtest.do=-1
 TestBench/gpr_TB.vhd=-1
 TestBench/gpr_TB_runtest.do=-1
+TestBench/fsm_unit_TB.vhd=-1
+TestBench/fsm_unit_TB_runtest.do=-1
 
 [Files.Data]
 .\src\rom.vhd=VHDL Source Code
@@ -128,4 +130,6 @@ TestBench/gpr_TB_runtest.do=-1
 .\src\TestBench\alu_unit_TB_runtest.do=Macro
 .\src\TestBench\gpr_TB.vhd=VHDL Test Bench
 .\src\TestBench\gpr_TB_runtest.do=Macro
+.\src\TestBench\fsm_unit_TB.vhd=VHDL Test Bench
+.\src\TestBench\fsm_unit_TB_runtest.do=Macro
 

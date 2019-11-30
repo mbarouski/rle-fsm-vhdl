@@ -20,7 +20,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
-use FSM_RLE.all;
+use work.FSM_RLE.all;
 
 entity GPR is
 	port(													   
@@ -73,9 +73,8 @@ begin
 	DATT <= state.DAT;
 						 				
 	ramdata <= RAM_DATA;
-	aluresult <= RAM_DATA;
-	instruction <= RAM_DATA;
-	regdata <= RAM_DATA; 
+	aluresult <= ALU_RESULT;
+	instruction <= IR;
 	datasrc <= DATA_SRC; 
 	regsrc <= REG_SRC;
 	regdst <= REG_DST;

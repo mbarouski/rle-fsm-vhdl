@@ -24,7 +24,7 @@
 
 library IEEE;						   
 use IEEE.STD_LOGIC_1164.all;
-use FSM_RLE.all;
+use work.FSM_RLE.all;
 
 entity FSM_UNIT is
 	port(

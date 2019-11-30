@@ -20,7 +20,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;
-use FSM_RLE.all;
+use work.FSM_RLE.all;
 
 entity ROM_UNIT is
 	port(
@@ -67,7 +67,7 @@ architecture ROM_UNIT of ROM_UNIT is
 			CLK: in std_logic;
 			RST: in std_logic;
 			EN: in std_logic;	
-			ADR: in BYTE;
+			ADRR: in BYTE;
 			DOUT: out BYTE
 			);
 	end component;	

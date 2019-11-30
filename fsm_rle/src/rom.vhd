@@ -21,7 +21,7 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.all;  
 use IEEE.STD_LOGIC_ARITH.all;
-use FSM_RLE.all;
+use work.FSM_RLE.all;
 
 entity rom is 
 	generic(
@@ -31,7 +31,7 @@ entity rom is
 		clk : in STD_LOGIC;
 		en : in STD_LOGIC;
 		rst : in STD_LOGIC;
-		adr : in BYTE;
+		adrr : in BYTE;
 		dout : out BYTE
 		);
 end rom;									  
@@ -41,6 +41,7 @@ architecture rom of rom is
 	type T_ROM is array (0 to N-1) of BYTE;
 	
 	constant c_rom : T_ROM := (	 
+	
 	0 => MOV & J & "0",	    -- mov j 0
 	1 => MOV2ADR & "0001",  -- mov2adr 1
 	2 => RD & NONE,		    -- rd
@@ -98,7 +99,7 @@ architecture rom of rom is
 	
 begin										
 	
-	rom_adr <= conv_integer(unsigned(adr));
+	rom_adr <= conv_integer(unsigned(adrr));
 	rom_data <= c_rom(rom_adr);
 	
 	P_REG_OUT: process(clk, rst, en, rom_data)

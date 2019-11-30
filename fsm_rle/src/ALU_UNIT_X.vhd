@@ -24,7 +24,7 @@
 
 library IEEE;				 			
 use IEEE.STD_LOGIC_1164.all;
-use FSM_RLE.all;
+use work.FSM_RLE.all;
 
 entity ALU_UNIT_X is
 	port(
