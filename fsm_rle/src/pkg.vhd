@@ -33,13 +33,13 @@ package FSM_RLE is
 --		ADR_SEL: std_logic;
 		ADR_EN: std_logic;
 		DATA_EN: std_logic;	 
-		ADR: NIBBLE;
-		DAT: BYTE;
+		ADR: BYTE; -- address to read or write 
+		DATA: BYTE; -- data for writing		  
 	end record; 
 		   
 	-- this is what fsm inputs from ram
 	type RAM_UNIT_INPUTS is record	
-		DATA: BYTE;
+		DATA: BYTE; -- read data
 	end record; 
 				   
 	-- this is what fsm outputs to gpr

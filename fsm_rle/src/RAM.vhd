@@ -29,7 +29,7 @@ entity RAM is
 		RST : in STD_LOGIC;
 		W_EN : in STD_LOGIC;
 		R_EN : in STD_LOGIC;
-		ADR : in NIBBLE;
+		ADR : in BYTE;
 		DIN : in BYTE;
 		DOUT : out BYTE
 		);

@@ -24,35 +24,33 @@ use FSM_RLE.all;
 
 entity ROM_UNIT_X is
 	port(
-		ROM_IN : in ROM_UNIT_OUTPUTS; -- it is output for fsm
-		ROM_OUT : out ROM_UNIT_INPUTS -- it is input for fsm
+		RAM_IN : in RAM_UNIT_OUTPUTS; -- it is output for fsm
+		RAM_OUT : out RAM_UNIT_INPUTS -- it is input for fsm
 		);
 end ROM_UNIT_X;								  
 
-architecture ROM_UNIT_X of ROM_UNIT_X is   
-	
-	component ROM_UNIT is
-		port (
-			CLK: in std_logic;
-			RST: in std_logic;
-			
-			PC_EN: in std_logic;
-			IR_EN: in std_logic;
-			ROM_EN: in std_logic; 
-			
-			EQ: in std_logic;
-			GT: in std_logic; 	
-			
-			D: in BYTE;
-			
-			IR_OUT: out BYTE);
+architecture ROM_UNIT_X of ROM_UNIT_X is 	 
+
+	component RAM_UNIT is
+		port(
+			CLK : in STD_LOGIC;
+			RST : in STD_LOGIC;	 
+			ADR: in BYTE;
+			DATA_IN: in BYTE;
+			IR : in NIBBLE;			 
+			ADR_EN : in STD_LOGIC;
+			DATA_EN : in STD_LOGIC;
+			W_EN : in STD_LOGIC;
+			R_EN : in STD_LOGIC;
+			RAM_DATA : out BYTE
+			);
 	end component;
 	
 begin									  
 	
-	U_ROM_UNIT_X: ROM_UNIT port map (
-		ROM_IN.CLK, ROM_IN.RST, ROM_IN.PC_EN, ROM_IN.IR_EN, ROM_IN.EN, ROM_IN.EQ, ROM_IN.GT, ROM_IN.D,
-		ROM_OUT.IR
+	U_RAM_UNIT_X: RAM_UNIT port map (
+		RAM_IN.CLK, RAM_IN.RST, RAM_IN.ADR, RAM_IN.DATA, RAM_IN.IR, RAM_IN.ADR_EN, RAM_IN.DATA_EN, RAM_IN.W_EN, RAM_IN.R_EN,
+		RAM_OUT.DATA
 		);
 	
 end ROM_UNIT_X;
