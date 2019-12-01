@@ -106,7 +106,6 @@ architecture rom of rom is
 	53 => WR & NONE,
 	54 => STOP & NONE,
 	
-	
 --	0 => MOV & J & "0",	    -- mov j 0
 --	1 => MOV2ADR & ADR & "1",  -- mov2adr 1
 --	2 => RD & NONE,		    -- rd

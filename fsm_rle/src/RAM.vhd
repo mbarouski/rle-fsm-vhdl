@@ -40,43 +40,24 @@ architecture RAM of RAM is
 	type T_RAM is array (0 to 31) of BYTE;
 	
 	signal c_ram : T_RAM := ( 
-		0 => "00000011", -- 3 --0 => "00001010", -- length on source array = 10
-		1 => "00000011", -- 3 --1 => "00000011", --	start of source array = 3 	
-		2 => "00000110", -- 6 --2 => "00001101", --	start of destination array = 13 	
+		0 => "00000110", --0 => "00000011", -- 3 --0 => "00001010", -- length on source array = 10
+		1 => "00000011", --1 => "00000011", -- 3 --1 => "00000011", --	start of source array = 3 	
+		2 => "00001001", --2 => "00000110", -- 6 --2 => "00001101", --	start of destination array = 13 	
 		
 		-- array start
-		3 => "00001010",
+		3 => "00000010",
 		4 => "00001010",
-		5 => (others => '0'),
-		6 => "00001011",
-		7 => "00001011",
+		5 => "00001010",
+		6 => "00001010",
+		7 => (others => '0'),
 		8 => (others => '0'),
-		9 => (others => '0'),
-		10 => (others => '0'),
-		11 => "00001110",  
-		12 => "00001110",
+		9 => "00001011",
+		10 => "00001011",	     
+		11 => (others => '0'),
+		12 => (others => '0'),
 		-- array end	 
 		
-		-- destination array start (it has twice size coz RLE can produce twice sequence :( )	
-		13 => (others => '0'),
-		14 => (others => '0'),
-		15 => (others => '0'),
-		16 => (others => '0'),
-		17 => (others => '0'),
-		18 => (others => '0'),
-		19 => (others => '0'),
-		20 => (others => '0'),
-		21 => (others => '0'), 
-		22 => (others => '0'),
-		23 => (others => '0'),
-		24 => (others => '0'),
-		25 => (others => '0'),
-		26 => (others => '0'),
-		27 => (others => '0'),
-		28 => (others => '0'),
-		29 => (others => '0'),
-		30 => (others => '0'),
-		31 => (others => '0'),	  
+		-- destination array start (it has twice size coz RLE can produce twice sequence :( )		  
 		others => (others => '0')
 	);	  
 	

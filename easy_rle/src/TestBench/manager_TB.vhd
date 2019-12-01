@@ -65,8 +65,8 @@ begin
 	main: process
 	begin
 		src_addr <= "00000000";	-- 0
-		dest_addr <= "00001010"; -- 10
-		array_size <= "00001010"; -- 10	
+		dest_addr <= "00000110"; -- 6
+		array_size <= "00000110"; -- 6	
 		
 		rst <= '1';			   		 
 		wait for clk_period * 2;
