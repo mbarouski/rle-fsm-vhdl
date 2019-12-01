@@ -87,6 +87,8 @@ begin
 			pc_next <= d_register(3 downto 0) & argfield; 
 		elsif GT = '1' and opcode = JEG then
 			pc_next <= d_register(3 downto 0) & argfield;
+		elsif opcode = JMP then	
+			pc_next <= d_register(3 downto 0) & argfield;
 		else
 			pc_next <= conv_std_logic_vector(conv_integer(unsigned(pc_current)) + 1, 8);
 		end if;	
