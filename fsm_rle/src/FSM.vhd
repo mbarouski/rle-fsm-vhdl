@@ -225,11 +225,14 @@ begin
 	begin		
 		case state.cur is					
 			when s_RAM_RD => FSM_RAM_OUT.R_EN <= '1';
-			FSM_RAM_OUT.W_EN <= '0';
+			FSM_RAM_OUT.W_EN <= '0';   
+			FSM_RAM_OUT.DATA_EN <= '0';
 			when s_RAM_WR => FSM_RAM_OUT.R_EN <= '0';
 			FSM_RAM_OUT.W_EN <= '1';
+			FSM_RAM_OUT.DATA_EN <= '1';
 			when others => FSM_RAM_OUT.R_EN <= '0';
-			FSM_RAM_OUT.W_EN <= '0';
+			FSM_RAM_OUT.W_EN <= '0';  
+			FSM_RAM_OUT.DATA_EN <= '0';
 		end case;
 	end process; 
 	
