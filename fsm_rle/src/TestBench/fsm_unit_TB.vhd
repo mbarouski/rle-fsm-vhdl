@@ -53,7 +53,7 @@ begin
 		START <= '1'; wait for clk_period;
 		START <= '0';
 		
-		wait for 120 * clk_period;
+		wait for 500 * clk_period;
 		
 		report "End of simulation" severity failure;
 	end process;

@@ -275,6 +275,14 @@ begin
 			
 			when RD =>				  
 				FSM_GPR_OUT.REG_DST <= DAT;
+				FSM_GPR_OUT.REG_SRC <= (others => '0');		
+			
+			when ADD =>				  
+				FSM_GPR_OUT.REG_DST <= D;
+				FSM_GPR_OUT.REG_SRC <= args(3 downto 1);		
+			
+			when INC =>				  
+				FSM_GPR_OUT.REG_DST <= args(3 downto 1);
 				FSM_GPR_OUT.REG_SRC <= (others => '0');				 
 			
 			when others =>			   
@@ -317,25 +325,40 @@ begin
 	FSM_GPR_OUT.RAM_DATA <= FSM_RAM_IN.DATA;
 	
 	-- manages ALU's arg_2 input
-	P_ALU_ARG_2: process(opcode)
-	begin		   																 
-		case args(3 downto 1) is										  
-			when A => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.A;				  
-			when B => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.B;				  
-			when C => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.C;				  
-			when D => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.D;				  
-			when I => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.I;				  
-			when J => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.J;				  
-			when ADR => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.ADR;				  
-			when DAT => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.DAT;
-			when others => FSM_ALU_OUT.ARG_2 <= (others => '0');
-		end case;
-	end process;	
+	--P_ALU_ARG_2: process(opcode)
+--	begin		   																 
+--		case args(3 downto 1) is										  
+--			when A => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.A;				  
+--			when B => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.B;				  
+--			when C => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.C;				  
+--			when D => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.D;				  
+--			when I => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.I;				  
+--			when J => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.J;				  
+--			when ADR => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.ADR;				  
+--			when DAT => FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.DAT;
+--			when others => FSM_ALU_OUT.ARG_2 <= (others => '0');
+--		end case;
+--	end process;	
 	
 	FSM_ALU_OUT.CLK <= CLK;
-	FSM_ALU_OUT.RST <= RST;
-	FSM_ALU_OUT.ARG_1 <= FSM_GPR_IN.D;  										 
+	FSM_ALU_OUT.RST <= RST;			    										 
 	FSM_ALU_OUT.OPCODE <= opcode;
+	FSM_ALU_OUT.ARG_2 <= FSM_GPR_IN.D; -- arg_2 can be D or 1 inside of ALU
+	
+	P_FSM_ALU_ARG_1: process(opcode)
+	begin
+		case args(3 downto 1) is										  
+			when A => FSM_ALU_OUT.ARG_1 <= FSM_GPR_IN.A;				  
+			when B => FSM_ALU_OUT.ARG_1 <= FSM_GPR_IN.B;				  
+			when C => FSM_ALU_OUT.ARG_1 <= FSM_GPR_IN.C;				  
+			when D => FSM_ALU_OUT.ARG_1 <= FSM_GPR_IN.D;				  
+			when I => FSM_ALU_OUT.ARG_1 <= FSM_GPR_IN.I;				  
+			when J => FSM_ALU_OUT.ARG_1 <= FSM_GPR_IN.J;				  
+			when ADR => FSM_ALU_OUT.ARG_1 <= FSM_GPR_IN.ADR;				  
+			when DAT => FSM_ALU_OUT.ARG_1 <= FSM_GPR_IN.DAT;
+			when others => FSM_ALU_OUT.ARG_1 <= (others => '0');
+		end case;						   
+	end process;
 	
 	P_OUT_ALU_IF: process(state.cur)
 	begin

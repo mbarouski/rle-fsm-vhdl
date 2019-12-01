@@ -58,49 +58,53 @@ architecture rom of rom is
 	11 => MOV & C & "1",
 	-- CYCLE
 	12 => MOV2ADR & ADR & "0",
-	13 => RD & NONE,
-	14 => MOVDAT & A & "0",
+	13 => RD & NONE,		 	   
+	14 => MOVDAT & A & "0",	 
+	15 => MOV2ADR & ADR & "1", 
+	16 => RD & NONE, 	   	
+	17 => MOVDAT & D & "0",
+	18 => ADD & A & "0",		 
 	--
-	15 => MOV2D & A & "0",
-	16 => CMP & J & "0",
-	17 => MOVC2D & "0000", -- to STOP
-	18 => JEQ & "0000", -- to STOP
+	19 => NONE & NONE, -- MOV2D & A & "0",
+	20 => CMP & J & "0",
+	21 => MOVC2D & "0010", -- to FINISH
+	22 => JEQ & "1111", -- to FINISH
 	--
-	19 => MOV2ADR & J & "0",
-	20 => RD & NONE,
-	21 => INC & J & "0",
-	22 => MOVDAT & D & "0",
-	23 => MOVDAT & A & "0",
-	24 => CMP & B & "0",
-	25 => MOVC2D & "0000", -- to INC_COUNTER
-	26 => JEQ & "0000", -- to INC_COUNTER
+	23 => MOV2ADR & J & "0",
+	24 => RD & NONE,
+	25 => INC & J & "0",
+	26 => MOVDAT & D & "0",
+	27 => MOVDAT & A & "0",
+	28 => CMP & B & "0",
+	29 => MOVC2D & "0010", -- to INC_COUNTER
+	30 => JEQ & "1100", -- to INC_COUNTER
 	--
-	27 => MOV2ADR & I & "0",
-	28 => MOV2DAT & B & "0",
-	29 => WR & NONE,
-	30 => INC & I & "0",
 	31 => MOV2ADR & I & "0",
-	32 => MOV2DAT & C & "0",
+	32 => MOV2DAT & B & "0",
 	33 => WR & NONE,
 	34 => INC & I & "0",
-	35 => MOV & C & "1",
-	36 => MOV2DAT & A & "0",
-	37 => MOVDAT & B & "0",
-	38 => MOVC2D & "0000", -- to CYCLE
-	39 => JMP & "0000", -- to CYCLE
+	35 => MOV2ADR & I & "0",
+	36 => MOV2DAT & C & "0",
+	37 => WR & NONE,
+	38 => INC & I & "0",
+	39 => MOV & C & "1",
+	40 => MOV2DAT & A & "0",
+	41 => MOVDAT & B & "0",
+	42 => MOVC2D & "0000", -- to CYCLE
+	43 => JMP & "1100", -- to CYCLE
 	-- INC COUNTER
-	40 => INC & C & "0", 
-	41 => MOVC2D & "0000", -- to CYCLE
-	42 => JMP & "0000", -- to CYCLE	
+	44 => INC & C & "0", 
+	45 => MOVC2D & "0000", -- to CYCLE
+	46 => JMP & "1100", -- to CYCLE	
 	-- FINISH
-	43 => MOV2ADR & I & "0",
-	44 => MOV2DAT & B & "0",
-	45 => WR & NONE,
-	46 => INC & I & "0",
 	47 => MOV2ADR & I & "0",
-	48 => MOV2DAT & C & "0",
+	48 => MOV2DAT & B & "0",
 	49 => WR & NONE,
-	50 => STOP & NONE,
+	50 => INC & I & "0",
+	51 => MOV2ADR & I & "0",
+	52 => MOV2DAT & C & "0",
+	53 => WR & NONE,
+	54 => STOP & NONE,
 	
 	
 --	0 => MOV & J & "0",	    -- mov j 0
