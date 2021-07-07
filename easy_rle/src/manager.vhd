@@ -163,11 +163,11 @@ begin
 					ram_wr <= '0';
 					ram_addr <= conv_std_logic_vector(conv_integer(unsigned(inner_src_addr)) + rd_address_offset, MEM_SIZE); 
 					rle_prev_counter <= rle_counter;	
-					rle_prev_output <= rle_output;
-				elsif state = 1 then
-					rle_en <= '0';	
+					rle_prev_output <= rle_output;			
+				elsif state = 1 then						  				  					
+					rle_en <= '0';
 					ram_rd <= '0';
-					ram_wr <= '0';				
+					ram_wr <= '0';		
 				elsif state = 2 then						  				  					
 					rle_en <= '0';
 					
@@ -187,8 +187,8 @@ begin
 				if state = 0 then					
 					state <= state + 1;	
 
-					rd_address_offset <= rd_address_offset + 1;	
-				elsif state = 1 then			
+					rd_address_offset <= rd_address_offset + 1;	 
+				elsif state = 1 then				
 					state <= state + 1;	
 				elsif state = 2 then				
 					state <= state + 1;	

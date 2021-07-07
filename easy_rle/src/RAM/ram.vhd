@@ -42,43 +42,15 @@ architecture ram of ram is
 	
 	type TYPE_RAM is array (0 to MEM_SIZE * MEM_SIZE - 1) of STD_LOGIC_VECTOR(N-1 downto 0);
 	
-	signal ram_state: TYPE_RAM := (
-		0 => "00000010", -- P address of source array -- 2
-		1 => "00001010", --	N size of source array -- 10 
-		-- array start
+	signal ram_state: TYPE_RAM := (					   
+		-- array start	
+		0 => "00000010",
+		1 => "00001010",
 		2 => "00001010",
 		3 => "00001010",
-		4 => (others => '0'),
-		5 => (others => '0'),
-		6 => "00001011",
-		7 => "00001011",
-		8 => (others => '0'),
-		9 => (others => '0'),
-		10 => (others => '0'),
-		11 => (others => '0'),
-		-- array end
-		-- destination array start (it has twice size coz RLE can produce twice sequence :( )	 
-		12 => (others => '0'),
-		13 => (others => '0'),
-		14 => (others => '0'),
-		15 => (others => '0'),
-		16 => (others => '0'),
-		17 => (others => '0'),
-		18 => (others => '0'),
-		19 => (others => '0'),
-		20 => (others => '0'),
-		21 => (others => '0'), 
-		22 => (others => '0'),
-		23 => (others => '0'),
-		24 => (others => '0'),
-		25 => (others => '0'),
-		26 => (others => '0'),
-		27 => (others => '0'),
-		28 => (others => '0'),
-		29 => (others => '0'),
-		30 => (others => '0'),
-		31 => (others => '0'),
-		-- destination array end  
+		4 => "00000001",
+		5 => "00000001",
+		-- array end	    
 		others => (others => '0')
 	);
 	
